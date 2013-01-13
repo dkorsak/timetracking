@@ -1,13 +1,26 @@
 # Bootstrap
-app/bootstrap*
+cms/app/bootstrap*
 
 # Symfony directories
-vendor/*
-*/logs/*
-*/cache/*
-web/uploads/*
-web/bundles/*
+cms/vendor/*
+cms/app/logs/*
+cms/app/cache/*
+cms/web/uploads/*
+cms/web/bundles/*
+cms/web/css/*
+cms/web/js/*
 
 # Configuration files
-app/config/parameters.ini
-app/config/parameters.yml
+cms/app/config/parameters.ini
+cms/composer.phar
+cms/behat.phar
+cms/bin
+cms/behat.yml
+*.php~
+
+#Project files
+.buildpath
+.settings
+.project
+test_result
+build

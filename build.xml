@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="Symfony 2 Base Project" default="help" basedir=".">
+    <target name="help" description="Display help">
+        <echo>
+  ###################### PARAMETERS ######################################
+
+  -Denv=               - set environment. Default value is "dev".
+  -Ddebug=             - display test result (phpcs and phpmd) on the screen.
+                         instead of write to file. Default value is "true".
+  -Dtarget=            - read configuration from /app/config/parameters.{target}.ini
+                         file.
+  -Dbundle=            - bundle name for behat tests (frontend, backend).
+
+  ###################### SYMFONY #########################################
+
+  build.db             - build database (drop, create, load fixtures)
+                         for given -Denv= environment.
+
+  cc                   - clear all cache file, dump all assets.
+
+  composer             - execute composer.phar (update vendor directory).
+
+  build                - build local project (composer, clear cache, build.db)
+
+  deploy               - deploy project into production server for given -Dtarget=
+                         parameter.
+
+  ###################### TESTING #########################################
+
+  phpunit              - execute phpunit tests with code coverage report.
+
+  behat                - execute E2E (selenium) bahat tests for given -Dbundle=
+                         parameter. Default bundle="".
+            
+  ###################### CODING STANDARDS ################################
+
+  phpcs                - run PHP Code Sniffer to check conding standards.
+
+  phpmd                - execute PHPMD checkstyle reports.
+        </echo>
+    </target>
+    <import file="cms/build.xml" />
+</project>

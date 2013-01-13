@@ -1,0 +1,9 @@
+# definition of all form types
+services:
+
+    # user profile form type
+    app_backend.form.profile.profile_type:
+        class: App\BackendBundle\Form\Type\Profile\ProfileType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: app_backend_form_profile_profile_type }
