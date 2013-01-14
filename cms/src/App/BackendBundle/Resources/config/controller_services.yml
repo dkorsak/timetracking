@@ -13,3 +13,21 @@ services:
             - [ setSecurityContent, [@security.context] ]
             - [ setMailer, [@app_general.services.mailer] ]
             - [ setTwig, [@twig] ]
+
+    # company list
+    app_backend.admin.company_admin:
+        class: App\BackendBundle\Admin\CompanyAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Manage, label: Clients }
+        arguments: [null, App\GeneralBundle\Entity\Company, AppBackendBundle:CompanyAdmin]
+        calls:
+            - [ setTranslationDomain, ["backend_company"] ]
+
+    # projects list
+    app_backend.admin.project_admin:
+        class: App\BackendBundle\Admin\ProjectAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Manage, label: Projects }
+        arguments: [null, App\GeneralBundle\Entity\Project, AppBackendBundle:ProjectAdmin]
+        calls:
+            - [ setTranslationDomain, ["backend_project"] ]

@@ -1000,12 +1000,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "3ba8988f05a14875f7ab516020fd890e888cca40"
+                "reference": "06f10eb87105f175f4672f7a65eba6675ba318e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/3ba8988f05a14875f7ab516020fd890e888cca40.zip",
-                "reference": "3ba8988f05a14875f7ab516020fd890e888cca40",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/06f10eb87105f175f4672f7a65eba6675ba318e6.zip",
+                "reference": "06f10eb87105f175f4672f7a65eba6675ba318e6",
                 "shasum": ""
             },
             "require": {
@@ -1026,7 +1026,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "2013-01-11 15:40:26",
+            "time": "2013-01-14 14:21:57",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1945,12 +1945,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "c06a4505662cbfb17ad0562cff51593d0b530f99"
+                "reference": "c91cb05e1653fc065ccff2ea560c6ebf6b6d8b5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sonata-project/SonataAdminBundle/archive/c06a4505662cbfb17ad0562cff51593d0b530f99.zip",
-                "reference": "c06a4505662cbfb17ad0562cff51593d0b530f99",
+                "url": "https://github.com/sonata-project/SonataAdminBundle/archive/c91cb05e1653fc065ccff2ea560c6ebf6b6d8b5b.zip",
+                "reference": "c91cb05e1653fc065ccff2ea560c6ebf6b6d8b5b",
                 "shasum": ""
             },
             "require": {
@@ -1960,13 +1960,13 @@
                 "symfony/http-foundation": ">=2.1,<2.3-dev",
                 "symfony/form": ">=2.1,<2.3-dev",
                 "symfony/validator": ">=2.1,<2.3-dev",
-                "symfony/security": ">=2.1,<2.3-dev",
                 "symfony/routing": ">=2.1,<2.3-dev",
                 "symfony/config": ">=2.1,<2.3-dev",
                 "symfony/console": ">=2.1,<2.3-dev",
                 "twig/twig": ">=1.10,<2.0-dev",
                 "knplabs/knp-menu-bundle": ">=1.1.0,<2.0.x-dev",
-                "symfony/twig-bridge": ">=2.1,<2.3-dev"
+                "symfony/twig-bridge": ">=2.1,<2.3-dev",
+                "symfony/security-bundle": ">=2.1,<2.3-dev"
             },
             "require-dev": {
                 "jms/translation-bundle": "*"
@@ -1975,7 +1975,7 @@
                 "sonata-project/doctrine-orm-admin-bundle": "dev-master",
                 "sonata-project/intl-bundle": "dev-master"
             },
-            "time": "2013-01-05 19:40:56",
+            "time": "2013-01-14 13:38:58",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
