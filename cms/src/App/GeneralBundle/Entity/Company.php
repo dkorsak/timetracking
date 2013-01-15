@@ -69,6 +69,14 @@ class Company
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -110,6 +118,7 @@ class Company
     public function setStatus($status)
     {
         $this->status = $status;
+        
         return $this;
     }
 
@@ -132,6 +141,7 @@ class Company
     public function setInvoiceAddress($invoiceAddress)
     {
         $this->invoiceAddress = $invoiceAddress;
+        
         return $this;
     }
 
@@ -154,6 +164,7 @@ class Company
     public function setNip($nip)
     {
         $this->nip = $nip;
+        
         return $this;
     }
 
@@ -176,6 +187,7 @@ class Company
     public function setRegon($regon)
     {
         $this->regon = $regon;
+        
         return $this;
     }
 

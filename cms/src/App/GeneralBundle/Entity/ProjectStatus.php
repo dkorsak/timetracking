@@ -28,4 +28,46 @@ class ProjectStatus
      * @ORM\Column(name="name", type="string", nullable=false)
      */
     protected $name;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+    
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ProjectStatus
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

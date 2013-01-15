@@ -78,6 +78,13 @@ class User extends BaseUser
     protected $groups;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Project", mappedBy="users")
+     */
+    protected $projects;
+
+    /**
      * @var string
      */
     protected $retypePassword;
@@ -95,6 +102,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->groups = new ArrayCollection();
+        $this->projects = new ArrayCollection();
         $this->enabled = true;
     }
 
@@ -117,6 +125,7 @@ class User extends BaseUser
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
+        
         return $this;
     }
 
@@ -139,6 +148,7 @@ class User extends BaseUser
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+        
         return $this;
     }
 
@@ -161,6 +171,7 @@ class User extends BaseUser
     public function setCreated($created)
     {
         $this->created = $created;
+        
         return $this;
     }
 
@@ -183,6 +194,7 @@ class User extends BaseUser
     public function setUpdated($updated)
     {
         $this->updated = $updated;
+        
         return $this;
     }
 
@@ -205,6 +217,7 @@ class User extends BaseUser
     public function addGroup(GroupInterface $group)
     {
         parent::addGroup($group);
+        
         return $this;
     }
 
@@ -220,6 +233,7 @@ class User extends BaseUser
             $this->removeGroup($oldGroup);
         }
         parent::addGroup($group);
+        
         return $this;
     }
 
@@ -244,13 +258,36 @@ class User extends BaseUser
     }
 
     /**
-     * Get user full name
-     * 
-     * @return string
+     * Add projects
+     *
+     * @param \App\GeneralBundle\Entity\Project $projects
+     * @return User
      */
-    public function getName()
+    public function addProject(\App\GeneralBundle\Entity\Project $projects)
     {
-        return $this->getFirstname() . ' ' . $this->getLastname();
+        $this->projects[] = $projects;
+    
+        return $this;
+    }
+
+    /**
+     * Remove projects
+     *
+     * @param \App\GeneralBundle\Entity\Project $projects
+     */
+    public function removeProject(\App\GeneralBundle\Entity\Project $projects)
+    {
+        $this->projects->removeElement($projects);
+    }
+
+    /**
+     * Get projects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProjects()
+    {
+        return $this->projects;
     }
 
     /**
@@ -262,6 +299,7 @@ class User extends BaseUser
     public function setRetypePassword($retypePassword)
     {
         $this->retypePassword = $retypePassword;
+        
         return $this;
     }
 
@@ -284,6 +322,7 @@ class User extends BaseUser
     public function setOldPassword($oldPassword)
     {
         $this->oldPassword = $oldPassword;
+        
         return $this;
     }
 
@@ -295,5 +334,15 @@ class User extends BaseUser
     public function getOldPassword()
     {
         return $this->oldPassword;
+    }
+
+    /**
+     * Get user full name
+     * 
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
     }
 }

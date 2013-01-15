@@ -12,3 +12,9 @@ services:
         class: App\BackendBundle\Form\Type\CKEditorType
         tags:
             - { name: form.type, alias: app_backend_form_ckeditor_type }
+
+    app_backend.form.type.project.tasks:
+        class: App\BackendBundle\Form\Type\Project\TasksType
+        tags:
+            - { name: form.type, alias: app_backend_form_project_tasks_type }
+    

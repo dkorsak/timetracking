@@ -1,0 +1,8 @@
+StatusActive:
+    name: Active
+
+StatusInactive:
+    name: Disabled
+
+StatusArchived:
+    name: Archived

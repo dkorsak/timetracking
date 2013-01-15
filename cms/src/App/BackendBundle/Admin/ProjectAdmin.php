@@ -34,6 +34,18 @@ class ProjectAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper
+            ->with('General')
+                ->add('company', 'sonata_type_model', array('property' => 'name'))
+                ->add('name')
+                ->add('status', null, array('property' => 'name'))
+            ->end()
+            ->with('Tasks')
+                ->add('tasks', 'app_backend_form_project_tasks_type', array('required' => false))
+            ->end()
+            ->with('Users')
+                ->add('users', 'sonata_type_model', array('required' => false, 'expanded' => true, 'property' => 'name', 'by_reference' => false, 'multiple' => true))
+            ->end();
     }
 
     /**
@@ -41,6 +53,22 @@ class ProjectAdmin extends Admin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        $listMapper
+            ->addIdentifier('name')
+            ->add("company.name")
+            ->add("status.name")
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'label' => 'Actions',
+                    'actions' => array(
+                        'view' => array('template' => 'AppBackendBundle:CRUD:list__action_view.html.twig'),
+                        'edit' => array('template' => 'AppBackendBundle:CRUD:list__action_edit.html.twig'),
+                        'delete' => array('template' => 'AppBackendBundle:CRUD:list__action_delete.html.twig'),
+                    )
+                )
+            );
     }
 
     /**

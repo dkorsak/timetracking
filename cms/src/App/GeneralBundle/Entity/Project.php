@@ -59,7 +59,162 @@ class Project
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="project", cascade={"persist"})
      */
     protected $tasks;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Project
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set status
+     *
+     * @param \App\GeneralBundle\Entity\ProjectStatus $status
+     * @return Project
+     */
+    public function setStatus(\App\GeneralBundle\Entity\ProjectStatus $status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return \App\GeneralBundle\Entity\ProjectStatus 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \App\GeneralBundle\Entity\Company $company
+     * @return Project
+     */
+    public function setCompany(\App\GeneralBundle\Entity\Company $company)
+    {
+        $this->company = $company;
+    
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \App\GeneralBundle\Entity\Company 
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \App\GeneralBundle\Entity\User $users
+     * @return Project
+     */
+    public function addUser(\App\GeneralBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+    
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \App\GeneralBundle\Entity\User $users
+     */
+    public function removeUser(\App\GeneralBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Add tasks
+     *
+     * @param \App\GeneralBundle\Entity\Task $tasks
+     * @return Project
+     */
+    public function addTask(\App\GeneralBundle\Entity\Task $tasks)
+    {
+        $this->tasks[] = $tasks;
+        $tasks->setProject($this);
+        
+        return $this;
+    }
+
+    /**
+     * Remove tasks
+     *
+     * @param \App\GeneralBundle\Entity\Task $tasks
+     */
+    public function removeTask(\App\GeneralBundle\Entity\Task $tasks)
+    {
+        $this->tasks->removeElement($tasks);
+    }
+
+    /**
+     * Get tasks
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
 }
