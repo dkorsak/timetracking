@@ -3,6 +3,7 @@
 namespace App\GeneralBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\Company
@@ -22,42 +23,50 @@ class Company
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", nullable=false)
+     * @Assert\NotBlank()
      */
-    protected $name;
+    private $name;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="status", type="boolean", nullable=false)
      */
-    protected $status;
+    private $status;
 
     /**
      * @var string
      *
      * @ORM\Column(name="invoice_address", type="text", nullable=true)
      */
-    protected $invoiceAddress;
+    private $invoiceAddress;
 
     /**
      * @var string
      *
      * @ORM\Column(name="nip", type="string", length=10, nullable=true)
      */
-    protected $nip;
+    private $nip;
 
     /**
      * @var string
      *
      * @ORM\Column(name="regon", type="string", length=9, nullable=true)
      */
-    protected $regon;
+    private $regon;
+
+    /**
+     * @var string
+     * 
+     * @ORM\Column(name="phone", type="string", length=30, nullable=true)
+     */
+    private $phone;
 
     /**
      * Constructor
@@ -199,5 +208,28 @@ class Company
     public function getRegon()
     {
         return $this->regon;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Company
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

@@ -27,6 +27,8 @@ class CompanyAdmin extends Admin
      */
     protected function configureShowField(ShowMapper $showMapper)
     {
+        $showMapper
+            ->add('name');
     }
 
     /**
@@ -40,7 +42,8 @@ class CompanyAdmin extends Admin
                 ->add("status", null, array("required" => false))
                 ->add("nip")
                 ->add("regon")
-                ->add("invoiceAddress", null, array("label" => "Invoice address"))
+                ->add("phone")
+                ->add("invoiceAddress", null, array("label" => "Invoice address", 'attr' => array('cols' => 10)))
             ->end();
     }
 
@@ -50,8 +53,22 @@ class CompanyAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add("name")
-            ->add("status");
+            ->addIdentifier("name")
+            ->add('nip')
+            ->add('phone')
+            ->add("status", null, array("template" => "AppBackendBundle:CRUD:list_status.html.twig"))
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'label' => 'Actions',
+                    'actions' => array(
+                        'view' => array('template' => 'AppBackendBundle:CRUD:list__action_view.html.twig'),
+                        'edit' => array('template' => 'AppBackendBundle:CRUD:list__action_edit.html.twig'),
+                        'delete' => array('template' => 'AppBackendBundle:CRUD:list__action_delete.html.twig'),
+                    )
+                )
+            );
     }
 
     /**
@@ -59,5 +76,8 @@ class CompanyAdmin extends Admin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $datagridMapper
+            ->add('name')
+            ->add('nip');
     }
 }

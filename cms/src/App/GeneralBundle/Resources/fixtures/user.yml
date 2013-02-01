@@ -17,3 +17,24 @@ user:
     enabled: 1
     group_list:
         - GROUP_ADMIN
+        - GROUP_EMPLOYEE
+
+employee1:
+    email: "employee1@admin.com"
+    username: "employee1@admin.com"
+    plain_password: admin
+    firstname: Jan
+    lastname: Kowalski
+    enabled: 1
+    group_list:
+        - GROUP_EMPLOYEE
+
+employee2:
+    email: "employee2@admin.com"
+    username: "employee2@admin.com"
+    plain_password: admin
+    firstname: Anna
+    lastname: Nowak
+    enabled: 1
+    group_list:
+        - GROUP_EMPLOYEE

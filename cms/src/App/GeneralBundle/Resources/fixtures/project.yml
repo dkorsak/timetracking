@@ -1,0 +1,16 @@
+project1:
+    name:     "Sprawy pracowników"
+    company_id: redexperts
+    status_id:  StatusActive
+    user_list:
+         - employee1
+         - employee2
+    task_list:
+        p1t1:
+            name:  "Chorobowe"
+        p1t2:
+            name:  "Urlop"
+        p1t3:
+            name:  "Święto Państwowe"
+        p1t4:
+            name:  "Delegacja"

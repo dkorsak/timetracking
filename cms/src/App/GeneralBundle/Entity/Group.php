@@ -20,7 +20,7 @@ class Group extends BaseGroup
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    protected  $id;
 
     /**
      * @return string

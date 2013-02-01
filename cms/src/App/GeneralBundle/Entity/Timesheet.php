@@ -3,6 +3,7 @@
 namespace App\GeneralBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * App\GeneralBundle\Timesheet
@@ -19,28 +20,44 @@ class Timesheet
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="job_date", type="date", nullable=false)
      */
-    protected $jobDate;
+    private $jobDate;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="job_time", type="time", nullable=false)
+     * @ORM\Column(name="job_time", type="integer", nullable=false)
      */
-    protected $jobTime;
+    private $time;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    protected $description;
+    private $description;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     /**
      * @var User
@@ -48,7 +65,7 @@ class Timesheet
      * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
-    protected $user;
+    private $user;
 
     /**
      * @var Task
@@ -56,5 +73,5 @@ class Timesheet
      * @ORM\ManyToOne(targetEntity="Task", cascade={"persist"})
      * @ORM\JoinColumn(name="task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
-    protected $task;
+    private $task;
 }

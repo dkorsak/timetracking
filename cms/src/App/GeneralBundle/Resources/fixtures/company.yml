@@ -1,0 +1,10 @@
+redexperts:
+    name: "Redexperts sp. z o.o."
+    invoice_address: "ul. Rzepińska 21\r\n60-176 Poznań"
+    nip:    7792383025
+    regon:  301562498
+    phone:  "+48 61 630 9000"
+
+coca_cola:
+    name: "Coca Cola LTD"
+    invoice_address: "ul. Testing\r\n176 London"

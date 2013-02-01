@@ -40,7 +40,7 @@ class User extends BaseUser
      * @ORM\Column(name="firstname", type="string", length=50, nullable=false)
      * @Assert\NotBlank()
      */
-    protected $firstname;
+    private $firstname;
 
     /**
      * @var string
@@ -48,23 +48,23 @@ class User extends BaseUser
      * @ORM\Column(name="lastname", type="string", length=50, nullable=false)
      * @Assert\NotBlank()
      */
-    protected $lastname;
+    private $lastname;
 
     /**
-     * @var datetime
+     * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    protected $created;
+    private $created;
 
     /**
-     * @var datetime
+     * @var \DateTime
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
-    protected $updated;
+    private $updated;
 
     /**
      * @var ArrayCollection
@@ -82,17 +82,17 @@ class User extends BaseUser
      *
      * @ORM\ManyToMany(targetEntity="Project", mappedBy="users")
      */
-    protected $projects;
+    private $projects;
 
     /**
      * @var string
      */
-    protected $retypePassword;
+    private $retypePassword;
 
     /**
      * @var string
      */
-    protected $oldPassword;
+    private $oldPassword;
 
     /**
      * Constructor

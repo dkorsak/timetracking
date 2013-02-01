@@ -2,6 +2,9 @@
 
 namespace App\BackendBundle\Admin;
 
+use App\GeneralBundle\Entity\UserRepository;
+
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -44,7 +47,19 @@ class ProjectAdmin extends Admin
                 ->add('tasks', 'app_backend_form_project_tasks_type', array('required' => false))
             ->end()
             ->with('Users')
-                ->add('users', 'sonata_type_model', array('required' => false, 'expanded' => true, 'property' => 'name', 'by_reference' => false, 'multiple' => true))
+                ->add(
+                    'users',
+                    'sonata_type_model',
+                    array(
+                        'label' => ' ',
+                        'required' => false,
+                        'expanded' => true,
+                        'property' => 'name',
+                        'by_reference' => false,
+                        'multiple' => true,
+                        'query' => $this->createUsersQuery()
+                    )
+                )
             ->end();
     }
 
@@ -76,5 +91,18 @@ class ProjectAdmin extends Admin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $datagridMapper
+            ->add('name')
+            ->add('company')
+            ->add('status');
+    }
+    
+    private function createUsersQuery()
+    {
+        $query = $this->modelManager
+            ->getEntityManager('AppGeneralBundle:User')
+            ->createQuery("SELECT u FROM AppGeneralBundle:User u JOIN u.groups g WHERE g.roles LIKE :role ORDER BY u.firstname, u.lastname")
+            ->setParameter('role', '%ROLE_EMPLOYEE%');
+        return $query;
     }
 }

@@ -20,14 +20,14 @@ class ProjectStatus
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", nullable=false)
      */
-    protected $name;
+    private $name;
 
     /**
      * Get id

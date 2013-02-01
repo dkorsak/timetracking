@@ -3,6 +3,7 @@
 namespace App\GeneralBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\Task
@@ -19,22 +20,24 @@ class Task
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", nullable=false)
+     * @Assert\NotBlank()
      */
-    protected $name;
+    private $name;
 
     /**
      * @var Project
      *
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Assert\NotNull()
      */
-    protected $project;
+    private $project;
 
     /**
      * Get id

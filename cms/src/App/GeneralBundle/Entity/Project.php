@@ -4,6 +4,7 @@ namespace App\GeneralBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\Project
@@ -20,30 +21,33 @@ class Project
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", nullable=false)
+     * @Assert\NotBlank()
      */
-    protected $name;
+    private $name;
 
     /**
      * @var ProjectStatus
      *
      * @ORM\ManyToOne(targetEntity="ProjectStatus")
      * @ORM\JoinColumn(name="status_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Assert\NotNull()
      */
-    protected $status;
+    private $status;
 
     /**
      * @var Company
      * 
      * @ORM\ManyToOne(targetEntity="Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Assert\NotNull() 
      */
-    protected $company;
+    private $company;
 
     /**
      * @var ArrayCollection
@@ -54,14 +58,14 @@ class Project
      *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)}
      * )
      */
-    protected $users;
+    private $users;
 
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Task", mappedBy="project", cascade={"persist"})
      */
-    protected $tasks;
+    private $tasks;
 
     /**
      * Constructor
