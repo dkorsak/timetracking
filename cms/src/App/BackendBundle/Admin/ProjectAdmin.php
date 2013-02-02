@@ -2,8 +2,7 @@
 
 namespace App\BackendBundle\Admin;
 
-use App\GeneralBundle\Entity\UserRepository;
-
+use App\GeneralBundle\Entity\Company;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -39,7 +38,7 @@ class ProjectAdmin extends Admin
     {
         $formMapper
             ->with('General')
-                ->add('company', 'sonata_type_model', array('property' => 'name'))
+                ->add('company', 'sonata_type_model', array('property' => 'name', 'query' => $this->createCompanyQuery()))
                 ->add('name')
                 ->add('status', null, array('property' => 'name'))
             ->end()
@@ -96,13 +95,24 @@ class ProjectAdmin extends Admin
             ->add('company')
             ->add('status');
     }
-    
+
     private function createUsersQuery()
     {
         $query = $this->modelManager
             ->getEntityManager('AppGeneralBundle:User')
-            ->createQuery("SELECT u FROM AppGeneralBundle:User u JOIN u.groups g WHERE g.roles LIKE :role ORDER BY u.firstname, u.lastname")
+            ->createQuery('SELECT u FROM AppGeneralBundle:User u JOIN u.groups g WHERE g.roles LIKE :role ORDER BY u.firstname, u.lastname')
             ->setParameter('role', '%ROLE_EMPLOYEE%');
+        
+        return $query;
+    }
+
+    private function createCompanyQuery()
+    {
+        $query = $this->modelManager
+            ->getEntityManager('AppGeneralBundle:Company')
+            ->createQuery('SELECT c FROM AppGeneralBundle:Company c WHERE c.status = :status ORDER BY c.name ASC')
+            ->setParameter('status', Company::STATUS_ENABLED);
+        
         return $query;
     }
 }

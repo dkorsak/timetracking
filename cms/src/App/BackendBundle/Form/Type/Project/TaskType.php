@@ -13,7 +13,7 @@ class TaskType extends AbstractType
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        //$builder->add('name');
         //print_R(count($builder->getForm()->getData()));
     }
 
@@ -31,7 +31,7 @@ class TaskType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $defaultValues = array(
-            'data_class' => 'App\GeneralBundle\Entity\Task',
+            'data_class' => 'App\GeneralBundle\Entity\ProjectToTask',
         );
         $resolver->setDefaults($defaultValues);
     }

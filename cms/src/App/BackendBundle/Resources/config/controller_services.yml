@@ -23,7 +23,7 @@ services:
         calls:
             - [ setTranslationDomain, ["backend_company"] ]
 
-    # projects list
+    # project list
     app_backend.admin.project_admin:
         class: App\BackendBundle\Admin\ProjectAdmin
         tags:
@@ -31,3 +31,21 @@ services:
         arguments: [null, App\GeneralBundle\Entity\Project, AppBackendBundle:ProjectAdmin]
         calls:
             - [ setTranslationDomain, ["backend_project"] ]
+
+    # task list
+    app_backend.admin.task_admin:
+        class: App\BackendBundle\Admin\TaskAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Manage, label: Tasks }
+        arguments: [null, App\GeneralBundle\Entity\Task, AppBackendBundle:TaskAdmin]
+        calls:
+            - [ setTranslationDomain, ["backend_task"] ]
+
+    # timesheet list
+    app_backend.admin.timesheet_admin:
+        class: App\BackendBundle\Admin\TimesheetAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Reports, label: Timesheet }
+        arguments: [null, App\GeneralBundle\Entity\Timesheet, AppBackendBundle:TimesheetAdmin]
+        calls:
+            - [ setTranslationDomain, ["backend_timesheet"] ]

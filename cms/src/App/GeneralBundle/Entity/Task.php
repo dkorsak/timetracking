@@ -2,6 +2,7 @@
 
 namespace App\GeneralBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,13 +32,28 @@ class Task
     private $name;
 
     /**
-     * @var Project
-     *
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     * @Assert\NotNull()
+     * @var boolean
+     * 
+     * @ORM\Column(name="global", type="boolean", nullable=false)
      */
-    private $project;
+    private $global;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="ProjectToTask", mappedBy="task")
+     */
+    private $projects;
+
+    /**
+     * Constructor
+     *  
+     */
+    public function __construct()
+    {
+        $this->global = false;
+        $this->projects = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -73,25 +89,58 @@ class Task
     }
 
     /**
-     * Set project
+     * Set global
      *
-     * @param \App\GeneralBundle\Entity\Project $project
+     * @param boolean $global
      * @return Task
      */
-    public function setProject(\App\GeneralBundle\Entity\Project $project)
+    public function setGlobal($global)
     {
-        $this->project = $project;
+        $this->global = $global;
     
         return $this;
     }
 
     /**
-     * Get project
+     * Get global
      *
-     * @return \App\GeneralBundle\Entity\Project 
+     * @return boolean 
      */
-    public function getProject()
+    public function getGlobal()
     {
-        return $this->project;
+        return $this->global;
+    }
+
+    /**
+     * Add projects
+     *
+     * @param \App\GeneralBundle\Entity\ProjectToTask $projects
+     * @return Task
+     */
+    public function addProject(\App\GeneralBundle\Entity\ProjectToTask $projects)
+    {
+        $this->projects[] = $projects;
+    
+        return $this;
+    }
+
+    /**
+     * Remove projects
+     *
+     * @param \App\GeneralBundle\Entity\ProjectToTask $projects
+     */
+    public function removeProject(\App\GeneralBundle\Entity\ProjectToTask $projects)
+    {
+        $this->projects->removeElement($projects);
+    }
+
+    /**
+     * Get projects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProjects()
+    {
+        return $this->projects;
     }
 }

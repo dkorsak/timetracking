@@ -7,6 +7,7 @@
 {% block page_metadata %}{{ sonata_seo_metadatas() }}{% endblock %}
 {% block stylesheets %}
 {% stylesheets filter='cssrewrite,?yui_css' output="css/site.css"
+'bundles/appfrontend/bootstrap/css/bootstrap.css'
 'bundles/appfrontend/css/main.css'
 %}
 <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
@@ -15,6 +16,7 @@
 {% block javascripts %}
 {% javascripts filter='?closure' output="js/site.js"
 '@AppGeneralBundle/Resources/public/js/jquery.min.js'
+'@AppFrontendBundle/Resources/public/bootstrap/js/bootstrap.min.js'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -22,7 +24,15 @@
 <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-{% block body %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            {% else %}
+                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+{% block fos_user_content %}
 {% endblock %}
 </body>
 </html>

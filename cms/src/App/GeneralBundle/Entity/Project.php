@@ -63,7 +63,7 @@ class Project
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Task", mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ProjectToTask", mappedBy="project")
      */
     private $tasks;
 
@@ -191,23 +191,22 @@ class Project
     /**
      * Add tasks
      *
-     * @param \App\GeneralBundle\Entity\Task $tasks
+     * @param \App\GeneralBundle\Entity\ProjectToTask $tasks
      * @return Project
      */
-    public function addTask(\App\GeneralBundle\Entity\Task $tasks)
+    public function addTask(\App\GeneralBundle\Entity\ProjectToTask $tasks)
     {
         $this->tasks[] = $tasks;
-        $tasks->setProject($this);
-        
+    
         return $this;
     }
 
     /**
      * Remove tasks
      *
-     * @param \App\GeneralBundle\Entity\Task $tasks
+     * @param \App\GeneralBundle\Entity\ProjectToTask $tasks
      */
-    public function removeTask(\App\GeneralBundle\Entity\Task $tasks)
+    public function removeTask(\App\GeneralBundle\Entity\ProjectToTask $tasks)
     {
         $this->tasks->removeElement($tasks);
     }

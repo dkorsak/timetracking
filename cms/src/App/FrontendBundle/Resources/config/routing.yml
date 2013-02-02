@@ -1,3 +1,7 @@
 homepage:
     pattern:  /
     defaults: { _controller: AppFrontendBundle:Homepage:index }
+
+AppFrontendBundle_timesheet:
+    resource: "@AppFrontendBundle/Resources/config/routing/timesheet.yml"
+    prefix: '/timesheet'

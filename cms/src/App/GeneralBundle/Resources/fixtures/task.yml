@@ -1,0 +1,24 @@
+task1:
+    name:  Chorobowe
+    global: false
+task2:
+    name:  Urlop
+    global: false
+task3:
+    name:  Święto Państwowe
+    global: false
+task4:
+    name:  Delegacja
+    global: false
+task5:
+    name:  Projektowanie
+    global: true
+task6:
+    name:  Zarządzanie
+    global: true
+task7:
+    name:  Programowanie
+    global: true
+task8:
+    name:  Testowanie
+    global: true

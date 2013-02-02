@@ -8,6 +8,17 @@ class HomepageController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AppFrontendBundle:Homepage:index.html.twig');
+        if ($this->getUser()) {
+            return $this->forward('AppFrontendBundle:Timesheet:index');
+        }
+
+        return $this->render(
+            'FOSUserBundle:Security:login.html.twig', 
+            array(
+                'last_username' => "",
+                'error'         => "",
+                'csrf_token' => $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate'),
+            )
+        );
     }
 }

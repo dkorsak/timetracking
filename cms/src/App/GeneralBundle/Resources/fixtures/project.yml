@@ -3,14 +3,14 @@ project1:
     company_id: redexperts
     status_id:  StatusActive
     user_list:
-         - employee1
-         - employee2
+        - employee1
+        - employee2
     task_list:
         p1t1:
-            name:  "Chorobowe"
+            task_id: task1
         p1t2:
-            name:  "Urlop"
+            task_id: task2
         p1t3:
-            name:  "Święto Państwowe"
+            task_id: task3
         p1t4:
-            name:  "Delegacja"
+            task_id: task4

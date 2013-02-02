@@ -68,10 +68,181 @@ class Timesheet
     private $user;
 
     /**
-     * @var Task
+     * @var ProjectToTask
      *
-     * @ORM\ManyToOne(targetEntity="Task", cascade={"persist"})
-     * @ORM\JoinColumn(name="task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @ORM\ManyToOne(targetEntity="ProjectToTask", cascade={"persist"})
+     * @ORM\JoinColumn(name="project_to_task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     private $task;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set jobDate
+     *
+     * @param \DateTime $jobDate
+     * @return Timesheet
+     */
+    public function setJobDate($jobDate)
+    {
+        $this->jobDate = $jobDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get jobDate
+     *
+     * @return \DateTime 
+     */
+    public function getJobDate()
+    {
+        return $this->jobDate;
+    }
+
+    /**
+     * Set time
+     *
+     * @param integer $time
+     * @return Timesheet
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    
+        return $this;
+    }
+
+    /**
+     * Get time
+     *
+     * @return integer 
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Timesheet
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Timesheet
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Timesheet
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \App\GeneralBundle\Entity\User $user
+     * @return Timesheet
+     */
+    public function setUser(\App\GeneralBundle\Entity\User $user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \App\GeneralBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set task
+     *
+     * @param \App\GeneralBundle\Entity\ProjectToTask $task
+     * @return Timesheet
+     */
+    public function setTask(\App\GeneralBundle\Entity\ProjectToTask $task)
+    {
+        $this->task = $task;
+    
+        return $this;
+    }
+
+    /**
+     * Get task
+     *
+     * @return \App\GeneralBundle\Entity\ProjectToTask 
+     */
+    public function getTask()
+    {
+        return $this->task;
+    }
 }

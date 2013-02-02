@@ -2,8 +2,7 @@
 
 namespace App\GeneralBundle\DataFixtures\ORM\Data;
 
-use App\GeneralBundle\Entity\Task;
-
+use App\GeneralBundle\Entity\ProjectToTask;
 use App\GeneralBundle\Entity\Project;
 use App\GeneralBundle\DataFixtures\ORM\YamlFixtures;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -28,11 +27,12 @@ class LoadProject extends YamlFixtures implements OrderedFixtureInterface, Conta
                 }
             }
             if (isset($item['task_list'])) {
-                foreach ($item['task_list'] as $taskReference => $taskData) {
-                    $task = new Task();
-                    $this->fromArray($task, $taskData);
-                    $object->addTask($task);
-                    $this->addReference($taskReference, $task);
+                foreach ($item['task_list'] as $taskReference => $task) {
+                    $ptt = new ProjectToTask();
+                    $ptt->setProject($object);
+                    $ptt->setTask($this->getReference($task['task_id']));
+                    $manager->persist($ptt);
+                    $this->addReference($taskReference, $ptt);
                 }
             }
             $manager->persist($object);
