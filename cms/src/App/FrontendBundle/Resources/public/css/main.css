@@ -1,6 +1,17 @@
 @CHARSET "UTF-8";
 
-body {
-    margin: 0px;
-    padding: 0px;
+.login-form {
+    margin-top: 90px;
+}
+.login-form form {
+    margin-bottom: 0px;
+}
+.login-form input.span4 {
+    padding: 5px;
+}
+.navbar p.navbar-text {
+    padding-right: 10px;
+}
+.navbar {
+    margin-top: 10px;
 }

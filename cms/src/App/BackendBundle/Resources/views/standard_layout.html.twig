@@ -57,7 +57,7 @@ $.webshims.polyfill("forms forms-ext");
                     <div class="container-fluid">
                         {% if admin_pool is defined %}
                             
-                            {% if app.user %}
+                            {% if app.user and (is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN')) %}
                             <div class="btn-group pull-right">
                                 <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
                                     <i class="icon-user"></i><span class="hidden-phone"> {{ app.user.name }}</span>
@@ -65,6 +65,8 @@ $.webshims.polyfill("forms forms-ext");
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ url('app_backend_profile') }}">{{ 'Profile'|trans({}) }}</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ url('homepage') }}">{{ 'My timesheet'|trans({}) }}</a></li>
                                     <li class="divider"></li>
                                     {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.impersonating %}
                                     <li><a href="{{ url(sonata_user.impersonating.route, sonata_user.impersonating.parameters| merge({'_switch_user': '_exit'})) }}">(exit)</a></li>

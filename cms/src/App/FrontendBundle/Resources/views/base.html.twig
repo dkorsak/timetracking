@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html {{ sonata_seo_html_attributes() }}>
+<html{{ sonata_seo_html_attributes() }}>
 <head>
 {% block page_title %}
 {{ sonata_seo_title() }}
@@ -24,15 +24,43 @@
 <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            {% else %}
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-            {% endif %}
-{% block fos_user_content %}
-{% endblock %}
+    <div class="container">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="{{ path('homepage') }}" name="top">Timetracking</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="{{ path('timesheet') }}"><i class="icon-time"></i> Timesheet</a></li>
+                        </ul>
+                        <div class="btn-group pull-right">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="icon-user"></i> {{ app.user.name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="icon-wrench"></i> Profile</a></li>
+                                <li class="divider"></li>
+                                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('sonata_admin_dashboard') }}"><i class="icon-lock"></i> {% trans from 'timesheet' %}Admin area{% endtrans %}</a></li>
+                                <li class="divider"></li>
+                                {% endif %}
+                                <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-share"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                            </ul>
+                        </div>
+                        <p class="navbar-text pull-right">{% trans from 'timesheet' %}Logged us{% endtrans %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% block fos_user_content %}
+        {% endblock %}
+    </div>
 </body>
 </html>
