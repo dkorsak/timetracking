@@ -1,5 +1,57 @@
 {% extends 'AppFrontendBundle::base.html.twig' %}
 
 {% block fos_user_content %}
-TIMESHEET
+        
+        <div class="pull-right">
+        <div class="btn-toolbar">
+            
+            <div class="btn-group">
+            <a class="btn">&lt;</a>
+            <a class="btn">This Week</a>
+            <a class="btn">&gt;</a>
+            </div>
+            <div class="btn-group">
+            <a class="btn">Day</a>
+            <a class="btn">Week</a>
+            </div>
+            
+        </div>
+        </div>
+        <div class="pull-left">
+        <h3>Poniedziałek 13 lutego 2010</h3>
+        </div>
+<div class="span10">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Remo</th>
+        <th>Task</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wen</th>
+        <th>Thr</th>
+        <th>Fri</th>
+        <th>Sat</th>
+        <th>Sun</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tfoot>
+    </tfoot>
+    <tbody>
+    <tr>
+        <td>Remo</td>
+        <td>Task</td>
+        <td><div class="span1"><input type="text"/>:<input type="text"/></div></td>
+        <td><input type="text"/>:<input type="text"/></td>
+        <td><input type="text"/>:<input type="text"/></td>
+        <td><input type="text"/>:<input type="text"/></td>
+        <td><input type="text"/>:<input type="text"/></td>
+        <td><input type="text"/>:<input type="text"/></td>
+        <td><input type="text"/>:<input type="text"/></td>
+        <td>Total</td>
+    </tr>
+    </tbody>
+</table>
+</div>
 {% endblock %}

@@ -254,7 +254,7 @@ sonata_seo:
             #'X-Ua-Compatible':      IE=EmulateIE7
 
     head:
-        'lang':     'en'
+        lang: en
         #'xmlns:og':           http://opengraphprotocol.org/schema/
         #'xmlns:fb':           "http://www.facebook.com/2008/fbml"
 
