@@ -9,6 +9,7 @@
 {% stylesheets filter='cssrewrite,?yui_css' output="css/site.css"
 'bundles/appfrontend/bootstrap/css/bootstrap.css'
 'bundles/appfrontend/css/main.css'
+'bundles/appfrontend/datepicker/css/datepicker.css'
 %}
 <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
 {% endstylesheets %}
@@ -17,6 +18,8 @@
 {% javascripts filter='?closure' output="js/site.js"
 '@AppGeneralBundle/Resources/public/js/jquery.min.js'
 '@AppFrontendBundle/Resources/public/bootstrap/js/bootstrap.min.js'
+'@AppFrontendBundle/Resources/public/js/jquery.meio.mask.min.js'
+'@AppFrontendBundle/Resources/public/datepicker/js/bootstrap-datepicker.js'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}

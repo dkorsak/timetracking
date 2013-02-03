@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+.base-content {
+    margin-top: 40px;
+}
 .login-form {
     margin-top: 90px;
 }
@@ -14,4 +17,36 @@
 }
 .navbar {
     margin-top: 10px;
+}
+
+.week-table {
+    
+}
+.week-table td.time {
+    width: 5%;
+}
+.week-table td.total {
+    width: 8%;
+}
+.week-table td.task {
+    width: 51%;
+}
+.week-table td.actions {
+    width: 6%;
+}
+.week-table td.time input {
+    width: 40px;
+}
+.week-table td.task span {
+    display: block;
+}
+.week-table td.task span.company {
+    font-size: 11px;
+    font-weight: bold;
+}
+.week-table td.task span.project {
+    font-size: 12px;
+}
+.week-table td.task span.name {
+    font-size: 12px;
 }
