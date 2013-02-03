@@ -1,5 +1,5 @@
 {
-    "hash": "e24002cc01ce31875a771cc51cd3caa5",
+    "hash": "71712c11639079c411a46ac10c9badfb",
     "packages": [
         {
             "name": "alexandresalome/php-selenium",
@@ -1701,12 +1701,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/padraic/mockery.git",
-                "reference": "1a1a2228a009bb5b925bab7e575095eab91d6232"
+                "reference": "998714d4101cccc2e1beac19f0dcd0378d656ae1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/padraic/mockery/archive/1a1a2228a009bb5b925bab7e575095eab91d6232.zip",
-                "reference": "1a1a2228a009bb5b925bab7e575095eab91d6232",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/998714d4101cccc2e1beac19f0dcd0378d656ae1",
+                "reference": "998714d4101cccc2e1beac19f0dcd0378d656ae1",
                 "shasum": ""
             },
             "require": {
@@ -1718,7 +1718,7 @@
             "suggest": {
                 "Hamcrest": "1.0.0"
             },
-            "time": "2013-01-29 00:38:35",
+            "time": "2013-02-03 13:21:14",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -1805,6 +1805,49 @@
             "keywords": [
                 "log",
                 "logging"
+            ]
+        },
+        {
+            "name": "nesbot/carbon",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/briannesbitt/Carbon.git",
+                "reference": "1.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/1.2.0",
+                "reference": "1.2.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "time": "2012-10-15 00:41:18",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Carbon": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Nesbitt",
+                    "email": "brian@nesbot.com",
+                    "homepage": "http://nesbot.com"
+                }
+            ],
+            "description": "A simple API extension for DateTime.",
+            "homepage": "https://github.com/briannesbitt/Carbon",
+            "keywords": [
+                "date",
+                "datetime",
+                "time"
             ]
         },
         {
@@ -3131,6 +3174,7 @@
         "doctrine/doctrine-fixtures-bundle": 20,
         "doctrine/doctrine-migrations-bundle": 20,
         "behat/behat": 0,
-        "behat/mink": 0
+        "behat/mink": 0,
+        "nesbot/carbon": 20
     }
 }
