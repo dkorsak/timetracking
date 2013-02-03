@@ -13,14 +13,14 @@
         <form action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="control-group">
-            <input autocomplete="off" type="text" id="username" class="span4" name="_username" value="{{ last_username }}" required="required" placeholder="{% trans from 'timetracking' %}E-mail{% endtrans %}"/>
+            <input autocomplete="off" type="text" id="username" class="span12" name="_username" value="{{ last_username }}" required="required" placeholder="{% trans from 'timetracking' %}E-mail{% endtrans %}"/>
         </div>
         <div class="control-group">
-            <input autocomplete="off" type="password" id="password" class="span4" name="_password" required="required" placeholder="{% trans from 'timetracking' %}Password{% endtrans %}"/>
+            <input autocomplete="off" type="password" id="password" class="span12" name="_password" required="required" placeholder="{% trans from 'timetracking' %}Password{% endtrans %}"/>
         </div>
         <div class="control-group">
         <label class="checkbox">
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
         </label>
         </div>
         <button type="submit" name="submit" class="btn btn-info btn-block">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>

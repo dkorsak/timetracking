@@ -1,0 +1,3 @@
+timesheet_day:
+    pattern:  /
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:index }

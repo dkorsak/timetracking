@@ -4,10 +4,10 @@ namespace App\FrontendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class TimesheetController extends Controller
+class TimesheetWeekController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AppFrontendBundle:Timesheet:index.html.twig');
+        return $this->render('AppFrontendBundle:TimesheetWeek:index.html.twig');
     }
 }

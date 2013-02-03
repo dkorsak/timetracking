@@ -66,7 +66,7 @@ $.webshims.polyfill("forms forms-ext");
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ url('app_backend_profile') }}">{{ 'Profile'|trans({}) }}</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="{{ url('homepage') }}">{{ 'My timesheet'|trans({}) }}</a></li>
+                                    <li><a href="{{ url('timesheet_week') }}">{{ 'My timesheet'|trans({}) }}</a></li>
                                     <li class="divider"></li>
                                     {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.impersonating %}
                                     <li><a href="{{ url(sonata_user.impersonating.route, sonata_user.impersonating.parameters| merge({'_switch_user': '_exit'})) }}">(exit)</a></li>

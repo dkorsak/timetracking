@@ -1,3 +1,0 @@
-timesheet:
-    pattern:  /
-    defaults: { _controller: AppFrontendBundle:Timesheet:index }

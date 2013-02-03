@@ -9,7 +9,7 @@ class HomepageController extends Controller
     public function indexAction()
     {
         if ($this->getUser()) {
-            return $this->forward('AppFrontendBundle:Timesheet:index');
+            return $this->forward('AppFrontendBundle:TimesheetWeek:index');
         }
 
         return $this->render(
