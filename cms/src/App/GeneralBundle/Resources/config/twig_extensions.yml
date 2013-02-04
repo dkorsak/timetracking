@@ -4,4 +4,9 @@ services:
     app_general.twig.extension.format_extension:
         class: App\GeneralBundle\Twig\Extension\FormatExtension
         tags:
-            - { name: "twig.extension"}
+            - { name: twig.extension}
+
+    app_general.twig.extension.carbon_date_extension:
+        class: App\GeneralBundle\Twig\Extension\CarbonDateExtension
+        tags:
+            - { name: twig.extension}

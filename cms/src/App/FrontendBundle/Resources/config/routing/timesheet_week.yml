@@ -1,3 +1,3 @@
 timesheet_week:
-    pattern:  /{year}/{week}
-    defaults: { _controller: AppFrontendBundle:TimesheetWeek:index, year: "", week: "" }
+    pattern:  /{year}/{month}/{day}
+    defaults: { _controller: AppFrontendBundle:TimesheetWeek:index, year: "", month: "", day: "" }

@@ -2,16 +2,19 @@
 
 namespace App\FrontendBundle\Controller;
 
+use Carbon\Carbon;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TimesheetWeekController extends Controller
 {
-    public function indexAction($year = "", $week = "")
+    public function indexAction($year = "", $month = "", $day = "")
     {
-        if ($year == "" || $week = "") {
-            
+        try {
+            $currentDate = Carbon::create($year, $month, $day);
+        } catch (\InvalidArgumentException $e) {
+            $currentDate = Carbon::now();
         }
-        $currentDate = new \DateTime("now");
         return $this->render(
             'AppFrontendBundle:TimesheetWeek:index.html.twig',
             array(

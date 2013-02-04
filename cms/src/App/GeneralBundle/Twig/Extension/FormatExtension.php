@@ -59,6 +59,6 @@ class FormatExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'app_general_format_extension';
+        return 'app_general_twig_extension_format';
     }
 }
