@@ -19,34 +19,45 @@
     margin-top: 10px;
 }
 
-.week-table {
-    
+.timesheet-table th.time a {
+   font-size: 12px;
 }
-.week-table td.time {
-    width: 5%;
+.timesheet-table td.time,
+.timesheet-table th.time {
+    width: 6%;
+    text-align: right;
 }
-.week-table td.total {
+.timesheet-table td.total,
+.timesheet-table th.total {
     width: 8%;
+    text-align: right;
 }
-.week-table td.task {
-    width: 51%;
+.timesheet-table td.task, 
+.timesheet-table th.task {
+    width: 44%;
 }
-.week-table td.actions {
+.timesheet-table td.actions, 
+.timesheet-table th.actions {
     width: 6%;
 }
-.week-table td.time input {
-    width: 40px;
+.timesheet-table td.actions-day,
+.timesheet-table th.actions-day {
+    width: 14%;
+    text-align: right;
 }
-.week-table td.task span {
+.timesheet-table td.time input {
+    width: 37px;
+}
+.timesheet-table td.task span {
     display: block;
 }
-.week-table td.task span.company {
+.timesheet-table td.task span.company {
     font-size: 11px;
     font-weight: bold;
 }
-.week-table td.task span.project {
+.timesheet-table td.task span.project {
     font-size: 12px;
 }
-.week-table td.task span.name {
+.timesheet-table td.task span.name {
     font-size: 12px;
 }

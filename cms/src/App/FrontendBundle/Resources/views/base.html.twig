@@ -21,7 +21,7 @@
 '@AppFrontendBundle/Resources/public/js/lib/jquery.meio.mask.min.js'
 '@AppFrontendBundle/Resources/public/js/lib/moment.min.js'
 '@AppFrontendBundle/Resources/public/datepicker/js/bootstrap-datepicker.js'
-'@AppFrontendBundle/Resources/public/js/global/timesheet_week.js'
+'@AppFrontendBundle/Resources/public/js/global/*'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -48,7 +48,7 @@
                             <i class="icon-user"></i> {{ app.user.name }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="icon-wrench"></i> Profile</a></li>
+                            <li><a href="#"><i class="icon-wrench"></i> {% trans from 'timesheet' %}Profile{% endtrans %}</a></li>
                             <li class="divider"></li>
                             {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('sonata_admin_dashboard') }}"><i class="icon-lock"></i> {% trans from 'timesheet' %}Admin area{% endtrans %}</a></li>

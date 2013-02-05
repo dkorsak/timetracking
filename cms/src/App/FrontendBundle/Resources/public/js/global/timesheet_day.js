@@ -1,7 +1,7 @@
 $(function () {
     "use strict";
     
-    var $dom = $("#timesheet-week-content");
+    var $dom = $("#timesheet-day-content");
     var $datepicker = $dom.find('.change-date');
     
     if ($dom.size() > 0) {
@@ -14,7 +14,5 @@ $(function () {
             return false;
         });
         
-        // format all input fields
-        $dom.find('.timesheet-table input[type="text"]').setMask();
     }
 })
