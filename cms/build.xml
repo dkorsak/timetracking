@@ -82,7 +82,7 @@
                     <exec executable="php" dir="@{destination}"><arg line="app/console assetic:dump --env=@{env} --no-debug" /></exec>
                 </then>
             </if>
-            <create.web.dirs destination="@{destination}"/>
+            <!--<create.web.dirs destination="@{destination}"/>-->
         </sequential>
     </macrodef>
 

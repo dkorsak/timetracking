@@ -16,6 +16,8 @@ class CarbonDateExtension extends \Twig_Extension
             'prev_week_start_date' => new \Twig_Filter_Method($this, 'getPrevWeekStartDate'),
             'start_week_date' => new \Twig_Filter_Method($this, 'getStartWeekDate'),
             'end_week_date' => new \Twig_Filter_Method($this, 'getEndWeekDate'),
+            'prev_day' => new \Twig_Filter_Method($this, 'getPrevDay'),
+            'next_day' => new \Twig_Filter_Method($this, 'getNextDay'),
         );
     }
 
@@ -75,6 +77,28 @@ class CarbonDateExtension extends \Twig_Extension
         return $carbonDate->addDays(7-$dayOfWeek);
     }
 
+    /**
+     * @param \DateTime $date
+     * @return \DateTime
+     */
+    public function getPrevDay(\DateTime $date)
+    {
+        $carbonDate = Carbon::instance($date);
+        
+        return $carbonDate->subDay();
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return \DateTime
+     */    
+    public function getNextDay(\DateTime $date)
+    {
+        $carbonDate = Carbon::instance($date);
+        
+        return $carbonDate->addDay();
+    }
+    
     /**
      * {@inheritdoc}
      */
