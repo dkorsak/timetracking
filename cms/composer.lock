@@ -1079,12 +1079,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "638529e0f17bfb5b376065f38f16f3612f3ffd71"
+                "reference": "v2.3.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/638529e0f17bfb5b376065f38f16f3612f3ffd71",
-                "reference": "638529e0f17bfb5b376065f38f16f3612f3ffd71",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/v2.3.4",
+                "reference": "v2.3.4",
                 "shasum": ""
             },
             "require": {
@@ -1093,18 +1093,18 @@
             },
             "require-dev": {
                 "doctrine/dbal": ">=2.2",
-                "doctrine/mongodb": ">=1.0.0-BETA1",
-                "doctrine/mongodb-odm": ">=1.0.0-BETA6",
+                "doctrine/mongodb": "1.0.1",
+                "doctrine/mongodb-odm": "1.0.0-BETA7",
                 "doctrine/orm": ">=2.2",
                 "symfony/yaml": "2.*"
             },
             "suggest": {
-                "doctrine/dbal": ">=2.2",
-                "doctrine/mongodb": ">=1.0.0",
+                "doctrine/dbal": ">=2.3.2",
+                "doctrine/mongodb": ">=1.0.1",
                 "doctrine/mongodb-odm": ">=1.0.0-BETA7",
-                "doctrine/orm": ">=2.2"
+                "doctrine/orm": ">=2.3.2"
             },
-            "time": "2013-02-04 18:54:58",
+            "time": "2013-02-05 13:39:54",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1122,13 +1122,22 @@
             ],
             "authors": [
                 {
+                    "name": "David Buchmann",
+                    "email": "david@liip.ch"
+                },
+                {
                     "name": "Gediminas Morkevicius",
                     "email": "gediminas.morkevicius@gmail.com"
+                },
+                {
+                    "name": "Gustavo Falco",
+                    "email": "comfortablynumb84@gmail.com"
                 }
             ],
             "description": "Doctrine2 behavioral extensions",
             "homepage": "http://gediminasm.org/",
             "keywords": [
+                "Blameable",
                 "behaviors",
                 "doctrine2",
                 "extensions",
@@ -1139,7 +1148,8 @@
                 "sortable",
                 "timestampable",
                 "translatable",
-                "tree"
+                "tree",
+                "uploadable"
             ]
         },
         {
@@ -1149,12 +1159,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/genemu/GenemuFormBundle.git",
-                "reference": "0a878fc05230660b1c7255d2dd244865785a0963"
+                "reference": "v2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/0a878fc05230660b1c7255d2dd244865785a0963",
-                "reference": "0a878fc05230660b1c7255d2dd244865785a0963",
+                "url": "https://api.github.com/repos/genemu/GenemuFormBundle/zipball/v2.1.1",
+                "reference": "v2.1.1",
                 "shasum": ""
             },
             "require": {
@@ -1176,7 +1186,7 @@
                 "symfony/mongodb-odm-bundle": "2.*",
                 "symfony/twig-bridge": "2.*"
             },
-            "time": "2013-02-02 11:38:56",
+            "time": "2013-02-05 12:21:52",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1701,12 +1711,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/padraic/mockery.git",
-                "reference": "ab12091ff183299d59cf63abe01cd925a03da8f4"
+                "reference": "0b29971a44c01d8a405f07cba056dae219352f99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/ab12091ff183299d59cf63abe01cd925a03da8f4",
-                "reference": "ab12091ff183299d59cf63abe01cd925a03da8f4",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/0b29971a44c01d8a405f07cba056dae219352f99",
+                "reference": "0b29971a44c01d8a405f07cba056dae219352f99",
                 "shasum": ""
             },
             "require": {
@@ -1718,7 +1728,7 @@
             "suggest": {
                 "Hamcrest": "1.0.0"
             },
-            "time": "2013-02-04 19:10:34",
+            "time": "2013-02-05 20:32:04",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -1857,18 +1867,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioDistributionBundle",
-                "reference": "66545ed7d60342dd1ffdcebd72fe43b11941fef9"
+                "reference": "615f76309dae8c45c72b69578b034713c09767d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/66545ed7d60342dd1ffdcebd72fe43b11941fef9",
-                "reference": "66545ed7d60342dd1ffdcebd72fe43b11941fef9",
+                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/615f76309dae8c45c72b69578b034713c09767d1",
+                "reference": "615f76309dae8c45c72b69578b034713c09767d1",
                 "shasum": ""
             },
             "require": {
                 "symfony/framework-bundle": "2.1.*"
             },
-            "time": "2013-01-31 08:08:03",
+            "time": "2013-02-04 19:54:42",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1998,12 +2008,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "a51471f4b69b9d47081d1cc92ba195212684c42e"
+                "reference": "33172973cac71d156b5d1fba7faa1ce0332ec955"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/a51471f4b69b9d47081d1cc92ba195212684c42e",
-                "reference": "a51471f4b69b9d47081d1cc92ba195212684c42e",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/33172973cac71d156b5d1fba7faa1ce0332ec955",
+                "reference": "33172973cac71d156b5d1fba7faa1ce0332ec955",
                 "shasum": ""
             },
             "require": {
@@ -2028,7 +2038,7 @@
                 "sonata-project/doctrine-orm-admin-bundle": "dev-master",
                 "sonata-project/intl-bundle": "dev-master"
             },
-            "time": "2013-02-04 14:15:48",
+            "time": "2013-02-05 12:56:59",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -2798,12 +2808,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle",
-                "reference": "e2984f645ad9b5fb3b6d398d0c65e59c745a110c"
+                "reference": "v2.1.1-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/e2984f645ad9b5fb3b6d398d0c65e59c745a110c",
-                "reference": "e2984f645ad9b5fb3b6d398d0c65e59c745a110c",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/v2.1.1-beta1",
+                "reference": "v2.1.1-beta1",
                 "shasum": ""
             },
             "require": {
