@@ -276,12 +276,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/Behat/MinkExtension.git",
-                "reference": "de6bd8dba0bbaaaf9ddfa81195423c7989dd0c2b"
+                "reference": "4fcc72c3b66338ae789229fc34786ea84728aff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkExtension/zipball/de6bd8dba0bbaaaf9ddfa81195423c7989dd0c2b",
-                "reference": "de6bd8dba0bbaaaf9ddfa81195423c7989dd0c2b",
+                "url": "https://api.github.com/repos/Behat/MinkExtension/zipball/4fcc72c3b66338ae789229fc34786ea84728aff1",
+                "reference": "4fcc72c3b66338ae789229fc34786ea84728aff1",
                 "shasum": ""
             },
             "require": {
@@ -292,7 +292,7 @@
             "require-dev": {
                 "behat/mink-goutte-driver": "*"
             },
-            "time": "2013-01-27 15:32:41",
+            "time": "2013-02-06 09:25:54",
             "type": "behat-extension",
             "autoload": {
                 "psr-0": {
@@ -1079,12 +1079,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "d94ce3ae790c6e07d1f366924de2a59205055557"
+                "reference": "1ceb60dcec48c5e26d6dbade66c1b0c654050775"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/d94ce3ae790c6e07d1f366924de2a59205055557",
-                "reference": "d94ce3ae790c6e07d1f366924de2a59205055557",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/1ceb60dcec48c5e26d6dbade66c1b0c654050775",
+                "reference": "1ceb60dcec48c5e26d6dbade66c1b0c654050775",
                 "shasum": ""
             },
             "require": {
@@ -1093,18 +1093,18 @@
             },
             "require-dev": {
                 "doctrine/dbal": ">=2.2",
-                "doctrine/mongodb": ">=1.0.0-BETA1",
-                "doctrine/mongodb-odm": ">=1.0.0-BETA6",
+                "doctrine/mongodb": "1.0.1",
+                "doctrine/mongodb-odm": "1.0.0-BETA7",
                 "doctrine/orm": ">=2.2",
                 "symfony/yaml": "2.*"
             },
             "suggest": {
-                "doctrine/dbal": ">=2.2",
-                "doctrine/mongodb": ">=1.0.0",
+                "doctrine/dbal": ">=2.3.2",
+                "doctrine/mongodb": ">=1.0.1",
                 "doctrine/mongodb-odm": ">=1.0.0-BETA7",
-                "doctrine/orm": ">=2.2"
+                "doctrine/orm": ">=2.3.2"
             },
-            "time": "2013-02-04 20:27:16",
+            "time": "2013-02-07 07:39:32",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1122,13 +1122,22 @@
             ],
             "authors": [
                 {
+                    "name": "David Buchmann",
+                    "email": "david@liip.ch"
+                },
+                {
                     "name": "Gediminas Morkevicius",
                     "email": "gediminas.morkevicius@gmail.com"
+                },
+                {
+                    "name": "Gustavo Falco",
+                    "email": "comfortablynumb84@gmail.com"
                 }
             ],
             "description": "Doctrine2 behavioral extensions",
             "homepage": "http://gediminasm.org/",
             "keywords": [
+                "Blameable",
                 "behaviors",
                 "doctrine2",
                 "extensions",
@@ -1139,7 +1148,8 @@
                 "sortable",
                 "timestampable",
                 "translatable",
-                "tree"
+                "tree",
+                "uploadable"
             ]
         },
         {
@@ -1701,12 +1711,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/padraic/mockery.git",
-                "reference": "ab12091ff183299d59cf63abe01cd925a03da8f4"
+                "reference": "0b29971a44c01d8a405f07cba056dae219352f99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/ab12091ff183299d59cf63abe01cd925a03da8f4",
-                "reference": "ab12091ff183299d59cf63abe01cd925a03da8f4",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/0b29971a44c01d8a405f07cba056dae219352f99",
+                "reference": "0b29971a44c01d8a405f07cba056dae219352f99",
                 "shasum": ""
             },
             "require": {
@@ -1718,7 +1728,7 @@
             "suggest": {
                 "Hamcrest": "1.0.0"
             },
-            "time": "2013-02-04 19:10:34",
+            "time": "2013-02-05 20:32:04",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -1998,12 +2008,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "a93ceedc7f3b4111cf0bf6f7ad568e1b1487918b"
+                "reference": "dc77e3b3b6fa4603e10e7c391a4641d72d352977"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/a93ceedc7f3b4111cf0bf6f7ad568e1b1487918b",
-                "reference": "a93ceedc7f3b4111cf0bf6f7ad568e1b1487918b",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/dc77e3b3b6fa4603e10e7c391a4641d72d352977",
+                "reference": "dc77e3b3b6fa4603e10e7c391a4641d72d352977",
                 "shasum": ""
             },
             "require": {
@@ -2028,7 +2038,7 @@
                 "sonata-project/doctrine-orm-admin-bundle": "dev-master",
                 "sonata-project/intl-bundle": "dev-master"
             },
-            "time": "2013-02-04 21:17:42",
+            "time": "2013-02-06 15:33:51",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -2798,12 +2808,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle",
-                "reference": "e2984f645ad9b5fb3b6d398d0c65e59c745a110c"
+                "reference": "v2.1.1-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/e2984f645ad9b5fb3b6d398d0c65e59c745a110c",
-                "reference": "e2984f645ad9b5fb3b6d398d0c65e59c745a110c",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/v2.1.1-beta1",
+                "reference": "v2.1.1-beta1",
                 "shasum": ""
             },
             "require": {
