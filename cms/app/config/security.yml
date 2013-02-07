@@ -60,4 +60,5 @@ security:
         - { path: ^/admin, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
         - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/timesheet, roles: [ROLE_EMPLOYEE] }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

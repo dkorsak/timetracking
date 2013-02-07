@@ -129,6 +129,13 @@ fos_user:
     user_class: App\GeneralBundle\Entity\User
     group:
         group_class: App\GeneralBundle\Entity\Group
+        
+    resetting:
+        email:
+            from_email: # Use this node only if you don't want the global email address for the resetting email
+                address: noreply@timetracking.com
+                sender_name: Admin
+            template:   FOSUserBundle:Resetting:email.txt.twig
 
 # Sonata Configuration
 sonata_cache:

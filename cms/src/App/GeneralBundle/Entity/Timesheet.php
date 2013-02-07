@@ -2,14 +2,14 @@
 
 namespace App\GeneralBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * App\GeneralBundle\Timesheet
  * 
  * @ORM\Table(name="timesheet")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\GeneralBundle\Entity\TimesheetRepository")
  */
 class Timesheet
 {
@@ -23,41 +23,18 @@ class Timesheet
     private $id;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="job_date", type="date", nullable=false)
+     * @ORM\Column(name="task_year", type="integer", nullable=false)
      */
-    private $jobDate;
+    private $year;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="job_time", type="integer", nullable=false)
+     * @ORM\Column(name="task_week", type="integer", nullable=false)
      */
-    private $time;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
+    private $week;
 
     /**
      * @var User
@@ -74,7 +51,22 @@ class Timesheet
      * @ORM\JoinColumn(name="project_to_task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     private $task;
+    
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="TimesheetItem", mappedBy="timesheet", cascade={"persist"})
+     */
+    private $timesheetItems;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->timesheetItems = new ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -86,118 +78,49 @@ class Timesheet
     }
 
     /**
-     * Set jobDate
+     * Set year
      *
-     * @param \DateTime $jobDate
+     * @param integer $year
      * @return Timesheet
      */
-    public function setJobDate($jobDate)
+    public function setYear($year)
     {
-        $this->jobDate = $jobDate;
+        $this->year = $year;
     
         return $this;
     }
 
     /**
-     * Get jobDate
-     *
-     * @return \DateTime 
-     */
-    public function getJobDate()
-    {
-        return $this->jobDate;
-    }
-
-    /**
-     * Set time
-     *
-     * @param integer $time
-     * @return Timesheet
-     */
-    public function setTime($time)
-    {
-        $this->time = $time;
-    
-        return $this;
-    }
-
-    /**
-     * Get time
+     * Get year
      *
      * @return integer 
      */
-    public function getTime()
+    public function getYear()
     {
-        return $this->time;
+        return $this->year;
     }
 
     /**
-     * Set description
+     * Set week
      *
-     * @param string $description
+     * @param integer $week
      * @return Timesheet
      */
-    public function setDescription($description)
+    public function setWeek($week)
     {
-        $this->description = $description;
+        $this->week = $week;
     
         return $this;
     }
 
     /**
-     * Get description
+     * Get week
      *
-     * @return string 
+     * @return integer 
      */
-    public function getDescription()
+    public function getWeek()
     {
-        return $this->description;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Timesheet
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-    
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime 
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Timesheet
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-    
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime 
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
+        return $this->week;
     }
 
     /**
@@ -244,5 +167,39 @@ class Timesheet
     public function getTask()
     {
         return $this->task;
+    }
+
+    /**
+     * Add timesheetItems
+     *
+     * @param \App\GeneralBundle\Entity\TimesheetItem $timesheetItems
+     * @return Timesheet
+     */
+    public function addTimesheetItem(\App\GeneralBundle\Entity\TimesheetItem $timesheetItems)
+    {
+        $this->timesheetItems[] = $timesheetItems;
+        $timesheetItems->setTimesheet($this);
+        
+        return $this;
+    }
+
+    /**
+     * Remove timesheetItems
+     *
+     * @param \App\GeneralBundle\Entity\TimesheetItem $timesheetItems
+     */
+    public function removeTimesheetItem(\App\GeneralBundle\Entity\TimesheetItem $timesheetItems)
+    {
+        $this->timesheetItems->removeElement($timesheetItems);
+    }
+
+    /**
+     * Get timesheetItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTimesheetItems()
+    {
+        return $this->timesheetItems;
     }
 }

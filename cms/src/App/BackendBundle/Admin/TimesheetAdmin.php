@@ -19,7 +19,7 @@ class TimesheetAdmin extends Admin
      */
     protected $datagridValues = array(
         '_sort_order' => 'ASC',
-        '_sort_by' => 'jobDate'
+        '_sort_by' => 'taskYear'
     );
 
     /**
@@ -42,7 +42,8 @@ class TimesheetAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('jobDate')
+            ->add('user.name')
+            ->add('task.task.name')
             ->add(
                 '_action',
                 'actions',

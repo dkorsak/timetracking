@@ -59,6 +59,8 @@
         </tr>
     </tfoot>
     <tbody>
+    {% if list|length > 0 %}
+    {% for item in list %}
     <tr>
         <td class="task">
             <span class="company">Coca cola</span>
@@ -75,6 +77,8 @@
         <td class="total">40:00</td>
         <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
     </tr>
+    {% endfor %}
+    {% endif %}
         <tr>
         <td class="task">
             <span class="company">Coca cola</span>

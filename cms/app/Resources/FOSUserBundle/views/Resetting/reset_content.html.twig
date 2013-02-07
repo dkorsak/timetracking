@@ -1,0 +1,25 @@
+<div class="row login-form">
+    <div class="span4 offset4 well">
+        <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+            <legend>{% trans from 'timesheet' %}Enter new password{% endtrans %}</legend>
+            <div class="control-group">
+                {% if form.plainPassword.first.vars.errors|length > 0 %}
+                <div class="alert alert-error">
+                {{ form_errors(form.plainPassword.first) }}
+                </div>
+                {% endif %}
+                {{ form_widget(form.plainPassword.first, {attr: {"class" : "span12", "placeholder" : "New password"|trans({}, 'timesheet') }}) }}
+            </div>
+            <div class="control-group">
+                {% if form.plainPassword.second.vars.errors|length > 0 %}
+                <div class="alert alert-error">
+                {{ form_errors(form.plainPassword.second) }}
+                </div>
+                {% endif %}
+                {{ form_widget(form.plainPassword.second, {attr: {"class" : "span12", "placeholder" : "Repeat password"|trans({}, 'timesheet') }}) }}
+            </div>
+            {{ form_rest(form) }}
+            <button type="submit" name="submit" class="btn btn-info btn-block">{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}</button>
+        </form>
+    </div>
+</div>

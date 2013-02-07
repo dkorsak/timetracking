@@ -100,8 +100,7 @@ class ProjectAdmin extends Admin
     {
         $query = $this->modelManager
             ->getEntityManager('AppGeneralBundle:User')
-            ->createQuery('SELECT u FROM AppGeneralBundle:User u JOIN u.groups g WHERE g.roles LIKE :role ORDER BY u.firstname, u.lastname')
-            ->setParameter('role', '%ROLE_EMPLOYEE%');
+            ->createQuery('SELECT u FROM AppGeneralBundle:User u ORDER BY u.firstname, u.lastname');
         
         return $query;
     }

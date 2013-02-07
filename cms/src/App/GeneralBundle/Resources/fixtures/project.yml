@@ -5,6 +5,7 @@ project1:
     user_list:
         - employee1
         - employee2
+        - admin_user_dk
     task_list:
         p1t1:
             task_id: task1
@@ -14,3 +15,22 @@ project1:
             task_id: task3
         p1t4:
             task_id: task4
+
+project2:
+    name:     "Serwis internetowy [123]"
+    company_id: coca_cola
+    status_id:  StatusActive
+    user_list:
+        - employee1
+        - employee2
+        - admin_user_dk
+    task_list:
+        p2t1:
+            task_id: task5
+        p2t2:
+            task_id: task6
+        p2t3:
+            task_id: task7
+        p2t4:
+            task_id: task8
+            

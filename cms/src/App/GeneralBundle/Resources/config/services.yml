@@ -12,3 +12,6 @@ services:
     app_general.services.stats.memcached_stats:
         class: App\GeneralBundle\Services\Stats\MemcachedStats
         arguments: [%memcached_host%, %memcached_port%]
+
+    app_general.services.timesheet:
+        class: App\GeneralBundle\Services\Timesheet
