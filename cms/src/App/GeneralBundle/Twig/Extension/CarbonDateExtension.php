@@ -91,7 +91,7 @@ class CarbonDateExtension extends \Twig_Extension
     /**
      * @param \DateTime $date
      * @return \DateTime
-     */    
+     */
     public function getNextDay(\DateTime $date)
     {
         $carbonDate = Carbon::instance($date);

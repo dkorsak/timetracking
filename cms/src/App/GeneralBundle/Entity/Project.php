@@ -54,8 +54,12 @@ class Project
      *
      * @ORM\ManyToMany(targetEntity="User", inversedBy="projects")
      * @ORM\JoinTable(name="project_to_user",
-     *     joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)}
+     *     joinColumns={
+     *         @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     *     },
+     *     inverseJoinColumns={
+     *         @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE", nullable=false)
+     *     }
      * )
      */
     private $users;
