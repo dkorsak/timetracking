@@ -188,6 +188,7 @@
                 <exclude name="*.phar"/>
                 <exclude name="deploy.sh"/>
                 <exclude name="behat.sh"/>
+                <exclude name=".php_cs"/>
                 <exclude name="rsync_exclude.txt"/>
                 <exclude name="src/App/**/Features/**"/>
                 <exclude name="src/App/**/Tests/**"/>
@@ -229,6 +230,7 @@
             <if>
                 <equals arg1="${deploy.execute.phpcs}" arg2="true"/>
                 <then>
+                    <antcall target="fixcs"/>
                     <phpcs debug="false"/>
                 </then>
             </if>
