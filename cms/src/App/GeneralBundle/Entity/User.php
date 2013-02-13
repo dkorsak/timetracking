@@ -349,4 +349,21 @@ class User extends BaseUser
     {
         return $this->getFirstname() . ' ' . $this->getLastname();
     }
+    
+
+    /**
+     * @return DateTime
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCredentialsExpireAt()
+    {
+        return $this->credentialsExpireAt;
+    }
 }
