@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Admin class for managing user timesheet
- * 
+ *
  */
 class TimesheetAdmin extends Admin
 {

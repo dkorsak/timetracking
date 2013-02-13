@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\Project
- * 
+ *
  * @ORM\Table(name="project")
  * @ORM\Entity()
  */
@@ -16,7 +16,7 @@ class Project
 {
     /**
      * @var integer
-     * 
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -42,10 +42,10 @@ class Project
 
     /**
      * @var Company
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Company")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
-     * @Assert\NotNull() 
+     * @Assert\NotNull()
      */
     private $company;
 
@@ -83,7 +83,7 @@ class Project
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -93,20 +93,20 @@ class Project
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string  $name
      * @return Project
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -116,20 +116,20 @@ class Project
     /**
      * Set status
      *
-     * @param \App\GeneralBundle\Entity\ProjectStatus $status
+     * @param  \App\GeneralBundle\Entity\ProjectStatus $status
      * @return Project
      */
     public function setStatus(\App\GeneralBundle\Entity\ProjectStatus $status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return \App\GeneralBundle\Entity\ProjectStatus 
+     * @return \App\GeneralBundle\Entity\ProjectStatus
      */
     public function getStatus()
     {
@@ -139,20 +139,20 @@ class Project
     /**
      * Set company
      *
-     * @param \App\GeneralBundle\Entity\Company $company
+     * @param  \App\GeneralBundle\Entity\Company $company
      * @return Project
      */
     public function setCompany(\App\GeneralBundle\Entity\Company $company)
     {
         $this->company = $company;
-    
+
         return $this;
     }
 
     /**
      * Get company
      *
-     * @return \App\GeneralBundle\Entity\Company 
+     * @return \App\GeneralBundle\Entity\Company
      */
     public function getCompany()
     {
@@ -162,13 +162,13 @@ class Project
     /**
      * Add users
      *
-     * @param \App\GeneralBundle\Entity\User $users
+     * @param  \App\GeneralBundle\Entity\User $users
      * @return Project
      */
     public function addUser(\App\GeneralBundle\Entity\User $users)
     {
         $this->users[] = $users;
-    
+
         return $this;
     }
 
@@ -185,7 +185,7 @@ class Project
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
@@ -195,13 +195,13 @@ class Project
     /**
      * Add tasks
      *
-     * @param \App\GeneralBundle\Entity\ProjectToTask $tasks
+     * @param  \App\GeneralBundle\Entity\ProjectToTask $tasks
      * @return Project
      */
     public function addTask(\App\GeneralBundle\Entity\ProjectToTask $tasks)
     {
         $this->tasks[] = $tasks;
-    
+
         return $this;
     }
 
@@ -218,7 +218,7 @@ class Project
     /**
      * Get tasks
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTasks()
     {

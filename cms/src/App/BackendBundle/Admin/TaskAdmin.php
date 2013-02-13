@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 
 /**
  * Admin class for managing tasks
- * 
+ *
  */
 class TaskAdmin extends Admin
 {
@@ -37,10 +37,11 @@ class TaskAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $help = $this->trans('If set task will be auto added into created project');
         $formMapper
             ->with('General')
                 ->add('name')
-                ->add('global', null, array('required' => false, 'help' => $this->trans('If set task will be auto added into created project')))
+                ->add('global', null, array('required' => false, 'help' => $help))
             ->end();
     }
 

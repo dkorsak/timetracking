@@ -6,8 +6,6 @@ use App\GeneralBundle\Entity\ProjectStatus;
 use App\GeneralBundle\DataFixtures\ORM\YamlFixtures;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 class LoadProjectStatus extends YamlFixtures implements OrderedFixtureInterface, ContainerAwareInterface

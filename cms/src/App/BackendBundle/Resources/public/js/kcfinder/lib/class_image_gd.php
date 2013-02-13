@@ -12,12 +12,12 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class image_gd extends image {
-
-
+class image_gd extends image
+{
     // ABSTRACT PUBLIC METHODS
 
-    public function resize($width, $height) {
+    public function resize($width, $height)
+    {
         if (!$width) $width = 1;
         if (!$height) $height = 1;
         return (
@@ -29,7 +29,8 @@ class image_gd extends image {
         );
     }
 
-    public function resizeFit($width, $height, $background=false) {
+    public function resizeFit($width, $height, $background=false)
+    {
         if ((!$width && !$height) || (($width == $this->width) && ($height == $this->height)))
             return true;
         if (!$width || (($height / $width) < ($this->height / $this->width))) {
@@ -57,6 +58,7 @@ class image_gd extends image {
                 (false === $img->imageFilledRectangle(0, 0, $width, $height, $background)) ||
                 (false === $img->imageCopyResampled($this->image, $x, $y, 0, 0, $w, $h))
             )
+
                 return false;
 
             $this->image = $img->image;
@@ -67,8 +69,8 @@ class image_gd extends image {
         }
     }
 
-    public function resizeCrop($width, $height, $offset=false) {
-
+    public function resizeCrop($width, $height, $offset=false)
+    {
         if (($this->width / $this->height) > ($width / $height)) {
             $h = $height;
             $w = ($this->width * $h) / $this->height;
@@ -117,7 +119,8 @@ class image_gd extends image {
         return $return;
     }
 
-    public function rotate($angle, $background="#000000") {
+    public function rotate($angle, $background="#000000")
+    {
         $angle = -$angle;
         $img = @imagerotate($this->image, $angle, $this->gdColor($background));
         if ($img === false)
@@ -125,10 +128,12 @@ class image_gd extends image {
         $this->width = imagesx($img);
         $this->height = imagesy($img);
         $this->image = $img;
+
         return true;
     }
 
-    public function flipHorizontal() {
+    public function flipHorizontal()
+    {
         $img = imagecreatetruecolor($this->width, $this->height);
         if (imagecopyresampled($img, $this->image, 0, 0, ($this->width - 1), 0, $this->width, $this->height, -$this->width, $this->height))
             $this->image = $img;
@@ -137,7 +142,8 @@ class image_gd extends image {
         return true;
     }
 
-    public function flipVertical() {
+    public function flipVertical()
+    {
         $img = imagecreatetruecolor($this->width, $this->height);
         if (imagecopyresampled($img, $this->image, 0, 0, 0, ($this->height - 1), $this->width, $this->height, $this->width, -$this->height))
             $this->image = $img;
@@ -146,7 +152,8 @@ class image_gd extends image {
         return true;
     }
 
-    public function watermark($file, $left=false, $top=false) {
+    public function watermark($file, $left=false, $top=false)
+    {
         $info = getimagesize($file);
         list($w, $h, $t) = $info;
         if (!in_array($t, array(IMAGETYPE_PNG, IMAGETYPE_GIF)))
@@ -156,6 +163,7 @@ class image_gd extends image {
         if (!@imagealphablending($this->image, true) ||
             (false === ($wm = @$imagecreate($file)))
         )
+
             return false;
 
         $w = imagesx($wm);
@@ -173,6 +181,7 @@ class image_gd extends image {
             (($y + $h) > $this->height) ||
             ($x < 0) || ($y < 0)
         )
+
             return false;
 
         if (($wm === false) || !@imagecopy($this->image, $wm, $x, $y, 0, 0, $w, $h))
@@ -180,28 +189,31 @@ class image_gd extends image {
 
         @imagealphablending($this->image, false);
         @imagesavealpha($this->image, true);
+
         return true;
     }
 
-    public function output($type='jpeg', array $options=array()) {
+    public function output($type='jpeg', array $options=array())
+    {
         $method = "output_$type";
         if (!method_exists($this, $method))
             return false;
         return $this->$method($options);
     }
 
-
     // ABSTRACT PROTECTED METHODS
 
-    protected function getBlankImage($width, $height) {
+    protected function getBlankImage($width, $height)
+    {
         return @imagecreatetruecolor($width, $height);
     }
 
-    protected function getImage($image, &$width, &$height) {
-
+    protected function getImage($image, &$width, &$height)
+    {
         if (is_resource($image) && (get_resource_type($image) == "gd")) {
             $width = @imagesx($image);
             $height = @imagesy($image);
+
             return $image;
 
         } elseif (is_string($image) &&
@@ -218,20 +230,23 @@ class image_gd extends image {
             return $image;
 
         } else
+
             return false;
     }
 
-
     // PSEUDO-ABSTRACT STATIC METHODS
 
-    static function available() {
+    public static function available()
+    {
         return function_exists("imagecreatefromjpeg");
     }
 
-    static function checkImage($file) {
+    public static function checkImage($file)
+    {
         if (!is_string($file) ||
             ((false === (list($width, $height, $t) = @getimagesize($file))))
         )
+
             return false;
 
         $img =
@@ -245,37 +260,43 @@ class image_gd extends image {
         return ($img !== false);
     }
 
-
     // OWN METHODS
 
-    protected function output_png(array $options=array()) {
+    protected function output_png(array $options=array())
+    {
         $file = isset($options['file']) ? $options['file'] : null;
         $quality = isset($options['quality']) ? $options['quality'] : null;
         $filters = isset($options['filters']) ? $options['filters'] : null;
         if (($file === null) && !headers_sent())
             header("Content-Type: image/png");
         @imagesavealpha($this->image, true);
+
         return imagepng($this->image, $file, $quality, $filters);
     }
 
-    protected function output_jpeg(array $options=array()) {
+    protected function output_jpeg(array $options=array())
+    {
         $file = isset($options['file']) ? $options['file'] : null;
         $quality = isset($options['quality'])
             ? $options['quality']
             : self::DEFAULT_JPEG_QUALITY;
         if (($file === null) && !headers_sent())
             header("Content-Type: image/jpeg");
+
         return imagejpeg($this->image, $file, $quality);
     }
 
-    protected function output_gif(array $options=array()) {
+    protected function output_gif(array $options=array())
+    {
         $file = isset($options['file']) ? $options['file'] : null;
         if (isset($options['file']) && !headers_sent())
             header("Content-Type: image/gif");
+
         return imagegif($this->image, $file);
     }
 
-    protected function gdColor() {
+    protected function gdColor()
+    {
         $args = func_get_args();
 
         $exprRGB = '/^rgb\(\s*(\d{1,3})\s*\,\s*(\d{1,3})\s*\,\s*(\d{1,3})\s*\)$/i';
@@ -312,12 +333,14 @@ class image_gd extends image {
             list($r, $g, $b) = $args;
 
         } else
+
             return false;
 
         return imagecolorallocate($this->image, $r, $g, $b);
     }
 
-    protected function imageFilledRectangle($x1, $y1, $x2, $y2, $color) {
+    protected function imageFilledRectangle($x1, $y1, $x2, $y2, $color)
+    {
         $color = $this->gdColor($color);
         if ($color === false) return false;
         return imageFilledRectangle($this->image, $x1, $y1, $x2, $y2, $color);
@@ -340,5 +363,3 @@ class image_gd extends image {
         return imageCopyResampled($this->image, $src, $dstX, $dstY, $srcX, $srcY, $dstW, $dstH, $srcW, $srcH);
     }
 }
-
-?>

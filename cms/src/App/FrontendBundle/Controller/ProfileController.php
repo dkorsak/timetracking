@@ -10,9 +10,9 @@ class ProfileController extends Controller
     public function editAction(Request $request)
     {
         return $this->render(
-            'AppFrontendBundle:Profile:edit.html.twig', 
+            'AppFrontendBundle:Profile:edit.html.twig',
             array(
-                
+
             )
         );
     }
@@ -20,9 +20,9 @@ class ProfileController extends Controller
     public function updateAction(Request $request)
     {
         return $this->render(
-            'AppFrontendBundle:Profile:edit.html.twig', 
+            'AppFrontendBundle:Profile:edit.html.twig',
             array(
-                
+
             )
         );
     }

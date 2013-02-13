@@ -30,7 +30,7 @@ class CarbonDateExtension extends \Twig_Extension
     }
 
     /**
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return \DateTime
      */
     public function getNextWeekStartDate(\DateTime $date)
@@ -39,7 +39,7 @@ class CarbonDateExtension extends \Twig_Extension
     }
 
     /**
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return \DateTime
      */
     public function getPrevWeekStartDate(\DateTime $date)
@@ -48,7 +48,7 @@ class CarbonDateExtension extends \Twig_Extension
     }
 
     /**
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return \DateTime
      */
     public function getStartWeekDate(\DateTime $date)
@@ -58,12 +58,12 @@ class CarbonDateExtension extends \Twig_Extension
         if ($dayOfWeek == 0) {
             $dayOfWeek = 7;
         }
-        
+
         return $carbonDate->subDays($dayOfWeek-1);
     }
 
     /**
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return \DateTime
      */
     public function getEndWeekDate(\DateTime $date)
@@ -73,32 +73,32 @@ class CarbonDateExtension extends \Twig_Extension
         if ($dayOfWeek == 0) {
             $dayOfWeek = 7;
         }
-        
+
         return $carbonDate->addDays(7-$dayOfWeek);
     }
 
     /**
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return \DateTime
      */
     public function getPrevDay(\DateTime $date)
     {
         $carbonDate = Carbon::instance($date);
-        
+
         return $carbonDate->subDay();
     }
 
     /**
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return \DateTime
      */
     public function getNextDay(\DateTime $date)
     {
         $carbonDate = Carbon::instance($date);
-        
+
         return $carbonDate->addDay();
     }
-    
+
     /**
      * {@inheritdoc}
      */

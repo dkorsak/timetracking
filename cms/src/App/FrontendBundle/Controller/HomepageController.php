@@ -13,7 +13,7 @@ class HomepageController extends Controller
         }
 
         return $this->render(
-            'FOSUserBundle:Security:login.html.twig', 
+            'FOSUserBundle:Security:login.html.twig',
             array(
                 'last_username' => "",
                 'error'         => "",

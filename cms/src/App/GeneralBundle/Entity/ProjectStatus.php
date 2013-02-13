@@ -2,12 +2,11 @@
 
 namespace App\GeneralBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * App\GeneralBundle\ProjectStatus
- * 
+ *
  * @ORM\Table(name="project_status")
  * @ORM\Entity()
  */
@@ -15,7 +14,7 @@ class ProjectStatus
 {
     /**
      * @var integer
-     * 
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -32,7 +31,7 @@ class ProjectStatus
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -46,25 +45,24 @@ class ProjectStatus
     {
         return $this->getName();
     }
-    
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string        $name
      * @return ProjectStatus
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

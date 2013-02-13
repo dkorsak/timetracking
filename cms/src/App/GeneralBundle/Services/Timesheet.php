@@ -7,9 +7,9 @@ use Carbon\Carbon;
 class Timesheet
 {
     /**
-     * @param string $year
-     * @param string $month
-     * @param string $day
+     * @param  string $year
+     * @param  string $month
+     * @param  string $day
      * @return Carbon
      */
     public function getCurrentDate($year = "", $month = "", $day = "")

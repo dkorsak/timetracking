@@ -20,7 +20,7 @@ class PasswordResettingListener implements EventSubscriberInterface
 
     /**
      * Constructor
-     * 
+     *
      * @param UrlGeneratorInterface $router
      */
     public function __construct(UrlGeneratorInterface $router)

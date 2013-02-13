@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * App\GeneralBundle\Timesheet
- * 
+ *
  * @ORM\Table(name="timesheet")
  * @ORM\Entity(repositoryClass="App\GeneralBundle\Entity\TimesheetRepository")
  */
@@ -51,10 +51,10 @@ class Timesheet
      * @ORM\JoinColumn(name="project_to_task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     private $task;
-    
+
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="TimesheetItem", mappedBy="timesheet", cascade={"persist"})
      */
     private $timesheetItems;
@@ -66,11 +66,11 @@ class Timesheet
     {
         $this->timesheetItems = new ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,20 +80,20 @@ class Timesheet
     /**
      * Set year
      *
-     * @param integer $year
+     * @param  integer   $year
      * @return Timesheet
      */
     public function setYear($year)
     {
         $this->year = $year;
-    
+
         return $this;
     }
 
     /**
      * Get year
      *
-     * @return integer 
+     * @return integer
      */
     public function getYear()
     {
@@ -103,20 +103,20 @@ class Timesheet
     /**
      * Set week
      *
-     * @param integer $week
+     * @param  integer   $week
      * @return Timesheet
      */
     public function setWeek($week)
     {
         $this->week = $week;
-    
+
         return $this;
     }
 
     /**
      * Get week
      *
-     * @return integer 
+     * @return integer
      */
     public function getWeek()
     {
@@ -126,20 +126,20 @@ class Timesheet
     /**
      * Set user
      *
-     * @param \App\GeneralBundle\Entity\User $user
+     * @param  \App\GeneralBundle\Entity\User $user
      * @return Timesheet
      */
     public function setUser(\App\GeneralBundle\Entity\User $user)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \App\GeneralBundle\Entity\User 
+     * @return \App\GeneralBundle\Entity\User
      */
     public function getUser()
     {
@@ -149,20 +149,20 @@ class Timesheet
     /**
      * Set task
      *
-     * @param \App\GeneralBundle\Entity\ProjectToTask $task
+     * @param  \App\GeneralBundle\Entity\ProjectToTask $task
      * @return Timesheet
      */
     public function setTask(\App\GeneralBundle\Entity\ProjectToTask $task)
     {
         $this->task = $task;
-    
+
         return $this;
     }
 
     /**
      * Get task
      *
-     * @return \App\GeneralBundle\Entity\ProjectToTask 
+     * @return \App\GeneralBundle\Entity\ProjectToTask
      */
     public function getTask()
     {
@@ -172,14 +172,14 @@ class Timesheet
     /**
      * Add timesheetItems
      *
-     * @param \App\GeneralBundle\Entity\TimesheetItem $timesheetItems
+     * @param  \App\GeneralBundle\Entity\TimesheetItem $timesheetItems
      * @return Timesheet
      */
     public function addTimesheetItem(\App\GeneralBundle\Entity\TimesheetItem $timesheetItems)
     {
         $this->timesheetItems[] = $timesheetItems;
         $timesheetItems->setTimesheet($this);
-        
+
         return $this;
     }
 
@@ -196,7 +196,7 @@ class Timesheet
     /**
      * Get timesheetItems
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTimesheetItems()
     {

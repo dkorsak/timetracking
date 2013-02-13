@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * App\GeneralBundle\TimesheetItem
- * 
+ *
  * @ORM\Table(name="timesheet_item")
  * @ORM\Entity()
  */
@@ -53,7 +53,7 @@ class TimesheetItem
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,20 +63,20 @@ class TimesheetItem
     /**
      * Set weekDay
      *
-     * @param integer $weekDay
+     * @param  integer       $weekDay
      * @return TimesheetItem
      */
     public function setWeekDay($weekDay)
     {
         $this->weekDay = $weekDay;
-    
+
         return $this;
     }
 
     /**
      * Get weekDay
      *
-     * @return integer 
+     * @return integer
      */
     public function getWeekDay()
     {
@@ -86,20 +86,20 @@ class TimesheetItem
     /**
      * Set workTime
      *
-     * @param integer $workTime
+     * @param  integer       $workTime
      * @return TimesheetItem
      */
     public function setWorkTime($workTime)
     {
         $this->workTime = $workTime;
-    
+
         return $this;
     }
 
     /**
      * Get workTime
      *
-     * @return integer 
+     * @return integer
      */
     public function getWorkTime()
     {
@@ -109,20 +109,20 @@ class TimesheetItem
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string        $description
      * @return TimesheetItem
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -132,20 +132,20 @@ class TimesheetItem
     /**
      * Set timesheet
      *
-     * @param \App\GeneralBundle\Entity\Timesheet $timesheet
+     * @param  \App\GeneralBundle\Entity\Timesheet $timesheet
      * @return TimesheetItem
      */
     public function setTimesheet(\App\GeneralBundle\Entity\Timesheet $timesheet)
     {
         $this->timesheet = $timesheet;
-    
+
         return $this;
     }
 
     /**
      * Get timesheet
      *
-     * @return \App\GeneralBundle\Entity\Timesheet 
+     * @return \App\GeneralBundle\Entity\Timesheet
      */
     public function getTimesheet()
     {
