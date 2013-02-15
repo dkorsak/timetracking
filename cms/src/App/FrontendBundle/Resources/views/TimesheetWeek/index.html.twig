@@ -23,129 +23,74 @@
         {% set format = currentDate|date('Y') == currentDate|end_week_date|date('Y') ? 'dd MMM' : 'dd MMM yyyy' %}
         <h3>{{ currentDate|start_week_date|format_date(format) }} - {{ currentDate|end_week_date|format_date('dd MMM yyyy') }}</h3>
     </div>
-    <table class="table table-striped table-hover timesheet-table">
-    <thead>
+    <form action="#" method="post" class="clearfix">
+        <table class="table table-striped table-hover timesheet-table">
+        <thead>
+            <tr>
+                <th class="task">&nbsp;</th>
+                {% for day in 0..6 %}
+                <th class="time">
+                    {% set loopDate = currentDate|start_week_date.addDays(day) %}
+                    {{ loopDate|format_date('EEE') }}<br />
+                    <a href="{{ path('timesheet_day') }}{{ loopDate|date('/Y/m/d') }}">{{ loopDate|format_date('dd MMM') }}</a>
+                </th>
+                {% endfor %}
+                <th class="total">{% trans from 'timesheet' %}Total{% endtrans %}</th>
+                <th class="actions">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if list|length > 0 %}
+        {% for key, item in list %}
         <tr>
-            <th class="task">&nbsp;</th>
-            {% for day in 0..6 %}
-            <th class="time">
-                {% set loopDate = currentDate|start_week_date.addDays(day) %}
-                {{ loopDate|format_date('EEE') }}<br />
-                <a href="{{ path('timesheet_day') }}{{ loopDate|date('/Y/m/d') }}">{{ loopDate|format_date('dd MMM') }}</a>
-            </th>
-            {% endfor %}
-            <th class="total">{% trans from 'timesheet' %}Total{% endtrans %}</th>
-            <th class="actions">&nbsp;</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <td class="task">{% trans from 'timesheet' %}Total{% endtrans %}</td>
-            <td class="time">40.00</td>
-            <td class="time">40.00</td>
-            <td class="time">40.00</td>
-            <td class="time">40.00</td>
-            <td class="time">40.00</td>
-            <td class="time">40.00</td>
-            <td class="time">40.00</td>
-            <td class="total">40.00</td>
-            <td class="actions">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="10">
-                <a href="#" class="btn"><i class="icon-plus"></i> {% trans from 'timesheet' %}Add row{% endtrans %}</a>
-                <a href="#" class="btn btn-success">{% trans from 'timesheet' %}Save{% endtrans %}</a>
+            <td class="task">
+                <span class="company">{{ item.company_name }}</span>
+                <span class="project">{{ item.project_name }}</span>
+                <span class="name">{{ item.task_name }}</span>
             </td>
+            {% set total_time_task = 0 %}
+            {% for day in 1..7 %}
+            {% set value = (item.days is defined and item.days[day] is defined) ? item.days[day] : '' %}
+            {% set total_time_task = total_time_task + value %}
+            <td class="time"><input type="text" name="time[{{ key }}][{{ day }}]" value="{{ value|convert_to_time }}" alt="time"/></td>
+            {% endfor %}
+            <td class="total">{{ total_time_task|convert_to_time }}</td>
+            <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
         </tr>
-    </tfoot>
-    <tbody>
-    {% if list|length > 0 %}
-    {% for item in list %}
-    <tr>
-        <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
-        </td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="total">40:00</td>
-        <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
-    </tr>
-    {% endfor %}
-    {% endif %}
+        {% endfor %}
+        {% else %}
         <tr>
-        <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
-        </td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="total">40:00</td>
-        <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
-    </tr>
-        <tr>
-        <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
-        </td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="total">40:00</td>
-        <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
-    </tr>
-        <tr>
-        <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
-        </td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="time"><input type="text" alt="time"/></td>
-        <td class="total">40:00</td>
-        <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
-    </tr>
-    <tr>
-        <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
-        </td>
-    <td class="time"><input type="text" alt="time"/></td>
-    <td class="time"><input type="text" alt="time"/></td>
-    <td class="time"><input type="text" alt="time"/></td>
-    <td class="time"><input type="text" alt="time"/></td>
-    <td class="time"><input type="text" alt="time"/></td>
-    <td class="time"><input type="text" alt="time"/></td>
-    <td class="time"><input type="text" alt="time"/></td>
-    <td class="total">40:00</td>
-    <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
-    </tr>
-
-    </tbody>
-</table>
+            <td colspan="10">No data</td>
+        </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+            {% if list|length > 0 %}
+            <tr>
+                <td class="task">{% trans from 'timesheet' %}Total{% endtrans %}</td>
+                {% set toal_time_week  = 0 %}
+                {% for day in 1..7 %}
+                {% set total_time_day = 0 %}
+                {% for key, item in list %}
+                {% set value = (item.days is defined and item.days[day] is defined) ? item.days[day] : '' %}
+                {% set total_time_day = total_time_day + value %}
+                {% set toal_time_week = toal_time_week + value %}
+                {% endfor %}
+                <td class="time">{{ total_time_day|convert_to_time }}</td>
+                {% endfor %}
+                <td class="total">{{ toal_time_week|convert_to_time }}</td>
+                <td class="actions">&nbsp;</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td colspan="10">
+                    <a href="#" class="btn"><i class="icon-plus"></i> {% trans from 'timesheet' %}Add row{% endtrans %}</a>
+                    <button type="submit" class="btn btn-success">{% trans from 'timesheet' %}Save{% endtrans %}</button>
+                </td>
+            </tr>
+        </tfoot>
+        </table>
+    </form>
 </div>
 
 {% endblock %}

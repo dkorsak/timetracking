@@ -18,6 +18,7 @@ class CarbonDateExtension extends \Twig_Extension
             'end_week_date' => new \Twig_Filter_Method($this, 'getEndWeekDate'),
             'prev_day' => new \Twig_Filter_Method($this, 'getPrevDay'),
             'next_day' => new \Twig_Filter_Method($this, 'getNextDay'),
+            'convert_to_time' =>  new \Twig_Filter_Method($this, 'getTimeFromInteger'),
         );
     }
 
@@ -97,6 +98,33 @@ class CarbonDateExtension extends \Twig_Extension
         $carbonDate = Carbon::instance($date);
 
         return $carbonDate->addDay();
+    }
+
+    /**
+     * @param  number $minutes
+     * @return string
+     */
+    public function getTimeFromInteger($minutes)
+    {
+        $carbonStartDate = Carbon::create(null, null, null, 0, 0, 0);
+
+        $carbonEndDate = clone $carbonStartDate;
+        $carbonEndDate->addMinutes($minutes);
+
+        $hours = $carbonEndDate->diffInHours($carbonStartDate);
+        $carbonEndDate->subHours($hours);
+
+        $minutes = $carbonEndDate->diffInMinutes($carbonStartDate);
+
+        if (strlen($hours) == 1) {
+            $hours = '0' . $hours;
+        }
+
+        if (strlen($minutes) == 1) {
+            $minutes = '0' . $minutes;
+        }
+
+        return $hours . ':' . $minutes;
     }
 
     /**

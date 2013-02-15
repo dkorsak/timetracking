@@ -12,9 +12,41 @@ use Doctrine\ORM\EntityRepository;
  */
 class TimesheetRepository extends EntityRepository
 {
-    public function getWeeklyTimesheet(\DateTime $date, $userId)
+    /**
+     * Get weekly timesheet for given user
+     *
+     * @param  integer $year
+     * @param  integer $week
+     * @param  integer $userId
+     * @return array
+     */
+    public function getWeeklyTimesheet($year, $week, $userId)
     {
-        return array();
+        $dql = "
+            SELECT
+                ptt.id AS id,
+                ti.weekDay AS day,
+                ti.workTime AS time,
+                p.name AS project_name,
+                task.name AS task_name,
+                c.name AS company_name
+            FROM AppGeneralBundle:Timesheet t
+            JOIN t.timesheetItems ti
+            JOIN t.task ptt
+            JOIN ptt.project p
+            JOIN ptt.task task
+            JOIN p.company c
+            WHERE t.user = :userId
+            AND t.year = :year
+            AND t.week = :week
+            ORDER BY t.created ASC
+        ";
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter("userId", $userId);
+        $query->setParameter("year", $year);
+        $query->setParameter("week", $week);
+
+        return $query->getArrayResult();
     }
 
     public function getDailyTimesheet(\DateTime $date, $userId)

@@ -2,6 +2,7 @@
 
 namespace App\GeneralBundle\Entity;
 
+use Symfony\Component\Validator\ExecutionContext;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -22,6 +23,7 @@ use App\GeneralBundle\Validator\Constraints as AppGeneralAssert;
  * @UniqueEntity(fields={"email"})
  * @UniqueEntity(fields={"username"})
  * @AppGeneralAssert\ChangePassword(groups={"Profile"})
+ * @Assert\Callback(methods={"isGroupValid"})
  */
 class User extends BaseUser
 {
@@ -49,6 +51,14 @@ class User extends BaseUser
      * @Assert\NotBlank()
      */
     private $lastname;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    protected $email;
 
     /**
      * @var \DateTime
@@ -349,7 +359,6 @@ class User extends BaseUser
     {
         return $this->getFirstname() . ' ' . $this->getLastname();
     }
-    
 
     /**
      * @return DateTime
@@ -365,5 +374,17 @@ class User extends BaseUser
     public function getCredentialsExpireAt()
     {
         return $this->credentialsExpireAt;
+    }
+
+    /**
+     * Validate if use group is not empty
+     *
+     * @param ExecutionContext $context
+     */
+    public function isGroupValid(ExecutionContext $context)
+    {
+        if ($this->groups->count() == 0) {
+            $context->addViolationAtSubPath('groups', 'This value should not be blank.', array(), null);
+        }
     }
 }

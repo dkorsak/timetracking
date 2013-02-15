@@ -16,15 +16,14 @@ class TimesheetWeekController extends Controller
      */
     public function indexAction($year = "", $month = "", $day = "")
     {
-        $currentDate = $this->get('app_general.services.timesheet')->getCurrentDate($year, $month, $year);
-
-        $timesheetRepository = $this->getDoctrine()->getRepository('AppGeneralBundle:Timesheet');
+        $service = $this->get('app_general.services.timesheet');
+        $currentDate = $service->getCurrentDate($year, $month, $day);
 
         return $this->render(
             'AppFrontendBundle:TimesheetWeek:index.html.twig',
             array(
                 'currentDate' => $currentDate,
-                'list' => $timesheetRepository->getWeeklyTimesheet($currentDate, $this->getUser()->getId())
+                'list' => $service->getWeeklyTimesheet($currentDate, $this->getUser()->getId())
             )
         );
     }

@@ -15,3 +15,4 @@ services:
 
     app_general.services.timesheet:
         class: App\GeneralBundle\Services\Timesheet
+        arguments: [@doctrine.orm.entity_manager]

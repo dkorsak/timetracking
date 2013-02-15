@@ -4,6 +4,7 @@ namespace App\GeneralBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * App\GeneralBundle\Timesheet
@@ -30,11 +31,19 @@ class Timesheet
     private $year;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="task_week", type="integer", nullable=false)
+     * @ORM\Column(name="task_week", type="string", length=2, nullable=false)
      */
     private $week;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
 
     /**
      * @var User
@@ -121,6 +130,29 @@ class Timesheet
     public function getWeek()
     {
         return $this->week;
+    }
+
+    /**
+     * Set created
+     *
+     * @param  \DateTime $created
+     * @return Timesheet
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 
     /**
