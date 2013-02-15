@@ -19,10 +19,10 @@ class APCBlock extends BaseBlockService
 
     /**
      * Constructor
-     * 
-     * @param string $name
+     *
+     * @param string          $name
      * @param EngineInterface $templating
-     * @param ApcStats $apcStats
+     * @param ApcStats        $apcStats
      */
     public function __construct($name, EngineInterface $templating, ApcStats $apcStats)
     {
@@ -42,9 +42,9 @@ class APCBlock extends BaseBlockService
      */
     public function execute(BlockInterface $block, Response $response = null)
     {
-        $response = $this->renderResponse('AppBackendBundle:Block:apc.block.html.twig', array('service' => $this->apcStats), $response);
-        $response->setTtl(10);
-        return $response;
+        $template = 'AppBackendBundle:Block:apc.block.html.twig';
+        
+        return $this->renderResponse($template, array('service' => $this->apcStats), $response);
     }
 
     /**
