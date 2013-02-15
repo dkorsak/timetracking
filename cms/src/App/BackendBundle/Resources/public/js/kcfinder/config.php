@@ -18,6 +18,7 @@
 
 $_CONFIG = array(
 
+
 // GENERAL SETTINGS
 
     'disabled' => false,
@@ -38,6 +39,7 @@ $_CONFIG = array(
         'image'   =>  "*img",
     ),
 
+
 // IMAGE SETTINGS
 
     'imageDriversPriority' => "imagick gmagick gd",
@@ -52,11 +54,13 @@ $_CONFIG = array(
 
     'watermark' => "",
 
+
 // DISABLE / ENABLE SETTINGS
 
     'denyZipDownload' => false,
     'denyUpdateCheck' => false,
     'denyExtensionRename' => false,
+
 
 // PERMISSION SETTINGS
 
@@ -82,6 +86,7 @@ $_CONFIG = array(
 
     'deniedExts' => "exe com msi bat php phps phtml php3 php4 cgi pl",
 
+
 // MISC SETTINGS
 
     'filenameChangeChars' => array(/*
@@ -100,6 +105,7 @@ $_CONFIG = array(
     'cookiePath' => "",
     'cookiePrefix' => 'KCFINDER_',
 
+
 // THE FOLLOWING SETTINGS CANNOT BE OVERRIDED WITH SESSION SETTINGS
 
     '_check4htaccess' => true,
@@ -112,3 +118,5 @@ $_CONFIG = array(
     //'_sessionDomain' => ".mysite.com",
     //'_sessionPath' => "/my/path",
 );
+
+?>

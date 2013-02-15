@@ -12,15 +12,14 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class dir
-{
+class dir {
+
   /** Checks if the given directory is really writable. The standard PHP
     * function is_writable() does not work properly on Windows servers
     * @param string $dir
     * @return bool */
 
-    public static function isWritable($dir)
-    {
+    static function isWritable($dir) {
         $dir = path::normalize($dir);
         if (!is_dir($dir))
             return false;
@@ -31,7 +30,6 @@ class dir
         if (!@touch($file))
             return false;
         unlink($file);
-
         return true;
     }
 
@@ -46,15 +44,13 @@ class dir
     * @param array $failed
     * @return mixed */
 
-    public static function prune($dir, $firstFailExit=true, array $failed=null)
-    {
+    static function prune($dir, $firstFailExit=true, array $failed=null) {
         if ($failed === null) $failed = array();
         $files = self::content($dir);
         if ($files === false) {
             if ($firstFailExit)
                 return $dir;
             $failed[] = $dir;
-
             return $failed;
         }
 
@@ -91,8 +87,8 @@ class dir
     * @param array $options
     * @return mixed */
 
-    public static function content($dir, array $options=null)
-    {
+    static function content($dir, array $options=null) {
+
         $defaultOptions = array(
             'types' => "all",   // Allowed: "all" or possible return values
                                 // of filetype(), or an array with them
@@ -146,12 +142,10 @@ class dir
         }
         closedir($dh);
         usort($files, array("dir", "fileSort"));
-
         return $files;
     }
 
-    public static function fileSort($a, $b)
-    {
+    static function fileSort($a, $b) {
         if (function_exists("mb_strtolower")) {
             $a = mb_strtolower($a);
             $b = mb_strtolower($b);
@@ -163,3 +157,5 @@ class dir
         return ($a < $b) ? -1 : 1;
     }
 }
+
+?>

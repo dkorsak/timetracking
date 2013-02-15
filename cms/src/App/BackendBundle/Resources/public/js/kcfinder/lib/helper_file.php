@@ -12,9 +12,9 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class file
-{
-    public static $MIME = array(
+class file {
+
+    static $MIME = array(
         'ai'    => 'application/postscript',
         'aif'   => 'audio/x-aiff',
         'aifc'  => 'audio/x-aiff',
@@ -105,13 +105,11 @@ class file
     * @param string $dir
     * @return bool */
 
-    public static function isWritable($filename)
-    {
+    static function isWritable($filename) {
         $filename = path::normalize($filename);
         if (!is_file($filename) || (false === ($fp = @fopen($filename, 'a+'))))
             return false;
         fclose($fp);
-
         return true;
     }
 
@@ -120,8 +118,7 @@ class file
     * @param bool $toLower
     * @return string */
 
-    public static function getExtension($filename, $toLower=true)
-    {
+    static function getExtension($filename, $toLower=true) {
         return preg_match('/^.*\.([^\.]*)$/s', $filename, $patt)
             ? ($toLower ? strtolower($patt[1]) : $patt[1]) : "";
     }
@@ -137,8 +134,7 @@ class file
     * @param string $magic
     * @return string */
 
-    public static function getMimeType($filename, $magic=null)
-    {
+    static function getMimeType($filename, $magic=null) {
         if (class_exists("finfo")) {
             $finfo = ($magic === null)
                 ? new finfo(FILEINFO_MIME)
@@ -146,12 +142,10 @@ class file
             if ($finfo) {
                 $mime = $finfo->file($filename);
                 $mime = substr($mime, 0, strrpos($mime, ";"));
-
                 return $mime;
             }
         }
         $ext = self::getExtension($filename, true);
-
         return isset(self::$MIME[$ext]) ? self::$MIME[$ext] : "application/octet-stream";
     }
 
@@ -176,9 +170,8 @@ class file
     * @param string $tpl
     * @return string */
 
-    public static function getInexistantFilename($filename, $dir=null, $tpl=null)
-    {
-        if ($tpl === null)  $tpl = "{name}({sufix}) {ext}";
+    static function getInexistantFilename($filename, $dir=null, $tpl=null) {
+        if ($tpl === null)  $tpl = "{name}({sufix}){ext}";
         $fullPath = ($dir === null);
         if ($fullPath)
             $dir = path::normalize(dirname($filename));
@@ -205,3 +198,5 @@ class file
     }
 
 }
+
+?>

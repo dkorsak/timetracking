@@ -13,8 +13,7 @@
   */
 
 // gets a valid drupal_path
-function get_drupal_path()
-{
+function get_drupal_path() {
     if (!empty($_SERVER['SCRIPT_FILENAME'])) {
         $drupal_path = dirname(dirname(dirname(dirname($_SERVER['SCRIPT_FILENAME']))));
         if (!file_exists($drupal_path . '/includes/bootstrap.inc')) {
@@ -37,19 +36,18 @@ function get_drupal_path()
             } while (!($bootstrap_file_found = file_exists($drupal_path . '/includes/bootstrap.inc')) && $depth < 10);
         }
     }
-
     return $drupal_path;
 }
 
-function CheckAuthentication($drupal_path)
-{
+function CheckAuthentication($drupal_path) {
+
     static $authenticated;
 
     if (!isset($authenticated)) {
 
         if (!isset($bootstrap_file_found) || $bootstrap_file_found) {
             $current_cwd = getcwd();
-            if (!defined('DRUPAL_ROOT')) {
+            if (!defined('DRUPAL_ROOT')){
                 define('DRUPAL_ROOT', $drupal_path);
             }
 
@@ -70,9 +68,10 @@ function CheckAuthentication($drupal_path)
             $base_url = substr($base_url, 0, $pos); // drupal root absolute url
 
             // If we aren't in a Drupal installation, or if Drupal path hasn't been properly found, die
-            if (!file_exists(DRUPAL_ROOT . '/includes/bootstrap.inc')) {
+            if(!file_exists(DRUPAL_ROOT . '/includes/bootstrap.inc')) {
                 die("The CMS integration service for -drupal- requires KCFinder to be properly placed inside your Drupal installation.");
             }
+
 
             // bootstrap
             require_once(DRUPAL_ROOT . '/includes/bootstrap.inc');
@@ -86,7 +85,7 @@ function CheckAuthentication($drupal_path)
                 }
 
                 // User has permission, so make sure KCFinder is not disabled!
-                if (!isset($_SESSION['KCFINDER']['disabled'])) {
+                if(!isset($_SESSION['KCFINDER']['disabled'])) {
                     $_SESSION['KCFINDER']['disabled'] = false;
                 }
 
@@ -104,7 +103,6 @@ function CheckAuthentication($drupal_path)
             }
 
             chdir($current_cwd);
-
             return false;
         }
     }
@@ -113,3 +111,5 @@ function CheckAuthentication($drupal_path)
 CheckAuthentication(get_drupal_path());
 
 spl_autoload_register('__autoload');
+
+?>

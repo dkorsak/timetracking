@@ -12,8 +12,8 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class input
-{
+class input {
+
   /** Filtered $_GET array
     * @var array */
     public $get;
@@ -34,8 +34,7 @@ class input
     * @var bool */
     protected $magic_quotes_sybase;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->magic_quotes_gpc = function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc();
         $this->magic_quotes_sybase = ini_get('magic_quotes_sybase');
         $this->magic_quotes_sybase = $this->magic_quotes_sybase
@@ -54,8 +53,7 @@ class input
     * @param string $property
     * @return mixed */
 
-    public function __get($property)
-    {
+    public function __get($property) {
         return property_exists($this, $property) ? $this->$property : null;
     }
 
@@ -66,8 +64,7 @@ class input
     * @param mixed $subject
     * @return mixed */
 
-    public function filter($subject)
-    {
+    public function filter($subject) {
         if ($this->magic_quotes_gpc) {
             if (is_array($subject)) {
                 foreach ($subject as $key => $val)
@@ -85,3 +82,5 @@ class input
         return $subject;
     }
 }
+
+?>

@@ -12,10 +12,9 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class type_mime
-{
-    public function checkFile($file, array $config)
-    {
+class type_mime {
+
+    public function checkFile($file, array $config) {
         if (!class_exists("finfo"))
             return "Fileinfo PECL extension is missing.";
 
@@ -34,7 +33,6 @@ class type_mime
         $mimes = $config['params'];
         if (substr($mimes, 0, 1) == "!") {
             $mimes = trim(substr($mimes, 1));
-
             return in_array($type , explode(" ", $mimes))
                 ? "You can't upload such files."
                 : true;
@@ -45,3 +43,5 @@ class type_mime
             : true;
     }
 }
+
+?>

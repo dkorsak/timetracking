@@ -13,14 +13,12 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class zipFolder
-{
+class zipFolder {
     protected $zip;
     protected $root;
     protected $ignored;
 
-    public function __construct($file, $folder, $ignored=null)
-    {
+    function __construct($file, $folder, $ignored=null) {
         $this->zip = new ZipArchive();
 
         $this->ignored = is_array($ignored)
@@ -41,8 +39,7 @@ class zipFolder
         $this->zip->close();
     }
 
-    public function zip($folder, $parent=null)
-    {
+    function zip($folder, $parent=null) {
         $full_path = "{$this->root}$parent$folder";
         $zip_path = "$parent$folder";
         $this->zip->addEmptyDir($zip_path);
@@ -59,3 +56,5 @@ class zipFolder
             }
     }
 }
+
+?>

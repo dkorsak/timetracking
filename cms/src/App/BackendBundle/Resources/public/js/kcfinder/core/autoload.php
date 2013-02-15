@@ -40,12 +40,11 @@ if (isset($_GET['cms'])) {
 
 
 // MAGIC AUTOLOAD CLASSES FUNCTION
-function __autoload($class)
-{
+function __autoload($class) {
     if ($class == "uploader")
-        require 'core/uploader.php';
+        require "core/uploader.php";
     elseif ($class == "browser")
-        require 'core/browser.php';
+        require "core/browser.php";
     elseif (file_exists("core/types/$class.php"))
         require "core/types/$class.php";
     elseif (file_exists("lib/class_$class.php"))
@@ -58,8 +57,7 @@ function __autoload($class)
 // json_encode() IMPLEMENTATION IF JSON EXTENSION IS MISSING
 if (!function_exists("json_encode")) {
 
-    public function kcfinder_json_string_encode($string)
-    {
+    function kcfinder_json_string_encode($string) {
         return '"' .
             str_replace('/', "\\/",
             str_replace("\t", "\\t",
@@ -70,8 +68,8 @@ if (!function_exists("json_encode")) {
         $string)))))) . '"';
     }
 
-    public function json_encode($data)
-    {
+    function json_encode($data) {
+
         if (is_array($data)) {
             $ret = array();
 
@@ -79,20 +77,17 @@ if (!function_exists("json_encode")) {
             if (array_keys($data) !== range(0, count($data) - 1)) {
                 foreach ($data as $key => $val)
                     $ret[] = kcfinder_json_string_encode($key) . ':' . json_encode($val);
-
                 return "{" . implode(",", $ret) . "}";
 
             // ARRAY
             } else {
                 foreach ($data as $val)
                     $ret[] = json_encode($val);
-
                 return "[" . implode(",", $ret) . "]";
             }
 
         // BOOLEAN OR NULL
         } elseif (is_bool($data) || ($data === null))
-
             return ($data === null)
                 ? "null"
                 : ($data ? "true" : "false");
@@ -120,13 +115,11 @@ if (!function_exists("json_encode")) {
 // and your handler will rule the sessions ;-)
 
 /*
-class SessionSaveHandler
-{
+class SessionSaveHandler {
     protected $savePath;
     protected $sessionName;
 
-    public function __construct()
-    {
+    public function __construct() {
         session_set_save_handler(
             array($this, "open"),
             array($this, "close"),
@@ -141,18 +134,15 @@ class SessionSaveHandler
     // executed when the session is being opened. The open function expects
     // two parameters, where the first is the save path and the second is the
     // session name.
-    public function open($savePath, $sessionName)
-    {
+    public function open($savePath, $sessionName) {
         $this->savePath = $savePath;
         $this->sessionName = $sessionName;
-
         return true;
     }
 
     // Close function, this works like a destructor in classes and is
     // executed when the session operation is done.
-    public function close()
-    {
+    public function close() {
         return true;
     }
 
@@ -160,47 +150,38 @@ class SessionSaveHandler
     // work as expected. Return empty string if there is no data to read.
     // Return values from other handlers are converted to boolean expression.
     // TRUE for success, FALSE for failure.
-    public function read($id)
-    {
+    public function read($id) {
         $file = $this->savePath . "/sess_$id";
-
         return (string) @file_get_contents($file);
     }
 
     // Write function that is called when session data is to be saved. This
     // function expects two parameters: an identifier and the data associated
     // with it.
-    public function write($id, $data)
-    {
+    public function write($id, $data) {
         $file = $this->savePath . "/sess_$id";
         if (false !== ($fp = @fopen($file, "w"))) {
             $return = fwrite($fp, $data);
             fclose($fp);
-
             return $return;
         } else
-
             return false;
     }
 
     // The destroy handler, this is executed when a session is destroyed with
     // session_destroy() and takes the session id as its only parameter.
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $file = $this->savePath . "/sess_$id";
-
         return @unlink($file);
     }
 
     // The garbage collector, this is executed when the session garbage
     // collector is executed and takes the max session lifetime as its only
     // parameter.
-    public function gc($maxlifetime)
-    {
+    public function gc($maxlifetime) {
         foreach (glob($this->savePath . "/sess_*") as $file)
             if (filemtime($file) + $maxlifetime < time())
                 @unlink($file);
-
         return true;
     }
 }
@@ -209,4 +190,7 @@ new SessionSaveHandler();
 
 */
 
+
 // PUT YOUR ADDITIONAL CODE HERE
+
+?>

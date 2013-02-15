@@ -14,8 +14,8 @@
 
 chdir(".."); // For compatibility
 chdir("..");
-require 'lib/helper_httpCache.php';
-require 'lib/helper_dir.php';
+require "lib/helper_httpCache.php";
+require "lib/helper_dir.php";
 $files = dir::content("js/browser", array(
     'types' => "file",
     'pattern' => '/^.*\.js$/'
@@ -31,3 +31,5 @@ httpCache::checkMTime($mtime);
 header("Content-Type: text/javascript");
 foreach ($files as $file)
     require $file;
+
+?>

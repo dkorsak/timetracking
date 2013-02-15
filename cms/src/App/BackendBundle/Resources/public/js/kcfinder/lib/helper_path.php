@@ -12,15 +12,14 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class path
-{
+class path {
+
   /** Get the absolute URL path of the given one. Returns FALSE if the URL
     * is not valid or the current directory cannot be resolved (getcwd())
     * @param string $path
     * @return string */
 
-    public static function rel2abs_url($path)
-    {
+    static function rel2abs_url($path) {
         if (substr($path, 0, 1) == "/") return $path;
         $dir = @getcwd();
 
@@ -45,8 +44,7 @@ class path
     * @param string $url
     * @return string */
 
-    public static function url2fullPath($url)
-    {
+    static function url2fullPath($url) {
         $url = self::normalize($url);
 
         $uri = isset($_SERVER['SCRIPT_NAME'])
@@ -69,7 +67,6 @@ class path
 
             if (isset($_SERVER['SCRIPT_FILENAME'])) {
                 $scr_filename = self::normalize($_SERVER['SCRIPT_FILENAME']);
-
                 return self::normalize(substr($scr_filename, 0, -strlen($uri)) . "/$url");
             }
 
@@ -83,7 +80,6 @@ class path
                 return false;
             $rdir = getcwd();
             chdir($dir);
-
             return ($rdir !== false) ? self::normalize($rdir . "/$url") : false;
         }
     }
@@ -96,8 +92,7 @@ class path
     * @param string $path
     * @return string */
 
-    public static function normalize($path)
-    {
+    static function normalize($path) {
         if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN") {
             $path = preg_replace('/([^\\\])\\\([^\\\])/', "$1/$2", $path);
             if (substr($path, -1) == "\\") $path = substr($path, 0, -1);
@@ -116,7 +111,6 @@ class path
 
         $path = substr($path, 0, -1);
         $path = substr($path, 1);
-
         return $path;
     }
 
@@ -124,14 +118,12 @@ class path
     * @param string $path
     * @return string */
 
-    public static function urlPathEncode($path)
-    {
+    static function urlPathEncode($path) {
         $path = self::normalize($path);
         $encoded = "";
         foreach (explode("/", $path) as $dir)
             $encoded .= rawurlencode($dir) . "/";
         $encoded = substr($encoded, 0, -1);
-
         return $encoded;
     }
 
@@ -139,14 +131,14 @@ class path
     * @param string $path
     * @return string */
 
-    public static function urlPathDecode($path)
-    {
+    static function urlPathDecode($path) {
         $path = self::normalize($path);
         $decoded = "";
         foreach (explode("/", $path) as $dir)
             $decoded .= rawurldecode($dir) . "/";
         $decoded = substr($decoded, 0, -1);
-
         return $decoded;
     }
 }
+
+?>

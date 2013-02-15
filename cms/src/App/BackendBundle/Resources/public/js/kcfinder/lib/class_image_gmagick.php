@@ -12,11 +12,12 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class image_gmagick extends image
-{
-    public static $MIMES = array(
+class image_gmagick extends image {
+
+    static $MIMES = array(
         //'tif' => "image/tiff"
     );
+
 
     // ABSTRACT PUBLIC METHODS
 
@@ -30,7 +31,6 @@ class image_gmagick extends image
         }
         $this->width = $width;
         $this->height = $height;
-
         return true;
     }
 
@@ -49,7 +49,6 @@ class image_gmagick extends image
         if ($background === false) {
             $this->width = $w;
             $this->height = $h;
-
             return true;
 
         } else {
@@ -66,13 +65,11 @@ class image_gmagick extends image
             $this->image = $img;
             $this->width = $width;
             $this->height = $height;
-
             return true;
         }
     }
 
-    public function resizeCrop($width, $height, $offset=false)
-    {
+    public function resizeCrop($width, $height, $offset=false) {
         if (!$width) $width = 1;
         if (!$height) $height = 1;
 
@@ -119,12 +116,10 @@ class image_gmagick extends image
 
         $this->width = $width;
         $this->height = $height;
-
         return true;
     }
 
-    public function rotate($angle, $background="#000000")
-    {
+    public function rotate($angle, $background="#000000") {
         try {
             $this->image->rotateImage($background, $angle);
             $w = $this->image->getImageWidth();
@@ -134,34 +129,28 @@ class image_gmagick extends image
         }
         $this->width = $w;
         $this->height = $h;
-
         return true;
     }
 
-    public function flipHorizontal()
-    {
+    public function flipHorizontal() {
         try {
             $this->image->flopImage();
         } catch (Exception $e) {
             return false;
         }
-
         return true;
     }
 
-    public function flipVertical()
-    {
+    public function flipVertical() {
         try {
             $this->image->flipImage();
         } catch (Exception $e) {
             return false;
         }
-
         return true;
     }
 
-    public function watermark($file, $left=false, $top=false)
-    {
+    public function watermark($file, $left=false, $top=false) {
         try {
             $wm = new Gmagick($file);
             $w = $wm->getImageWidth();
@@ -183,7 +172,6 @@ class image_gmagick extends image
             (($y + $h) > $this->height) ||
             ($x < 0) || ($y < 0)
         )
-
             return false;
 
         try {
@@ -191,30 +179,27 @@ class image_gmagick extends image
         } catch (Exception $e) {
             return false;
         }
-
         return true;
     }
 
+
     // ABSTRACT PROTECTED METHODS
 
-    protected function getBlankImage($width, $height)
-    {
+    protected function getBlankImage($width, $height) {
         try {
             $img = new Gmagick();
             $img->newImage($width, $height, "none");
         } catch (Exception $e) {
             return false;
         }
-
         return $img;
     }
 
-    protected function getImage($image, &$width, &$height)
-    {
+    protected function getImage($image, &$width, &$height) {
+
         if (is_object($image) && ($image instanceof image_gmagick)) {
             $width = $image->width;
             $height = $image->height;
-
             return $image->image;
 
         } elseif (is_object($image) && ($image instanceof Gmagick)) {
@@ -226,7 +211,6 @@ class image_gmagick extends image
             }
             $width = $w;
             $height = $h;
-
             return $image;
 
         } elseif (is_string($image)) {
@@ -239,36 +223,32 @@ class image_gmagick extends image
             }
             $width = $w;
             $height = $h;
-
             return $image;
 
         } else
-
             return false;
     }
 
+
     // PSEUDO-ABSTRACT STATIC METHODS
 
-    public static function available()
-    {
+    static function available() {
         return class_exists("Gmagick");
     }
 
-    public static function checkImage($file)
-    {
+    static function checkImage($file) {
         try {
             $img = new Gmagic($file);
         } catch (Exception $e) {
             return false;
         }
-
         return true;
     }
 
+
     // INHERIT METHODS
 
-    public function output($type="jpeg", array $options=array())
-    {
+    public function output($type="jpeg", array $options=array()) {
         $type = strtolower($type);
         try {
             $this->image->setImageFormat($type);
@@ -292,13 +272,11 @@ class image_gmagick extends image
                 $this->image->writeImage($file);
             } catch (Exception $e) {
                 @unlink($file);
-
                 return false;
             }
 
             if (!@rename($file, $options['file'])) {
                 @unlink($file);
-
                 return false;
             }
         }
@@ -306,18 +284,19 @@ class image_gmagick extends image
         return true;
     }
 
+
     // OWN METHODS
 
-    protected function optimize_jpeg(array $options=array())
-    {
+    protected function optimize_jpeg(array $options=array()) {
         $quality = isset($options['quality']) ? $options['quality'] : self::DEFAULT_JPEG_QUALITY;
         try {
             $this->image->setCompressionQuality($quality);
         } catch (Exception $e) {
             return false;
         }
-
         return true;
     }
 
 }
+
+?>

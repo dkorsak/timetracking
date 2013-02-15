@@ -12,7 +12,7 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-require 'core/autoload.php';
+require "core/autoload.php";
 $mtime = @filemtime(__FILE__);
 if ($mtime) httpCache::checkMTime($mtime);
 $browser = new browser();
