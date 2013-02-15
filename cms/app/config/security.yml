@@ -18,7 +18,7 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
+
         # for backend
         admin:
             switch_user:        false
@@ -37,7 +37,7 @@ security:
                 target:         /admin
 
             anonymous:    true
-        
+
         #for frontend - requires to enable fos routing, and configure access_controll
         main:
             switch_user:        false
@@ -60,4 +60,5 @@ security:
         - { path: ^/admin, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN] }
         - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/timesheet, roles: [ROLE_EMPLOYEE] }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

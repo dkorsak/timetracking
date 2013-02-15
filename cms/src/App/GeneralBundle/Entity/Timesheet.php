@@ -2,14 +2,14 @@
 
 namespace App\GeneralBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * App\GeneralBundle\Timesheet
- * 
+ *
  * @ORM\Table(name="timesheet")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\GeneralBundle\Entity\TimesheetRepository")
  */
 class Timesheet
 {
@@ -23,41 +23,18 @@ class Timesheet
     private $id;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="job_date", type="date", nullable=false)
+     * @ORM\Column(name="task_year", type="integer", nullable=false)
      */
-    private $jobDate;
+    private $year;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="job_time", type="integer", nullable=false)
+     * @ORM\Column(name="task_week", type="integer", nullable=false)
      */
-    private $time;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
+    private $week;
 
     /**
      * @var User
@@ -76,9 +53,24 @@ class Timesheet
     private $task;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="TimesheetItem", mappedBy="timesheet", cascade={"persist"})
+     */
+    private $timesheetItems;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->timesheetItems = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,137 +78,68 @@ class Timesheet
     }
 
     /**
-     * Set jobDate
+     * Set year
      *
-     * @param \DateTime $jobDate
+     * @param  integer   $year
      * @return Timesheet
      */
-    public function setJobDate($jobDate)
+    public function setYear($year)
     {
-        $this->jobDate = $jobDate;
-    
+        $this->year = $year;
+
         return $this;
     }
 
     /**
-     * Get jobDate
+     * Get year
      *
-     * @return \DateTime 
+     * @return integer
      */
-    public function getJobDate()
+    public function getYear()
     {
-        return $this->jobDate;
+        return $this->year;
     }
 
     /**
-     * Set time
+     * Set week
      *
-     * @param integer $time
+     * @param  integer   $week
      * @return Timesheet
      */
-    public function setTime($time)
+    public function setWeek($week)
     {
-        $this->time = $time;
-    
+        $this->week = $week;
+
         return $this;
     }
 
     /**
-     * Get time
+     * Get week
      *
-     * @return integer 
+     * @return integer
      */
-    public function getTime()
+    public function getWeek()
     {
-        return $this->time;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Timesheet
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Timesheet
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-    
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime 
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Timesheet
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-    
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime 
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
+        return $this->week;
     }
 
     /**
      * Set user
      *
-     * @param \App\GeneralBundle\Entity\User $user
+     * @param  \App\GeneralBundle\Entity\User $user
      * @return Timesheet
      */
     public function setUser(\App\GeneralBundle\Entity\User $user)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \App\GeneralBundle\Entity\User 
+     * @return \App\GeneralBundle\Entity\User
      */
     public function getUser()
     {
@@ -226,23 +149,57 @@ class Timesheet
     /**
      * Set task
      *
-     * @param \App\GeneralBundle\Entity\ProjectToTask $task
+     * @param  \App\GeneralBundle\Entity\ProjectToTask $task
      * @return Timesheet
      */
     public function setTask(\App\GeneralBundle\Entity\ProjectToTask $task)
     {
         $this->task = $task;
-    
+
         return $this;
     }
 
     /**
      * Get task
      *
-     * @return \App\GeneralBundle\Entity\ProjectToTask 
+     * @return \App\GeneralBundle\Entity\ProjectToTask
      */
     public function getTask()
     {
         return $this->task;
+    }
+
+    /**
+     * Add timesheetItems
+     *
+     * @param  \App\GeneralBundle\Entity\TimesheetItem $timesheetItems
+     * @return Timesheet
+     */
+    public function addTimesheetItem(\App\GeneralBundle\Entity\TimesheetItem $timesheetItems)
+    {
+        $this->timesheetItems[] = $timesheetItems;
+        $timesheetItems->setTimesheet($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove timesheetItems
+     *
+     * @param \App\GeneralBundle\Entity\TimesheetItem $timesheetItems
+     */
+    public function removeTimesheetItem(\App\GeneralBundle\Entity\TimesheetItem $timesheetItems)
+    {
+        $this->timesheetItems->removeElement($timesheetItems);
+    }
+
+    /**
+     * Get timesheetItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimesheetItems()
+    {
+        return $this->timesheetItems;
     }
 }

@@ -1,0 +1,19 @@
+<div class="row login-form">
+    <div class="span4 offset4 well">
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+            <legend>{% trans from 'timesheet' %}Enter your email{% endtrans %}</legend>
+            {% if invalid_username is defined %}
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert" href="#">×</a>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}
+            </div>
+            {% endif %}
+            <div class="control-group">
+                <input placeholder="E-mail" class="span12" type="text" id="username" name="username" required="required" autocomplete="off"/>
+            </div>
+            <div class="control-group">
+                <a href="{{ path('homepage') }}">{% trans from 'timesheet' %}Go back to login page{% endtrans %}</a>
+            </div>
+            <button type="submit" name="submit" class="btn btn-info btn-block">{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</button>
+        </form>
+    </div>
+</div>

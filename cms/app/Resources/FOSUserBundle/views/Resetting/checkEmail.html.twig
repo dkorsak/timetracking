@@ -1,0 +1,16 @@
+{% extends "AppFrontendBundle::base.html.twig" %}
+
+{% block fos_user_content %}
+
+<div class="row login-form">
+    <div class="span4 offset4 well">
+        <p>
+            {{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
+        </p>
+        <p style="margin-bottom: 0px;">
+            <a href="{{ path('homepage') }}">{% trans from 'timesheet' %}Go back to login page{% endtrans %}</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\Task
- * 
+ *
  * @ORM\Table(name="task")
  * @ORM\Entity()
  */
@@ -33,7 +33,7 @@ class Task
 
     /**
      * @var boolean
-     * 
+     *
      * @ORM\Column(name="global", type="boolean", nullable=false)
      */
     private $global;
@@ -47,7 +47,7 @@ class Task
 
     /**
      * Constructor
-     *  
+     *
      */
     public function __construct()
     {
@@ -58,7 +58,7 @@ class Task
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -68,20 +68,20 @@ class Task
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Task
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -91,20 +91,20 @@ class Task
     /**
      * Set global
      *
-     * @param boolean $global
+     * @param  boolean $global
      * @return Task
      */
     public function setGlobal($global)
     {
         $this->global = $global;
-    
+
         return $this;
     }
 
     /**
      * Get global
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getGlobal()
     {
@@ -114,13 +114,13 @@ class Task
     /**
      * Add projects
      *
-     * @param \App\GeneralBundle\Entity\ProjectToTask $projects
+     * @param  \App\GeneralBundle\Entity\ProjectToTask $projects
      * @return Task
      */
     public function addProject(\App\GeneralBundle\Entity\ProjectToTask $projects)
     {
         $this->projects[] = $projects;
-    
+
         return $this;
     }
 
@@ -137,7 +137,7 @@ class Task
     /**
      * Get projects
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProjects()
     {

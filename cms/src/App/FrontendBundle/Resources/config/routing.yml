@@ -2,10 +2,14 @@ homepage:
     pattern:  /
     defaults: { _controller: AppFrontendBundle:Homepage:index }
 
+AppFrontendBundle_profile:
+    resource: "@AppFrontendBundle/Resources/config/routing/profile.yml"
+    prefix: '/profile'
+
 AppFrontendBundle_timesheet_week:
     resource: "@AppFrontendBundle/Resources/config/routing/timesheet_week.yml"
     prefix: '/timesheet/week'
-    
+
 AppFrontendBundle_timesheet_day:
     resource: "@AppFrontendBundle/Resources/config/routing/timesheet_day.yml"
     prefix: '/timesheet/day'

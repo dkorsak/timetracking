@@ -17,7 +17,7 @@
 {% stylesheets filter='cssrewrite,?yui_css' output="css/admin.css"
 'bundles/appgeneral/css/smoothness/jquery-ui.css'
 'bundles/appbackend/bootstrap/css/bootstrap.css'
-'bundles/sonataadmin/css/colors.css' 
+'bundles/sonataadmin/css/colors.css'
 'bundles/appbackend/css/main.css'
 %}
 <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
@@ -56,7 +56,7 @@ $.webshims.polyfill("forms forms-ext");
                 <div class="navbar-inner">
                     <div class="container-fluid">
                         {% if admin_pool is defined %}
-                            
+
                             {% if app.user and (is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN')) %}
                             <div class="btn-group pull-right">
                                 <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
@@ -119,7 +119,7 @@ $.webshims.polyfill("forms forms-ext");
                     </div>
                 </div>
             </div>
-        
+
             <div class="container-fluid">
                 {% if _breadcrumb is not empty or action is defined %}
                     <ul class="breadcrumb">
@@ -127,7 +127,14 @@ $.webshims.polyfill("forms forms-ext");
                             {% if action is defined %}
                                 {% for label, uri in admin.breadcrumbs(action) %}
                                     {% if not loop.last  %}
-                                        <li><a href="{{ uri }}">{{ label|capitalize|trans({}, admin.translationdomain) }}</a><span class="divider">/</span></li>
+                                        <li>
+                                        {% if uri is not empty %}
+                                            <a href="{{ uri }}">{{ label|capitalize|trans({}, admin.translationdomain) }}</a>
+                                        {% else %}
+                                            {{ label|capitalize|trans({}, admin.translationdomain) }}
+                                        {% endif %}
+                                        <span class="divider">/</span>
+                                        </li>
                                     {% else %}
                                         <li class="active">{{ label|capitalize|trans({}, admin.translationdomain) }}</li>
                                     {% endif %}
@@ -138,7 +145,7 @@ $.webshims.polyfill("forms forms-ext");
                         {% endif %}
                     </ul>
                 {% endif %}
-        
+
                 {% block notice %}
                     {% for notice_level in ['success','error','info', 'warning'] %}
                         {% set session_var = 'sonata_flash_' ~ notice_level %}
@@ -150,11 +157,11 @@ $.webshims.polyfill("forms forms-ext");
                         {% endfor %}
                     {% endfor %}
                 {% endblock %}
-        
+
                 <div class="pull-right">
                     {% block actions %}{% endblock %}
                 </div>
-        
+
                 {% if _title is not empty or action is defined %}
                     <div class="page-header">
                         <h1>
@@ -170,21 +177,21 @@ $.webshims.polyfill("forms forms-ext");
                         </h1>
                     </div>
                 {% endif%}
-        
+
                 <div class="row-fluid">
                     {% if _side_menu is not empty %}
                         <div class="sidebar span2">
                             <div class="well sonata-ba-side-menu" style="padding: 8px 0;">{{ _side_menu|raw }}</div>
                         </div>
                     {% endif %}
-        
+
                     <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
                     {% block sonata_admin_content %}
-        
+
                         {% if _preview is not empty %}
                             <div class="sonata-ba-preview">{{ _preview|raw }}</div>
                         {% endif %}
-        
+
                         {% if _content is not empty %}
                             <div class="sonata-ba-content">{{ _content|raw }}</div>
                         {% endif %}

@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\Company
- * 
+ *
  * @ORM\Table(name="company")
  * @ORM\Entity()
  */
@@ -63,14 +63,14 @@ class Company
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="phone", type="string", length=30, nullable=true)
      */
     private $phone;
 
     /**
      * Constructor
-     * 
+     *
      */
     public function __construct()
     {
@@ -88,7 +88,7 @@ class Company
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -98,20 +98,20 @@ class Company
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string  $name
      * @return Company
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -121,20 +121,20 @@ class Company
     /**
      * Set status
      *
-     * @param boolean $status
+     * @param  boolean $status
      * @return Company
      */
     public function setStatus($status)
     {
         $this->status = $status;
-        
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {
@@ -144,20 +144,20 @@ class Company
     /**
      * Set invoiceAddress
      *
-     * @param string $invoiceAddress
+     * @param  string  $invoiceAddress
      * @return Company
      */
     public function setInvoiceAddress($invoiceAddress)
     {
         $this->invoiceAddress = $invoiceAddress;
-        
+
         return $this;
     }
 
     /**
      * Get invoiceAddress
      *
-     * @return string 
+     * @return string
      */
     public function getInvoiceAddress()
     {
@@ -167,20 +167,20 @@ class Company
     /**
      * Set nip
      *
-     * @param string $nip
+     * @param  string  $nip
      * @return Company
      */
     public function setNip($nip)
     {
         $this->nip = $nip;
-        
+
         return $this;
     }
 
     /**
      * Get nip
      *
-     * @return string 
+     * @return string
      */
     public function getNip()
     {
@@ -190,20 +190,20 @@ class Company
     /**
      * Set regon
      *
-     * @param string $regon
+     * @param  string  $regon
      * @return Company
      */
     public function setRegon($regon)
     {
         $this->regon = $regon;
-        
+
         return $this;
     }
 
     /**
      * Get regon
      *
-     * @return string 
+     * @return string
      */
     public function getRegon()
     {
@@ -213,20 +213,20 @@ class Company
     /**
      * Set phone
      *
-     * @param string $phone
+     * @param  string  $phone
      * @return Company
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {

@@ -8,6 +8,16 @@ admin_user:
     group_list:
         - GROUP_SUPER_ADMIN
 
+admin_user_dk:
+    email: "danielkorsak@gmail.com"
+    username: "danielkorsak@gmail.com"
+    plain_password: admin
+    firstname: Daniel
+    lastname: Korsak
+    enabled: 1
+    group_list:
+        - GROUP_SUPER_ADMIN
+
 user:
     email: "admin@admin.com"
     username: "admin@admin.com"

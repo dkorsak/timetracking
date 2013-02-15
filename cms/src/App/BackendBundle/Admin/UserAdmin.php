@@ -16,7 +16,7 @@ use App\GeneralBundle\Services\Mailer;
 
 /**
  * Admin class for managing users
- * 
+ *
  */
 class UserAdmin extends Admin
 {
@@ -31,7 +31,7 @@ class UserAdmin extends Admin
     protected $securityContent;
 
     /**
-     * @var Mailer 
+     * @var Mailer
      */
     protected $mailer;
 
@@ -75,7 +75,7 @@ class UserAdmin extends Admin
 
     /**
      * Set mailer
-     * 
+     *
      * @param Mailer $mailer
      */
     public function setMailer(Mailer $mailer)
@@ -85,7 +85,7 @@ class UserAdmin extends Admin
 
     /**
      * Get mailer
-     * 
+     *
      * @return Mailer
      */
     public function getMailer()
@@ -95,17 +95,17 @@ class UserAdmin extends Admin
 
     /**
      * Set twig
-     * 
+     *
      * @param \Twig_Environment $twig
      */
     public function setTwig(\Twig_Environment $twig)
     {
-        $this->twig = $twig;    
+        $this->twig = $twig;
     }
 
     /**
      * Get twig
-     * 
+     *
      * @return Twig_Environment
      */
     public function getTwig()
@@ -115,7 +115,7 @@ class UserAdmin extends Admin
 
     /**
      * Set securityContext
-     * 
+     *
      * @param SecurityContextInterface $securityContext
      */
     public function setSecurityContent(SecurityContextInterface $securityContext)
@@ -125,7 +125,7 @@ class UserAdmin extends Admin
 
     /**
      * Get securityContent
-     * 
+     *
      * @return SecurityContextInterface
      */
     public function getSecurityContent()
@@ -165,7 +165,7 @@ class UserAdmin extends Admin
      */
     public function validate(ErrorElement $errorElement, $object)
     {
-        
+
     }
 
     /**
@@ -181,13 +181,15 @@ class UserAdmin extends Admin
      */
     protected function configureShowField(ShowMapper $showMapper)
     {
+        $enabledParams = array("label" => "Status", 'template' => 'AppBackendBundle:CRUD:show_status.html.twig');
+
         $showMapper
             ->with("General")
                 ->add("name")
                 ->add("email")
             ->end()
             ->with('Permissions')
-                ->add("enabled", null, array("label" => "Status", 'template' => 'AppBackendBundle:CRUD:show_status.html.twig'))
+                ->add("enabled", null, $enabledBarams)
                 ->add("groups", null, array('template' => 'AppBackendBundle:UserAdmin:show_groups.html.twig'))
             ->end();
     }
@@ -214,11 +216,14 @@ class UserAdmin extends Admin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        $groupsParams = array("label" => "Roles", "template" => "AppBackendBundle:UserAdmin:list_groups.html.twig");
+        $enabledParams = array("label" => "Status", "template" => "AppBackendBundle:CRUD:list_status.html.twig");
+
         $listMapper
             ->addIdentifier("name")
             ->add("email")
-            ->add("groups", null, array("label" => "Roles", "template" => "AppBackendBundle:UserAdmin:list_groups.html.twig"))
-            ->add("enabled", null, array("label" => "Status", "template" => "AppBackendBundle:CRUD:list_status.html.twig"))
+            ->add("groups", null, $groupsParams)
+            ->add("enabled", null, $enabledParams)
             ->add(
                 '_action',
                 'actions',
@@ -243,7 +248,7 @@ class UserAdmin extends Admin
                 "name",
                 "doctrine_orm_callback",
                 array(
-                    'callback' => 
+                    'callback' =>
                         function ($queryBuilder, $alias, $field, $value) {
                             if (!$value || $value['value'] == "") {
                                 return;
@@ -251,6 +256,7 @@ class UserAdmin extends Admin
                             $queryBuilder->orWhere($alias.'.firstname LIKE :name');
                             $queryBuilder->orWhere($alias.'.lastname LIKE :name');
                             $queryBuilder->setParameter('name', '%'.$value['value'].'%');
+
                             return true;
                         }
                     )
@@ -261,10 +267,10 @@ class UserAdmin extends Admin
 
     /**
      * Save user
-     * 
+     *
      * @param User $user
      */
-    private function saveUser(User $user) 
+    private function saveUser(User $user)
     {
         if (!$user->getId()) {
             $password = $this->generateRandomPassword();
@@ -274,14 +280,19 @@ class UserAdmin extends Admin
         $this->getUserManager()->updateUser($user);
         // send email with password
         if (isset($password)) {
-            $body = $this->getTwig()->render("AppBackendBundle:Mail:create.account.html.twig", array("user" => $user, "password" => $password));
+            $body = $this->getTwig()->render(
+                "AppBackendBundle:Mail:create.account.html.twig",
+                array(
+                    "user" => $user, "password" => $password
+                )
+            );
             $this->getMailer()->send($this->trans("Account was created"), $body, $user->getEmail());
         }
     }
 
     /**
      * Generate random user password
-     * 
+     *
      * @return string
      */
     private function generateRandomPassword()

@@ -26,31 +26,33 @@ class FormatExtension extends \Twig_Extension
 
     /**
      * Convert bytes into kB, MB, GB
-     * 
-     * @param number $bytes
+     *
+     * @param  number $bytes
      * @return string
      */
     public function formatBytesFilter($bytes)
     {
-        foreach (array('','k','M','G') as $i => $k) {
+        foreach (array('','k','M','G') as $k) {
             if ($bytes < 1024) {
                 break;
             }
             $bytes/=1024;
         }
+
         return round($bytes, 2) . " {$k}B";
     }
 
     /**
      * Get percentage value of 2 variables
-     * 
-     * @param number $amount
-     * @param number $total
+     *
+     * @param  number $amount
+     * @param  number $total
      * @return string
      */
     public function getPercentage($amount, $total = 100)
     {
         $percent = round(($amount / $total) * 100, 2);
+
         return $percent . '%';
     }
 
@@ -59,6 +61,6 @@ class FormatExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'app_general_twig_extension_format';
+        return 'app_general_format_extension';
     }
 }

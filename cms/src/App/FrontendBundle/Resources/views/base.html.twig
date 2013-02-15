@@ -21,12 +21,16 @@
 '@AppFrontendBundle/Resources/public/js/lib/jquery.meio.mask.min.js'
 '@AppFrontendBundle/Resources/public/js/lib/moment.min.js'
 '@AppFrontendBundle/Resources/public/datepicker/js/bootstrap-datepicker.js'
+'@AppFrontendBundle/Resources/public/datepicker/js/locales/bootstrap-datepicker.pl.js'
 '@AppFrontendBundle/Resources/public/js/global/*'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock %}
 <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+<script type="text/javascript">
+var locale = '{{ app.request.locale }}'
+</script>
 </head>
 <body>
     <div class="container">
@@ -48,7 +52,7 @@
                             <i class="icon-user"></i> {{ app.user.name }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="icon-wrench"></i> {% trans from 'timesheet' %}Profile{% endtrans %}</a></li>
+                            <li><a href="{{ path('profile') }}"><i class="icon-wrench"></i> {% trans from 'timesheet' %}Profile{% endtrans %}</a></li>
                             <li class="divider"></li>
                             {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('sonata_admin_dashboard') }}"><i class="icon-lock"></i> {% trans from 'timesheet' %}Admin area{% endtrans %}</a></li>
@@ -63,8 +67,19 @@
         </div>
         {% endif %}
         <div class="row-fluid">
-        {% block fos_user_content %}
-        {% endblock %}
+            {% block notice %}
+                {% for notice_level in ['success','error','info', 'warning'] %}
+                    {% set session_var = 'sonata_flash_' ~ notice_level %}
+                    {% for flash in app.session.flashbag.get(session_var) %}
+                        <div class="alert {{ 'alert-' ~ notice_level }}">
+                            {{ flash|trans([], 'timetracking') }}
+                            <button data-dismiss="alert" class="close" type="button">×</button>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock %}
+            {% block fos_user_content %}
+            {% endblock %}
         </div>
     </div>
 </body>

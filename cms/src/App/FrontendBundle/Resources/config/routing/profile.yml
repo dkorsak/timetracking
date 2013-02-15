@@ -1,0 +1,9 @@
+profile:
+    pattern:  /
+    defaults: { _controller: AppFrontendBundle:Profile:edit }
+
+profile_update:
+    pattern:  /update
+    defaults: { _controller: AppFrontendBundle:Profile:update }
+    requirements:
+        _method: POST

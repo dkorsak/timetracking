@@ -4,27 +4,32 @@
 
 <div class="row login-form">
     <div class="span4 offset4 well">
-        <legend>{% trans from 'timetracking' %}Please sign in into Timetracking{% endtrans %}</legend>
+        <legend>{% trans from 'timesheet' %}Please sign in into Timetracking{% endtrans %}</legend>
         {% if error %}
         <div class="alert alert-error">
             <a class="close" data-dismiss="alert" href="#">×</a>{{ error|trans({}, 'FOSUserBundle') }}
         </div>
         {% endif %}
         <form action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        <div class="control-group">
-            <input autocomplete="off" type="text" id="username" class="span12" name="_username" value="{{ last_username }}" required="required" placeholder="{% trans from 'timetracking' %}E-mail{% endtrans %}"/>
-        </div>
-        <div class="control-group">
-            <input autocomplete="off" type="password" id="password" class="span12" name="_password" required="required" placeholder="{% trans from 'timetracking' %}Password{% endtrans %}"/>
-        </div>
-        <div class="control-group">
-        <label class="checkbox">
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-        </label>
-        </div>
-        <button type="submit" name="submit" class="btn btn-info btn-block">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
-        </form>    
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <div class="control-group">
+                <input autocomplete="off" type="text" id="username" class="span12" name="_username" value="{{ last_username }}" required="required" placeholder="{% trans from 'timesheet' %}E-mail{% endtrans %}"/>
+            </div>
+            <div class="control-group">
+                <input autocomplete="off" type="password" id="password" class="span12" name="_password" required="required" placeholder="{% trans from 'timesheet' %}Password{% endtrans %}"/>
+            </div>
+            <div class="control-group pull-left">
+            <label class="checkbox">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+            </label>
+            </div>
+            {% if error %}
+            <div class="control-group pull-right">
+                <a href="{{ path('fos_user_resetting_request') }}">{% trans from 'timesheet' %}Forgotten password?{% endtrans %}</a>
+            </div>
+            {% endif %}
+            <button type="submit" name="submit" class="btn btn-info btn-block">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+        </form>
     </div>
 </div>
 

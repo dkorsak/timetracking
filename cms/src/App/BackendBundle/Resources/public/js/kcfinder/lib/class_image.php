@@ -12,7 +12,8 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-abstract class image {
+abstract class image
+{
     const DEFAULT_JPEG_QUALITY = 75;
 
 /** Image resource or object
@@ -35,16 +36,15 @@ abstract class image {
   * @var array */
     protected $options = array();
 
-
 /** Magic method which allows read-only access to all protected or private
   * class properties
   * @param string $property
   * @return mixed */
 
-    final public function __get($property) {
+    final public function __get($property)
+    {
         return property_exists($this, $property) ? $this->$property : null;
     }
-
 
 /** Constructor. Parameter $image should be:
   *   1. An instance of image driver class (copy instance).
@@ -57,7 +57,8 @@ abstract class image {
   * @param mixed $image
   * @param array $options */
 
-    public function __construct($image, array $options=array()) {
+    public function __construct($image, array $options=array())
+    {
         $this->image = $this->width = $this->height = null;
         $imageDetails = $this->buildImage($image);
 
@@ -68,25 +69,26 @@ abstract class image {
         $this->options = $options;
     }
 
-
 /** Factory pattern to load selected driver. $image and $options are passed
   * to the constructor of the image driver
   * @param string $driver
   * @param mixed $image
   * @return object */
 
-    final static function factory($driver, $image, array $options=array()) {
+    final public static function factory($driver, $image, array $options=array())
+    {
         $class = "image_$driver";
+
         return new $class($image, $options);
     }
-
 
 /** Checks if the drivers in the array parameter could be used. Returns first
   * found one
   * @param array $drivers
   * @return string */
 
-    final static function getDriver(array $drivers=array('gd')) {
+    final public static function getDriver(array $drivers=array('gd'))
+    {
         foreach ($drivers as $driver) {
             if (!preg_match('/^[a-z0-9\_]+$/i', $driver))
                 continue;
@@ -96,16 +98,17 @@ abstract class image {
                 if ($avail) return $driver;
             }
         }
+
         return false;
     }
-
 
 /** Returns an array. Element 0 - image resource. Element 1 - width. Element 2 - height.
   * Returns FALSE on failure.
   * @param mixed $image
   * @return array */
 
-    final protected function buildImage($image) {
+    final protected function buildImage($image)
+    {
         $class = get_class($this);
 
         if ($image instanceof $class) {
@@ -126,40 +129,39 @@ abstract class image {
             : false;
     }
 
-
 /** Returns calculated proportional width from the given height
   * @param integer $resizedHeight
   * @return integer */
 
-    final public function getPropWidth($resizedHeight) {
+    final public function getPropWidth($resizedHeight)
+    {
         $width = round(($this->width * $resizedHeight) / $this->height);
         if (!$width) $width = 1;
         return $width;
     }
 
-
 /** Returns calculated proportional height from the given width
   * @param integer $resizedWidth
   * @return integer */
 
-    final public function getPropHeight($resizedWidth) {
+    final public function getPropHeight($resizedWidth)
+    {
         $height = round(($this->height * $resizedWidth) / $this->width);
         if (!$height) $height = 1;
         return $height;
     }
 
-
 /** Checks if PHP needs some extra extensions to use the image driver. This
   * static method should be implemented into driver classes like abstract
   * methods
   * @return bool */
-    static function available() { return false; }
+    public static function available() { return false; }
 
 /** Checks if file is an image. This static method should be implemented into
   * driver classes like abstract methods
   * @param string $file
   * @return bool */
-    static function checkImage($file) { return false; }
+    public static function checkImage($file) { return false; }
 
 /** Resize image. Should return TRUE on success or FALSE on failure
   * @param integer $width
@@ -183,7 +185,6 @@ abstract class image {
   * @param integer $offset
   * @return bool */
     abstract public function resizeCrop($width, $height, $offset=false);
-
 
 /** Rotate image
   * @param integer $angle
@@ -237,5 +238,3 @@ abstract class image {
     abstract protected function getImage($image, &$width, &$height);
 
 }
-
-?>

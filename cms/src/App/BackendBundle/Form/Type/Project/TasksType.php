@@ -10,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 
 class TasksType extends AbstractType
 {
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //$builder->add('tags');
@@ -22,7 +22,7 @@ class TasksType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        
+
     }
 
     /**
@@ -38,7 +38,7 @@ class TasksType extends AbstractType
         );
         $resolver->setDefaults($defaultValues);
     }
-    
+
     public function getParent()
     {
         return 'collection';

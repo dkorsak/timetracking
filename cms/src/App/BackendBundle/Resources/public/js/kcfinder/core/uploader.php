@@ -12,8 +12,8 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class uploader {
-
+class uploader
+{
 /** Release version */
     const VERSION = "2.52-dev";
 
@@ -103,12 +103,13 @@ class uploader {
 /** Magic method which allows read-only access to protected or private class properties
   * @param string $property
   * @return mixed */
-    public function __get($property) {
+    public function __get($property)
+    {
         return property_exists($this, $property) ? $this->$property : null;
     }
 
-    public function __construct() {
-
+    public function __construct()
+    {
         // DISABLE MAGIC QUOTES
         if (function_exists('set_magic_quotes_runtime'))
             @set_magic_quotes_runtime(false);
@@ -125,12 +126,12 @@ class uploader {
         )
             $this->cms = $this->get['cms'];
 
-		// LINKING UPLOADED FILE
+        // LINKING UPLOADED FILE
         if (count($_FILES))
             $this->file = &$_FILES[key($_FILES)];
 
         // LOAD DEFAULT CONFIGURATION
-        require "config.php";
+        require 'config.php';
 
         // SETTING UP SESSION
         if (isset($_CONFIG['_sessionLifetime']))
@@ -145,7 +146,7 @@ class uploader {
         }
 
         // RELOAD DEFAULT CONFIGURATION
-        require "config.php";
+        require 'config.php';
         $this->config = $_CONFIG;
 
         // LOAD SESSION CONFIGURATION IF EXISTS
@@ -291,7 +292,8 @@ class uploader {
             $this->backMsg("Cannot read upload folder.");
     }
 
-    public function upload() {
+    public function upload()
+    {
         $config = &$this->config;
         $file = &$this->file;
         $url = $message = "";
@@ -357,23 +359,28 @@ class uploader {
         $this->callBack($url, $message);
     }
 
-    protected function normalizeFilename($filename) {
+    protected function normalizeFilename($filename)
+    {
         if (isset($this->config['filenameChangeChars']) &&
             is_array($this->config['filenameChangeChars'])
         )
             $filename = strtr($filename, $this->config['filenameChangeChars']);
+
         return $filename;
     }
 
-    protected function normalizeDirname($dirname) {
+    protected function normalizeDirname($dirname)
+    {
         if (isset($this->config['dirnameChangeChars']) &&
             is_array($this->config['dirnameChangeChars'])
         )
             $dirname = strtr($dirname, $this->config['dirnameChangeChars']);
+
         return $dirname;
     }
 
-    protected function checkUploadedFile(array $aFile=null) {
+    protected function checkUploadedFile(array $aFile=null)
+    {
         $config = &$this->config;
         $file = ($aFile === null) ? $this->file : $aFile;
 
@@ -390,6 +397,7 @@ class uploader {
                 if ($return !== true)
                     return "$name: $return";
             }
+
             return true;
         }
 
@@ -438,6 +446,7 @@ class uploader {
                 if ($response !== true)
                     return $this->label($response);
             } else
+
                 return $this->label("Non-existing directory type.");
         }
 
@@ -449,7 +458,8 @@ class uploader {
         return true;
     }
 
-    protected function checkInputDir($dir, $inclType=true, $existing=true) {
+    protected function checkInputDir($dir, $inclType=true, $existing=true)
+    {
         $dir = path::normalize($dir);
         if (substr($dir, 0, 1) == "/")
             $dir = substr($dir, 1);
@@ -472,10 +482,12 @@ class uploader {
             return $return;
 
         $path = "{$this->config['uploadDir']}/$dir";
+
         return (is_dir($path) && is_readable($path)) ? $return : false;
     }
 
-    protected function validateExtension($ext, $type) {
+    protected function validateExtension($ext, $type)
+    {
         $ext = trim(strtolower($ext));
         if (!isset($this->types[$type]))
             return false;
@@ -493,30 +505,35 @@ class uploader {
 
         if (substr($exts, 0, 1) == "!") {
             $exts = explode(" ", trim(strtolower(substr($exts, 1))));
+
             return !in_array($ext, $exts);
         }
 
         $exts = explode(" ", trim(strtolower($exts)));
+
         return in_array($ext, $exts);
     }
 
-    protected function getTypeFromPath($path) {
+    protected function getTypeFromPath($path)
+    {
         return preg_match('/^([^\/]*)\/.*$/', $path, $patt)
             ? $patt[1] : $path;
     }
 
-    protected function removeTypeFromPath($path) {
+    protected function removeTypeFromPath($path)
+    {
         return preg_match('/^[^\/]*\/(.*)$/', $path, $patt)
             ? $patt[1] : "";
     }
 
-    protected function imageResize($image, $file=null) {
-
+    protected function imageResize($image, $file=null)
+    {
         if (!($image instanceof image)) {
             $img = image::factory($this->imageDriver, $image);
             if ($img->initError) return false;
             $file = $image;
         } elseif ($file === null)
+
             return false;
         else
             $img = $image;
@@ -542,8 +559,8 @@ class uploader {
             ) &&
             ($orientation == 1)
         )
-            return true;
 
+            return true;
 
         // PROPORTIONAL RESIZE
         if ((!$this->config['maxImageWidth'] || !$this->config['maxImageHeight'])) {
@@ -570,6 +587,7 @@ class uploader {
             $this->config['maxImageWidth'] && $this->config['maxImageHeight'] &&
             !$img->resizeFit($this->config['maxImageWidth'], $this->config['maxImageHeight'])
         )
+
             return false;
 
         // AUTO FLIP AND ROTATE FROM EXIF
@@ -581,6 +599,7 @@ class uploader {
             (($orientation == 7) && (!$img->flipHorizontal() || !$img->rotate(90))) ||
             (($orientation == 8) && !$img->rotate(270))
         )
+
             return false;
         if (($orientation >= 2) && ($orientation <= 8) && ($this->imageDriver == "imagick"))
             try {
@@ -605,7 +624,8 @@ class uploader {
         ));
     }
 
-    protected function makeThumb($file, $overwrite=true) {
+    protected function makeThumb($file, $overwrite=true)
+    {
         $img = image::factory($this->imageDriver, $file);
 
         // Drop files which are not images
@@ -633,6 +653,7 @@ class uploader {
 
         // Resize image
         } elseif (!$img->resizeFit($this->config['thumbWidth'], $this->config['thumbHeight']))
+
             return false;
 
         // Save thumbnail
@@ -642,7 +663,8 @@ class uploader {
         ));
     }
 
-    protected function localize($langCode) {
+    protected function localize($langCode)
+    {
         require "lang/{$langCode}.php";
         setlocale(LC_ALL, $lang['_locale']);
         $this->charset = $lang['_charset'];
@@ -657,15 +679,18 @@ class uploader {
         $this->labels = $lang;
     }
 
-    protected function label($string, array $data=null) {
+    protected function label($string, array $data=null)
+    {
         $return = isset($this->labels[$string]) ? $this->labels[$string] : $string;
         if (is_array($data))
             foreach ($data as $key => $val)
                 $return = str_replace("{{$key}}", $val, $return);
+
         return $return;
     }
 
-    protected function backMsg($message, array $data=null) {
+    protected function backMsg($message, array $data=null)
+    {
         $message = $this->label($message, $data);
         if (isset($this->file['tmp_name']) && file_exists($this->file['tmp_name']))
             @unlink($this->file['tmp_name']);
@@ -673,7 +698,8 @@ class uploader {
         die;
     }
 
-    protected function callBack($url, $message="") {
+    protected function callBack($url, $message="")
+    {
         $message = text::jsValue($message);
         $CKfuncNum = isset($this->opener['CKEditor']['funcNum'])
             ? $this->opener['CKEditor']['funcNum'] : 0;
@@ -714,7 +740,8 @@ if (!kc_CKEditor && !kc_FCKeditor && !kc_Custom)
 
     }
 
-    protected function get_htaccess() {
+    protected function get_htaccess()
+    {
         return "<IfModule mod_php4.c>
   php_value engine off
 </IfModule>
@@ -724,5 +751,3 @@ if (!kc_CKEditor && !kc_FCKeditor && !kc_Custom)
 ";
     }
 }
-
-?>

@@ -3,11 +3,10 @@
 namespace App\GeneralBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\ProjectToTask
- * 
+ *
  * @ORM\Table(name="project_to_task")
  * @ORM\Entity()
  */
@@ -24,7 +23,7 @@ class ProjectToTask
 
     /**
      * @var boolean
-     * 
+     *
      * @ORM\Column(name="billable", type="boolean", nullable=false)
      */
     private $billable;
@@ -39,7 +38,7 @@ class ProjectToTask
 
     /**
      * @var Task
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Task", inversedBy="projects")
      * @ORM\JoinColumn(name="task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
@@ -47,7 +46,7 @@ class ProjectToTask
 
     /**
      * Constructor
-     * 
+     *
      */
     public function __construct()
     {
@@ -65,7 +64,7 @@ class ProjectToTask
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -75,20 +74,20 @@ class ProjectToTask
     /**
      * Set billable
      *
-     * @param boolean $billable
+     * @param  boolean       $billable
      * @return ProjectToTask
      */
     public function setBillable($billable)
     {
         $this->billable = $billable;
-    
+
         return $this;
     }
 
     /**
      * Get billable
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getBillable()
     {
@@ -98,20 +97,20 @@ class ProjectToTask
     /**
      * Set project
      *
-     * @param \App\GeneralBundle\Entity\Project $project
+     * @param  \App\GeneralBundle\Entity\Project $project
      * @return ProjectToTask
      */
     public function setProject(\App\GeneralBundle\Entity\Project $project)
     {
         $this->project = $project;
-    
+
         return $this;
     }
 
     /**
      * Get project
      *
-     * @return \App\GeneralBundle\Entity\Project 
+     * @return \App\GeneralBundle\Entity\Project
      */
     public function getProject()
     {
@@ -121,20 +120,20 @@ class ProjectToTask
     /**
      * Set task
      *
-     * @param \App\GeneralBundle\Entity\Task $task
+     * @param  \App\GeneralBundle\Entity\Task $task
      * @return ProjectToTask
      */
     public function setTask(\App\GeneralBundle\Entity\Task $task)
     {
         $this->task = $task;
-    
+
         return $this;
     }
 
     /**
      * Get task
      *
-     * @return \App\GeneralBundle\Entity\Task 
+     * @return \App\GeneralBundle\Entity\Task
      */
     public function getTask()
     {

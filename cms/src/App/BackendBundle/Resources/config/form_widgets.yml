@@ -17,4 +17,3 @@ services:
         class: App\BackendBundle\Form\Type\Project\TasksType
         tags:
             - { name: form.type, alias: app_backend_form_project_tasks_type }
-    

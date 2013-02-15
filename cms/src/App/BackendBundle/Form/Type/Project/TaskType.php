@@ -10,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 
 class TaskType extends AbstractType
 {
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //$builder->add('name');
@@ -22,7 +22,7 @@ class TaskType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        
+
     }
 
     /**
@@ -35,7 +35,6 @@ class TaskType extends AbstractType
         );
         $resolver->setDefaults($defaultValues);
     }
-    
 
     /**
      * {@inheritdoc}

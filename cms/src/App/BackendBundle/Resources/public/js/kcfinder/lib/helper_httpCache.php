@@ -12,7 +12,8 @@
   *      @link http://kcfinder.sunhater.com
   */
 
-class httpCache {
+class httpCache
+{
     const DEFAULT_TYPE = "text/html";
     const DEFAULT_EXPIRE = 604800; // in seconds
 
@@ -25,7 +26,8 @@ class httpCache {
     * @param integer $expire
     * @param array $headers */
 
-    static function file($file, $type=null, $expire=null, array $headers=null) {
+    public static function file($file, $type=null, $expire=null, array $headers=null)
+    {
         $mtime = @filemtime($file);
         if ($mtime !== false) self::checkMTime($mtime);
 
@@ -47,7 +49,8 @@ class httpCache {
     * @param array $headers
     * @param bool $checkMTime */
 
-    static function content($content, $mtime, $type=null, $expire=null, array $headers=null, $checkMTime=true) {
+    public static function content($content, $mtime, $type=null, $expire=null, array $headers=null, $checkMTime=true)
+    {
         if ($checkMTime) self::checkMTime($mtime);
         if ($type === null) $type = self::DEFAULT_TYPE;
         if ($expire === null) $expire = self::DEFAULT_EXPIRE;
@@ -68,7 +71,8 @@ class httpCache {
     * the PHP to be configured as Apache module.
     * @param integer $mtime */
 
-    static function checkMTime($mtime, $sendHeaders=null) {
+    public static function checkMTime($mtime, $sendHeaders=null)
+    {
         header("Last-Modified: " . gmdate("D, d M Y H:i:s", $mtime) . " GMT");
 
         $headers = function_exists("getallheaders")
@@ -88,11 +92,8 @@ class httpCache {
                 elseif ($sendHeaders !== null)
                     header($sendHeaders);
 
-
                 die;
             }
         }
     }
 }
-
-?>
