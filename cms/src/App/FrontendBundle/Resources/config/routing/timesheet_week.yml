@@ -1,3 +1,15 @@
 timesheet_week:
-    pattern:  /{year}/{month}/{day}
+    pattern:  /show/{year}/{month}/{day}
     defaults: { _controller: AppFrontendBundle:TimesheetWeek:index, year: "", month: "", day: "" }
+
+timesheet_week_new_task:
+    pattern:  /new/task/{year}/{month}
+    defaults: { _controller: AppFrontendBundle:TimesheetWeek:newTask}
+    options:
+        expose: true
+
+timesheet_week_create_task:
+    pattern:  /create/task
+    defaults: { _controller: AppFrontendBundle:TimesheetWeek:createTask}
+    requirements:
+        _method:  POST

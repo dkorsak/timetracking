@@ -8,8 +8,10 @@
 {% block stylesheets %}
 {% stylesheets filter='cssrewrite,?yui_css' output="css/site.css"
 'bundles/appfrontend/bootstrap/css/bootstrap.css'
-'bundles/appfrontend/css/main.css'
 'bundles/appfrontend/datepicker/css/datepicker.css'
+'bundles/appfrontend/bootstrap-modal/css/bootstrap-modal.css'
+'bundles/appfrontend/select2/select2.css'
+'bundles/appfrontend/css/main.css'
 %}
 <link href="{{ asset_url }}" rel="stylesheet" media="screen" />
 {% endstylesheets %}
@@ -17,16 +19,26 @@
 {% block javascripts %}
 {% javascripts filter='?closure' output="js/site.js"
 '@AppGeneralBundle/Resources/public/js/jquery.min.js'
+'@AppGeneralBundle/Resources/public/js/jquery.form.js'
+'@AppFrontendBundle/Resources/public/js/lib/handlebars.js'
+'@AppFrontendBundle/Resources/public/select2/select2.min.js'
 '@AppFrontendBundle/Resources/public/bootstrap/js/bootstrap.min.js'
 '@AppFrontendBundle/Resources/public/js/lib/jquery.meio.mask.min.js'
 '@AppFrontendBundle/Resources/public/js/lib/moment.min.js'
 '@AppFrontendBundle/Resources/public/datepicker/js/bootstrap-datepicker.js'
 '@AppFrontendBundle/Resources/public/datepicker/js/locales/bootstrap-datepicker.pl.js'
+'@AppFrontendBundle/Resources/public/bootstrap-modal/js/bootstrap-modalmanager.js'
+'@AppFrontendBundle/Resources/public/bootstrap-modal/js/bootstrap-modal.js'
+'@FOSJsRoutingBundle/Resources/public/js/router.js'
+'js/fos_js_routes.js'
 '@AppFrontendBundle/Resources/public/js/global/*'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock %}
+{% if app.environment == 'dev' %}
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endif %}
 <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 <script type="text/javascript">
 var locale = '{{ app.request.locale }}'

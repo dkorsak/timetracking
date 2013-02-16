@@ -44,7 +44,8 @@
         "behat/mink-selenium-driver":   "*",
         "behat/mink-zombie-driver":      "*",
         "stealth35/apc-profiler-bundle": "*",
-        "nesbot/carbon": "dev-master"
+        "nesbot/carbon": "dev-master",
+        "friendsofsymfony/jsrouting-bundle": "1.1.*"
     },
     "scripts": {
         "post-install-cmd": [

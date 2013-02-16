@@ -84,13 +84,14 @@
             {% endif %}
             <tr>
                 <td colspan="10">
-                    <a href="#" class="btn"><i class="icon-plus"></i> {% trans from 'timesheet' %}Add row{% endtrans %}</a>
-                    <button type="submit" class="btn btn-success">{% trans from 'timesheet' %}Save{% endtrans %}</button>
+                    <a href="#" class="btn add-new-task"><i class="icon-plus"></i> {% trans from 'timesheet' %}Add row{% endtrans %}</a>
+                    <button type="submit" class="btn btn-success save-timesheet-week{% if list|length == 0 %} hide{% endif %}">{% trans from 'timesheet' %}Save{% endtrans %}</button>
                 </td>
             </tr>
         </tfoot>
         </table>
     </form>
+    {% include 'AppFrontendBundle:TimesheetWeek:_add.task.dialog.html.twig' %}
 </div>
 
 {% endblock %}

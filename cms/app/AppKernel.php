@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new App\BackendBundle\AppBackendBundle(),
             new App\FrontendBundle\AppFrontendBundle(),
