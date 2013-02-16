@@ -22,6 +22,7 @@ $(function () {
             var year = moment($datepicker.data("date")).format('YYYY');
             var month = moment($datepicker.data("date")).format('MM');
             $addTaskModal.find('.modal-body').load(Routing.generate('timesheet_week_new_task', {'year': year, 'month': month}), '', function() {
+                $addTaskModal.find('.modal-body select').select2();
                 $addTaskModal.modal();
             });
             
@@ -30,13 +31,17 @@ $(function () {
 
         // prepare add task ajax form
         $addTaskModal.find('form').ajaxForm({
-            target: $addTaskModal.find('.modal-body'), 
+            target: $addTaskModal.find('.modal-body'),
+            beforeSubmit: function() {
+                $addTaskModal.modal('loading');
+            },
             success: function showResponse(responseText, statusText, xhr, $form) {
-                var response = $.parseJSON(responseText);
-                if (typeof response =='object') {
+                //var response = $.parseJSON(responseText);
+                if (xhr.getResponseHeader('Content-Type') == 'application/json') {
                     $addTaskModal.modal('hide');
                     $addTaskModal.find('.modal-body').html("");
-                };
+                }
+                $addTaskModal.modal('removeLoading')
             }
         });
         

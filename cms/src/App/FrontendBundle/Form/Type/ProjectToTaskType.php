@@ -1,13 +1,12 @@
 <?php
 
-namespace App\FrontendBundle\Form\Type\TimesheetWeek;
+namespace App\FrontendBundle\Form\Type;
 
-use App\FrontendBundle\Form\Type\ProjectToTaskType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class AddTaskFormType extends AbstractType
+class ProjectToTaskType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -15,9 +14,8 @@ class AddTaskFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('year', 'text')
-            ->add('week', 'text')
-            ->add('task', new ProjectToTaskType());
+            ->add('project', null, array('property' => 'name'))
+            ->add('task', null, array('property' => 'name'));
     }
 
     /**
@@ -26,7 +24,7 @@ class AddTaskFormType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $defaultValues = array(
-            'data_class' => 'App\GeneralBundle\Entity\Timesheet'
+            'data_class' => 'App\GeneralBundle\Entity\ProjectToTask'
         );
         $resolver->setDefaults($defaultValues);
     }
@@ -36,6 +34,6 @@ class AddTaskFormType extends AbstractType
      */
     public function getName()
     {
-        return 'app_frontend_form_type_timesheet_week_add_task_form_type';
+        return 'app_frontend_form_type_project_to_task_form_type';
     }
 }

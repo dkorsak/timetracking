@@ -7,7 +7,7 @@ services:
     app_frontend.form.type.timesheet_week.add_task_form_type:
         class: App\FrontendBundle\Form\Type\TimesheetWeek\AddTaskFormType
         tags:
-            - { name: form.type, alias: app_frontend_form_timesheet_week_add_task_form_type }
+            - { name: form.type, alias: app_frontend_form_type_timesheet_week_add_task_form_type }
 
     #form factory
     app_frontend.form.factory.timesheet_week.add_task_form:
@@ -15,7 +15,7 @@ services:
         factory_method: createNamed
         factory_service: form.factory
         public: false
-        arguments: [task, app_frontend_form_timesheet_week_add_task_form_type]
+        arguments: [task, app_frontend_form_type_timesheet_week_add_task_form_type]
 
     #form handler
     app_frontend.form.handler.timesheet_week.add_task_form_handler:

@@ -59,8 +59,14 @@ class TimesheetWeekController extends Controller
 
         $data = array();
         $data['status'] = 'ok';
-
-        return new Response(json_encode($data));
-        return $this->render($template, array('form' => 'TODO'));
+        
+        $form = $this->get('app_frontend.form.factory.timesheet_week.add_task_form');
+        $formHandler = $this->get('app_frontend.form.handler.timesheet_week.add_task_form_handler');
+        
+        if ($formHandler->processCreate()) {
+            
+        }
+        //return new Response(json_encode($data));application/json
+        return $this->render($template, array('form' => $form->createView()));
     }
 }

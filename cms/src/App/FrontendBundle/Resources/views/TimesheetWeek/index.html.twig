@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="pull-left">
-        {% set format = currentDate|date('Y') == currentDate|end_week_date|date('Y') ? 'dd MMM' : 'dd MMM yyyy' %}
+        {% set format = (currentDate|date('Y') == currentDate|start_week_date|date('Y') and currentDate|date('Y') == currentDate|end_week_date|date('Y')) ? 'dd MMM' : 'dd MMM yyyy' %}
         <h3>{{ currentDate|start_week_date|format_date(format) }} - {{ currentDate|end_week_date|format_date('dd MMM yyyy') }}</h3>
     </div>
     <form action="#" method="post" class="clearfix">
@@ -28,9 +28,9 @@
         <thead>
             <tr>
                 <th class="task">&nbsp;</th>
-                {% for day in 0..6 %}
+                {% for day in 1..7 %}
                 <th class="time">
-                    {% set loopDate = currentDate|start_week_date.addDays(day) %}
+                    {% set loopDate = currentDate|start_week_date.addDays(day-1) %}
                     {{ loopDate|format_date('EEE') }}<br />
                     <a href="{{ path('timesheet_day') }}{{ loopDate|date('/Y/m/d') }}">{{ loopDate|format_date('dd MMM') }}</a>
                 </th>
