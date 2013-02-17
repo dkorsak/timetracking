@@ -5,3 +5,9 @@ services:
         arguments: [@router]
         tags:
             - { name: kernel.event_subscriber }
+
+    #event listener for executing preExecute action for controller
+    app_frontend.event_listener.pre_execute_controller_listener:
+        class: App\FrontendBundle\EventListener\PreExecuteControllerListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

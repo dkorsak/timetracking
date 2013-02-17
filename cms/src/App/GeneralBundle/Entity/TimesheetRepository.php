@@ -31,7 +31,7 @@ class TimesheetRepository extends EntityRepository
                 task.name AS task_name,
                 c.name AS company_name
             FROM AppGeneralBundle:Timesheet t
-            JOIN t.timesheetItems ti
+            LEFT JOIN t.timesheetItems ti
             JOIN t.task ptt
             JOIN ptt.project p
             JOIN ptt.task task

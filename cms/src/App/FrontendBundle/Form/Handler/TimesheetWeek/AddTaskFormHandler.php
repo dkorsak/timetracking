@@ -26,9 +26,9 @@ class AddTaskFormHandler
 
     /**
      * Constructor
-     * 
+     *
      * @param FormInterface $form
-     * @param Request $request
+     * @param Request       $request
      * @param ObjectManager $em
      */
     public function __construct(FormInterface $form, Request $request, ObjectManager $em)
@@ -38,32 +38,37 @@ class AddTaskFormHandler
         $this->em = $em;
     }
 
-    public function processNew(Timesheet $timesheet)
+    /**
+     * @param unknown_type $year
+     * @param unknown_type $week
+     */
+    public function processNew($year, $week)
     {
-        /*
-        $this->form->setData($unitStyle);
-        if ('POST' == $this->request->getMethod()) {
-            $this->form->bind($this->request);
-            if ($this->form->isValid()) {
-                $data = $this->form->getData();
-                if ($data->getLogoFile() instanceof UploadedFile) {
-                    $path = $this->fileService->uploadFile($data->getLogoFile(), UploadFileService::COMPANY_LOGO_DIR);
-                    $data->setLogo($path);
-                }
+        $timesheet = new Timesheet();
+        $timesheet->setYear($year);
+        $timesheet->setWeek($week);
 
-                $this->em->persist($data);
-                $this->em->flush();
+        $this->form->setData($timesheet);
+    }
 
-                return true;
-            }
+    /**
+     * @param  Timesheet $timesheet
+     * @return boolean
+     */
+    public function processCreate(Timesheet $timesheet)
+    {
+        $this->form->setData($timesheet);
+
+        $this->form->bind($this->request);
+        if ($this->form->isValid()) {
+            $data = $this->form->getData();
+
+            $this->em->persist($data);
+            $this->em->flush();
+
+            return true;
         }
 
         return false;
-        */
-    }
-
-    public function processCreate()
-    {
-
     }
 }

@@ -6,7 +6,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
-class ProjectToTaskType extends AbstractType
+class ProjectToTaskFormType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -14,7 +14,7 @@ class ProjectToTaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('project', null, array('property' => 'name'))
+            ->add('project', null, array('property' => 'name', 'group_by' => 'company.name', 'empty_value' => ''))
             ->add('task', null, array('property' => 'name'));
     }
 

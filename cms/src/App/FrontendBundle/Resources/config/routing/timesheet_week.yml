@@ -3,7 +3,7 @@ timesheet_week:
     defaults: { _controller: AppFrontendBundle:TimesheetWeek:index, year: "", month: "", day: "" }
 
 timesheet_week_new_task:
-    pattern:  /new/task/{year}/{month}
+    pattern:  /new/task/{year}/{week}
     defaults: { _controller: AppFrontendBundle:TimesheetWeek:newTask}
     options:
         expose: true

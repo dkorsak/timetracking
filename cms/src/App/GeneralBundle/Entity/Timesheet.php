@@ -5,11 +5,18 @@ namespace App\GeneralBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\Timesheet
  *
- * @ORM\Table(name="timesheet")
+ * @ORM\Table(name="timesheet",
+ *     uniqueConstraints={
+ *         @ORM\UniqueConstraint(
+ *             name="timesheet_idx", columns={"task_year", "task_week", "user_id", "project_to_task_id"}
+ *         )
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\GeneralBundle\Entity\TimesheetRepository")
  */
 class Timesheet
@@ -24,9 +31,11 @@ class Timesheet
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="task_year", type="integer", nullable=false)
+     * @ORM\Column(name="task_year", type="string", length=4, nullable=false)
+     * @Assert\Length(min=4, max=4)
+     * @Assert\Regex(pattern="/\d/", match=true)
      */
     private $year;
 
@@ -34,6 +43,8 @@ class Timesheet
      * @var string
      *
      * @ORM\Column(name="task_week", type="string", length=2, nullable=false)
+     * @Assert\Length(min=2, max=2)
+     * @Assert\Regex(pattern="/\d/", match=true)
      */
     private $week;
 
@@ -58,6 +69,8 @@ class Timesheet
      *
      * @ORM\ManyToOne(targetEntity="ProjectToTask", cascade={"persist"})
      * @ORM\JoinColumn(name="project_to_task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="App\GeneralBundle\Entity\ProjectToTask")
      */
     private $task;
 
@@ -89,7 +102,7 @@ class Timesheet
     /**
      * Set year
      *
-     * @param  integer   $year
+     * @param  string    $year
      * @return Timesheet
      */
     public function setYear($year)
@@ -102,7 +115,7 @@ class Timesheet
     /**
      * Get year
      *
-     * @return integer
+     * @return string
      */
     public function getYear()
     {

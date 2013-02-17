@@ -11,7 +11,7 @@
                 <a class="btn" href="{{ path('timesheet_week') }}{{ currentDate|next_week_start_date|date('/Y/m/d') }}">&gt;</a>
             </div>
             <div class="btn-group">
-                <a class="btn change-date" href="{{ path('timesheet_week') }}" data-date-format="yyyy-mm-dd" data-date="{{ currentDate|date('Y-m-d') }}"><i class="icon-calendar"></i></a>
+                <a class="btn change-date" href="{{ path('timesheet_week') }}" data-date-format="yyyy-mm-dd" data-year="{{ currentDate|start_week_date|date('Y') }}" data-week="{{ currentDate|start_week_date|date('W') }}" data-date="{{ currentDate|date('Y-m-d') }}"><i class="icon-calendar"></i></a>
             </div>
             <div class="btn-group">
                 <a class="btn" href="{{ path('timesheet_day') }}">{% trans from 'timesheet' %}Day{% endtrans %}</a>
@@ -91,7 +91,12 @@
         </tfoot>
         </table>
     </form>
+
     {% include 'AppFrontendBundle:TimesheetWeek:_add.task.dialog.html.twig' %}
+
+    <script id="add-task-template" type="text/x-handlebars-template">
+
+    </script>
 </div>
 
 {% endblock %}

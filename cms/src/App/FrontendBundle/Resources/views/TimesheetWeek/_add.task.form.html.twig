@@ -1,2 +1,24 @@
-TODO FORM
-{{ form_widget(form) }}
+<fieldset class="row-fluid">
+    {% if form.vars.errors|length > 0 %}
+        <div class="alert alert-error">{{ form.vars.errors[0].message }}</div>
+    {% endif %}
+    <div class="control-group clearfix">
+        {{ form_label(form.task.project, 'Project', {'attr': {'class': 'control-label'}}) }}
+        {% if form.task.project.vars.errors|length > 0 %}
+            <div class="alert alert-error">{{ form.task.project.vars.errors[0].message }}</div>
+        {% endif %}
+        <div class="controls">
+            {{ form_widget(form.task.project, {'attr': {'class':'select-project span12'}}) }}
+        </div>
+    </div>
+    <div class="control-group clearfix">
+        {{ form_label(form.task.task, 'Task', {'attr': {'class': 'control-label'}}) }}
+        {% if form.task.task.vars.errors|length > 0 %}
+            <div class="alert alert-error">{{ form.task.task.vars.errors[0].message }}</div>
+        {% endif %}
+        <div class="controls">
+            {{ form_widget(form.task.task, {'attr': {'class':'select-task span12'}}) }}
+        </div>
+    </div>
+</fieldset>
+{{ form_rest(form) }}

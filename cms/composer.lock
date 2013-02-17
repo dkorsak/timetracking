@@ -1795,12 +1795,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "1fb88eebc7ca2b9aeb0e059f1af400e8a18dcb11"
+                "reference": "5cc24b8a77bd93c286c3d09264385f473b344c24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/1fb88eebc7ca2b9aeb0e059f1af400e8a18dcb11",
-                "reference": "1fb88eebc7ca2b9aeb0e059f1af400e8a18dcb11",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/5cc24b8a77bd93c286c3d09264385f473b344c24",
+                "reference": "5cc24b8a77bd93c286c3d09264385f473b344c24",
                 "shasum": ""
             },
             "require": {
@@ -1809,7 +1809,7 @@
             "require-dev": {
                 "hamcrest/hamcrest": "1.1.0"
             },
-            "time": "2013-02-16 16:22:24",
+            "time": "2013-02-16 19:44:47",
             "type": "library",
             "autoload": {
                 "psr-0": {

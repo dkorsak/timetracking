@@ -3,11 +3,16 @@
 namespace App\GeneralBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * App\GeneralBundle\ProjectToTask
  *
- * @ORM\Table(name="project_to_task")
+ * @ORM\Table(name="project_to_task",
+ *     uniqueConstraints={
+ *         @ORM\UniqueConstraint(name="project_to_task_project_task_idx", columns={"project_id", "task_id"})
+ *     }
+ * )
  * @ORM\Entity()
  */
 class ProjectToTask
@@ -33,6 +38,8 @@ class ProjectToTask
      *
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="tasks")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="App\GeneralBundle\Entity\Project")
      */
     private $project;
 
@@ -41,6 +48,8 @@ class ProjectToTask
      *
      * @ORM\ManyToOne(targetEntity="Task", inversedBy="projects")
      * @ORM\JoinColumn(name="task_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="App\GeneralBundle\Entity\Task")
      */
     private $task;
 

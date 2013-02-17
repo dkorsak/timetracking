@@ -1,5 +1,5 @@
 <div class="modal hide" id="add-task-modal">
-    <form method="post" action="{{ path('timesheet_week_create_task') }}" style="margin-bottom: 0px;">
+    <form method="post" action="{{ path('timesheet_week_create_task') }}" style="margin-bottom: 0px;" novalidate="novalidate">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h5>{% trans from 'timesheet' %}Create new task{% endtrans %}</h5>
