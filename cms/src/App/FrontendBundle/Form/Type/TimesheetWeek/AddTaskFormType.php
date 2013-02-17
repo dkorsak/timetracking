@@ -2,7 +2,10 @@
 
 namespace App\FrontendBundle\Form\Type\TimesheetWeek;
 
-use App\FrontendBundle\Form\EventListener\TimesheetWeek\AddTaskFormSubscriber;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +17,16 @@ class AddTaskFormType extends AbstractType
      * @var ObjectManager
      */
     private $em;
+
+    /**
+     * @var array
+     */
+    private $projects;
+
+    /**
+     * @var array
+     */
+    private $tasks;
 
     /**
      * Constructor
@@ -30,14 +43,18 @@ class AddTaskFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $projectOptions = array('required' => false, 'choices' => $this->getProjects($options), 'empty_value' => '');
         $builder
-            ->add('year', 'hidden')
-            ->add('week', 'hidden')
-            ->add('task', 'app_frontend_form_type_project_to_task_form_type');
+            ->add('project', 'choice', $projectOptions)
+            ->add('task', 'hidden');
+    }
 
-        // handle form events
-        $subscriber = new AddTaskFormSubscriber($this->em);
-        $builder->addEventSubscriber($subscriber);
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->set('tasks', json_encode($this->getTasks($options)));
     }
 
     /**
@@ -45,11 +62,21 @@ class AddTaskFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        $collectionConstraint = new Collection(
+            array(
+                'project' => array(new NotBlank()),
+                'task' => array(new NotBlank())
+            )
+        );
+
         $defaultValues = array(
-            'cascade_validation' => true,
-            'data_class' => 'App\GeneralBundle\Entity\Timesheet'
+            'error_bubling' => false,
+            'validation_constraint' => $collectionConstraint
         );
         $resolver->setDefaults($defaultValues);
+
+        $optionNames = array('year', 'week', 'user_id');
+        $resolver->setRequired($optionNames);
     }
 
     /**
@@ -58,5 +85,52 @@ class AddTaskFormType extends AbstractType
     public function getName()
     {
         return 'app_frontend_form_type_timesheet_week_add_task_form_type';
+    }
+
+    /**
+     * @param array $options
+     */
+    private function prepareData(array $options)
+    {
+        $projects = $this->em->getRepository('AppGeneralBundle:Project')->getUserAvailableProjects($options['user_id']);
+        $data = array();
+        $taskData = array();
+        //TODO remove tasks for current week
+        foreach ($projects as $item) {
+            $data[$item['company_id']]['company_name'] = $item['company_name'];
+            $data[$item['company_id']]['projects'][$item['project_id']] = $item['project_name'];
+            $taskData[$item['project_id']][] = array('id' => $item['task_id'], 'text' => $item['task_name']);
+        }
+
+        $this->projects = $data;
+        $this->tasks = $taskData;
+    }
+
+    /**
+     * @param array $options
+     */
+    private function getProjects(array $options)
+    {
+        if (is_null($this->projects)) {
+            $this->prepareData($options);
+        }
+        $projects = array();
+        foreach ($this->projects as $item) {
+            $projects[$item['company_name']] = $item['projects'];
+        }
+
+        return $projects;
+    }
+
+    /**
+     * @param array $options
+     */
+    private function getTasks(array $options)
+    {
+        if (is_null($this->projects)) {
+            $this->prepareData($options);
+        }
+
+        return $this->tasks;
     }
 }

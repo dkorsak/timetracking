@@ -10,22 +10,8 @@ services:
         tags:
             - { name: form.type, alias: app_frontend_form_type_timesheet_week_add_task_form_type }
 
-    #form factory
-    app_frontend.form.factory.timesheet_week.add_task_form:
-        class:  Symfony\Component\Form\Form
-        factory_method: createNamed
-        factory_service: form.factory
-        public: false
-        arguments: [task, app_frontend_form_type_timesheet_week_add_task_form_type]
-
-    #form handler
+    #form handler for managing add task form type
     app_frontend.form.handler.timesheet_week.add_task_form_handler:
         class: App\FrontendBundle\Form\Handler\TimesheetWeek\AddTaskFormHandler
-        arguments: [@app_frontend.form.factory.timesheet_week.add_task_form, @request, @doctrine.orm.entity_manager]
+        arguments: [@form.factory, @request, @doctrine.orm.entity_manager, @security.context]
         scope: request
-
-    # form type
-    app_frontend.form.type.project_to_task_form_type:
-        class: App\FrontendBundle\Form\Type\ProjectToTaskFormType
-        tags:
-            - { name: form.type, alias: app_frontend_form_type_project_to_task_form_type }

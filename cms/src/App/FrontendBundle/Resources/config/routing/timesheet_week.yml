@@ -9,7 +9,9 @@ timesheet_week_new_task:
         expose: true
 
 timesheet_week_create_task:
-    pattern:  /create/task
+    pattern:  /create/task/{year}/{week}
     defaults: { _controller: AppFrontendBundle:TimesheetWeek:createTask}
     requirements:
         _method:  POST
+    options:
+        expose: true

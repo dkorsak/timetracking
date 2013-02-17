@@ -2,7 +2,8 @@
 
 namespace App\FrontendBundle\Form\Handler\TimesheetWeek;
 
-use App\GeneralBundle\Entity\Timesheet;
+use Symfony\Component\Form\FormFactoryInterface;
+
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,11 @@ class AddTaskFormHandler
      * @var FormInterface
      */
     private $form;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $factory;
 
     /**
      * @var Request
@@ -31,33 +37,32 @@ class AddTaskFormHandler
      * @param Request       $request
      * @param ObjectManager $em
      */
-    public function __construct(FormInterface $form, Request $request, ObjectManager $em)
+    public function __construct(FormFactoryInterface $factory, Request $request, ObjectManager $em)
     {
-        $this->form = $form;
+        $this->factory = $factory;
         $this->request = $request;
         $this->em = $em;
     }
 
     /**
-     * @param unknown_type $year
-     * @param unknown_type $week
+     * @param string  $year
+     * @param string  $week
+     * @param integer $userId
      */
-    public function processNew($year, $week)
+    public function processNew($year, $week, $userId)
     {
-        $timesheet = new Timesheet();
-        $timesheet->setYear($year);
-        $timesheet->setWeek($week);
-
-        $this->form->setData($timesheet);
+        $this->createForm($year, $week, $userId);
     }
 
     /**
-     * @param  Timesheet $timesheet
-     * @return boolean
+     * @param  string  $year
+     * @param  string  $week
+     * @param  integer $userId
+     * @return mixed
      */
-    public function processCreate(Timesheet $timesheet)
+    public function processCreate($year, $week, $userId)
     {
-        $this->form->setData($timesheet);
+        $this->createForm($year, $week, $userId);
 
         $this->form->bind($this->request);
         if ($this->form->isValid()) {
@@ -68,7 +73,28 @@ class AddTaskFormHandler
 
             return true;
         }
+        //print_R($this->form->getErrorsAsString());
 
         return false;
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormView
+     */
+    public function createView()
+    {
+        return $this->form->createView();
+    }
+
+    /**
+     * @param string  $year
+     * @param string  $week
+     * @param integer $userId
+     */
+    private function createForm($year, $week, $userId)
+    {
+        $options = array('year' => $year, 'week' => $week, 'user_id' => $userId);
+        $type = 'app_frontend_form_type_timesheet_week_add_task_form_type';
+        $this->form = $this->factory->createNamed('task', $type, null, $options);
     }
 }

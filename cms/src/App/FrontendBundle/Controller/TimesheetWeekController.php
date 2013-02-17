@@ -3,17 +3,11 @@
 namespace App\FrontendBundle\Controller;
 
 use App\GeneralBundle\Entity\Timesheet;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TimesheetWeekController extends Controller implements PreExecuteControllerInterface
 {
-    /**
-     * @var AddTaskFormType
-     */
-    private $addTaskForm;
-
     /**
      * @var AddTaskFormHandler
      */
@@ -29,7 +23,6 @@ class TimesheetWeekController extends Controller implements PreExecuteController
      */
     public function preExecute()
     {
-        $this->addTaskForm = $this->get('app_frontend.form.factory.timesheet_week.add_task_form');
         $this->addTakFormHandler = $this->get('app_frontend.form.handler.timesheet_week.add_task_form_handler');
         $this->timesheetService = $this->get('app_general.services.timesheet');
     }
@@ -66,37 +59,33 @@ class TimesheetWeekController extends Controller implements PreExecuteController
     {
         $template = 'AppFrontendBundle:TimesheetWeek:_add.task.form.html.twig';
 
-        $this->addTakFormHandler->processNew($year, $week);
+        $this->addTakFormHandler->processNew($year, $week, $this->getUser()->getId());
 
-        return $this->render($template, array('form' => $this->addTaskForm->createView()));
+        return $this->render($template, array('form' => $this->addTakFormHandler->createView()));
     }
 
     /**
-     * Ajax action for saving new user task
+     * Ajax action for save new task form
      *
-     * @param  Request                                    $request
+     * @param  string                                     $year
+     * @param  string                                     $week
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function createTaskAction(Request $request)
+    public function createTaskAction($year, $week)
     {
         $template = 'AppFrontendBundle:TimesheetWeek:_add.task.form.html.twig';
 
-        $timesheet = new Timesheet();
-        $timesheet->setUser($this->getUser());
+        $result = $this->addTakFormHandler->processCreate($year, $week, $this->getUser()->getId());
 
-        if ($this->addTakFormHandler->processCreate($timesheet)) {
-            $data = array();
-            $data['status'] = 'ok';
-
+        if ($result !== false) {
             $response = new Response();
             $response->headers->set('Content-Type', 'application/json');
-            $response->setContent(json_encode($data));
+            $response->setContent(json_encode($result));
 
             return $response;
         }
 
-        //print_R($this->addTaskForm->getErrorsAsString());
-        return $this->render($template, array('form' => $this->addTaskForm->createView()));
+        return $this->render($template, array('form' => $this->addTakFormHandler->createView()));
     }
 
     public function saveAction()
