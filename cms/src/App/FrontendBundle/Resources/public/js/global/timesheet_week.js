@@ -2,41 +2,38 @@ $(function () {
     "use strict";
     
     var $dom = $("#timesheet-week-content");
-    var $datepicker = $dom.find('.change-date');
-    var $addTaskModal = $('#add-task-modal');
-    var handleBarTemplate;
     
     if ($dom.size() > 0) {
         
+        var $datepicker = $dom.find('.change-date').initializeDatePicker();
         var currentYear = $datepicker.data("year");
         var currentWeek = $datepicker.data("week");
-        var taskList = [];
-
-        // datepicker
-        $datepicker.datepicker({language: locale.substring(0, 2)}).on('changeDate', function(ev) {
-            $datepicker.datepicker('hide');
-            var date = moment(new Date(ev.date)).format("/YYYY/MM/DD");
-            document.location.href= $datepicker.attr("href") + date;
-            
-            return false;
-        });
+        var $addTaskModal = $('#add-task-modal');
+        var handleBarTemplate;
         
         // show add task modal window
         $dom.find('a.add-new-task').on('click', function() {
             $('body').modalmanager('loading');
             $addTaskModal.find('.modal-body').load(Routing.generate('timesheet_week_new_task', {'year': currentYear, 'week': currentWeek}), '', function() {
-                taskList = $addTaskModal.find('.control-group-task').data("list");
+                var taskList = $addTaskModal.find('.control-group-task').data("list");
+                var $selectTask = $addTaskModal.find('.modal-body .select-task');
+                $selectTask.select2({
+                    data: []
+                });
+                $selectTask.select2("disable");
                 $addTaskModal.find('.modal-body select.select-project').select2({
                     placeholder: "Select a project"
                 }).on("change", function(e) {
-                    $addTaskModal.find('.modal-body .select-task').select2({
-                        placeholder: "Select a task",
+                    if (taskList[e.val] === undefined) {
+                        return false;
+                    }
+                    
+                    $selectTask.select2({
                         data: taskList[e.val]
                     });
+                    $selectTask.select2("data", {id: "", text: ""});
+                    $selectTask.select2("enable");
                 })
-                $addTaskModal.find('.modal-body .select-task').select2({
-                    data: []
-                });
                 $addTaskModal.modal();
             });
             
@@ -56,16 +53,37 @@ $(function () {
                     $addTaskModal.find('.modal-body').html("");
                     //TODO handlebar and show row
                 } else {
-                    $addTaskModal.find('.modal-body select.select-project').select2({
-                        placeholder: "Select a project"
-                    }).on("change", function(e) {
-                        $addTaskModal.find('.modal-body .select-task').select2({
-                            data: [{id: 0, text: 'stoaaaary'},{id: 1, text: 'buaaaaaaag'},{id: 2, text: 'taaaaaaaaaask'}]
-                        });
-                    })
-                    $addTaskModal.find('.modal-body .select-task').select2({
+                    var taskList = $addTaskModal.find('.control-group-task').data("list");
+                    var $selectTask = $addTaskModal.find('.modal-body .select-task');
+                    var $selectProject = $addTaskModal.find('.modal-body select.select-project');
+                    $selectTask.select2({
                         data: []
                     });
+                    
+                    // $selectTask.select2("disable");
+                    $selectProject.select2({
+                        placeholder: "Select a project"
+                    }).on("change", function(e) {
+                        if (taskList[e.val] === undefined) {
+                            return false;
+                        }
+                        
+                        $selectTask.select2({
+                            data: taskList[e.val]
+                        });
+                        $selectTask.select2("data", {id: "", text: ""});
+                        $selectTask.select2("enable");
+                    })
+                    var v = $selectProject.select2("val");
+                    if (v != "") {
+                        if (taskList[v] !== undefined) {
+                            $selectTask.select2({
+                                data: taskList[v]
+                            });
+                        }
+                    } else {
+                        $selectTask.select2("disable");
+                    }
                     $addTaskModal.modal('removeLoading');
                 }
             }

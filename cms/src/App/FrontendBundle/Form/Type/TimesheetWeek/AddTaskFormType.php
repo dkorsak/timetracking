@@ -2,6 +2,10 @@
 
 namespace App\FrontendBundle\Form\Type\TimesheetWeek;
 
+use Symfony\Component\Validator\ExecutionContext;
+
+use Symfony\Component\Validator\Constraints\Callback;
+
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Form\FormInterface;
@@ -46,7 +50,7 @@ class AddTaskFormType extends AbstractType
         $projectOptions = array('required' => false, 'choices' => $this->getProjects($options), 'empty_value' => '');
         $builder
             ->add('project', 'choice', $projectOptions)
-            ->add('task', 'hidden');
+            ->add('task', 'text');
     }
 
     /**
@@ -62,6 +66,11 @@ class AddTaskFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        $em = $this->em;
+        $validation = function(array $data, ExecutionContext $context) use ($em) {
+            //print_R($data);
+
+        };
         $collectionConstraint = new Collection(
             array(
                 'project' => array(new NotBlank()),
@@ -69,9 +78,10 @@ class AddTaskFormType extends AbstractType
             )
         );
 
+        $callbackValidator = new Callback(array('methods' => array($validation)));
         $defaultValues = array(
             'error_bubling' => false,
-            'validation_constraint' => $collectionConstraint
+            'validation_constraint' => array($collectionConstraint, $callbackValidator)
         );
         $resolver->setDefaults($defaultValues);
 

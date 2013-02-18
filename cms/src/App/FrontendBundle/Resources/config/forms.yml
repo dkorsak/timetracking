@@ -10,7 +10,7 @@ services:
         tags:
             - { name: form.type, alias: app_frontend_form_type_timesheet_week_add_task_form_type }
 
-    #form handler for managing add task form type
+    #form handler for managing add task form
     app_frontend.form.handler.timesheet_week.add_task_form_handler:
         class: App\FrontendBundle\Form\Handler\TimesheetWeek\AddTaskFormHandler
         arguments: [@form.factory, @request, @doctrine.orm.entity_manager, @security.context]

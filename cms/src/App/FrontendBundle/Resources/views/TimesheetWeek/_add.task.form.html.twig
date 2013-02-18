@@ -1,7 +1,4 @@
 <fieldset class="row-fluid">
-    {# if form.vars.errors|length > 0 %}
-        <div class="alert alert-error">{{  form.vars.errors[0].message }}</div>
-    {% endif #}
     <div class="control-group clearfix">
         {{ form_label(form.project, 'Project', {'attr': {'class': 'control-label'}}) }}
         {% if form.project.vars.errors|length > 0 %}

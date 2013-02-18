@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityRepository;
 class ProjectRepository extends EntityRepository
 {
     /**
+     * Get projects for which user has permissions
+     *
      * @param  integer $userId
      * @return array
      */
@@ -20,6 +22,7 @@ class ProjectRepository extends EntityRepository
     {
         $dql = "
             SELECT
+                ptt.id AS project_to_task_id,
                 p.id AS project_id, p.name AS project_name,
                 c.id AS company_id, c.name AS company_name,
                 t.id AS task_id, t.name AS task_name
@@ -30,6 +33,7 @@ class ProjectRepository extends EntityRepository
             JOIN p.company c
             ORDER BY c.name, p.name, t.name
         ";
+
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('userId', $userId);
 

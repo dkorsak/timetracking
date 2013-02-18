@@ -2,6 +2,8 @@
 
 namespace App\FrontendBundle\Form\Handler\TimesheetWeek;
 
+use App\GeneralBundle\Entity\Timesheet;
+
 use Symfony\Component\Form\FormFactoryInterface;
 
 use Symfony\Component\Form\FormInterface;
@@ -68,13 +70,27 @@ class AddTaskFormHandler
         if ($this->form->isValid()) {
             $data = $this->form->getData();
 
-            $this->em->persist($data);
-            $this->em->flush();
+            $user = $this->em->getRepository('AppGeneralBundle:User')->find($userId);
+            //TODO has permissions
+            $task = $this->em
+                ->getRepository('AppGeneralBundle:ProjectToTask')
+                ->findOneBy(array("project" => $data["project"], "task" => $data["task"]));
 
-            return true;
+            if ($task && $user) {
+                $timesheet = new Timesheet();
+                $timesheet->setTask($task);
+                $timesheet->setWeek($week);
+                $timesheet->setYear($year);
+                $timesheet->setUser($user);
+
+                $this->em->persist($timesheet);
+                $this->em->flush();
+
+                return $timesheet;
+            }
+
         }
         //print_R($this->form->getErrorsAsString());
-
         return false;
     }
 
@@ -93,8 +109,9 @@ class AddTaskFormHandler
      */
     private function createForm($year, $week, $userId)
     {
-        $options = array('year' => $year, 'week' => $week, 'user_id' => $userId);
+        $options = array('year' => $year, 'week' => $week, 'user_id' => $userId, 'translation_domain' => 'timesheet');
         $type = 'app_frontend_form_type_timesheet_week_add_task_form_type';
+
         $this->form = $this->factory->createNamed('task', $type, null, $options);
     }
 }
