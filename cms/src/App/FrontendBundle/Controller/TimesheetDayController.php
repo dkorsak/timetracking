@@ -4,8 +4,21 @@ namespace App\FrontendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class TimesheetDayController extends Controller
+class TimesheetDayController extends Controller implements PreExecuteControllerInterface
 {
+    /**
+     * @var \App\GeneralBundle\Services\Timesheet
+     */
+    private $timesheetService;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preExecute()
+    {
+        $this->timesheetService = $this->get('app_general.services.timesheet');
+    }
+    
     /**
      * Displaying landing page for timesheet day mode
      *
@@ -16,15 +29,13 @@ class TimesheetDayController extends Controller
      */
     public function indexAction($year = "", $month = "", $day = "")
     {
-        $currentDate = $this->get('app_general.services.timesheet')->getCurrentDate($year, $month, $year);
-
-        $timesheetRepository = $this->getDoctrine()->getRepository('AppGeneralBundle:Timesheet');
+        $currentDate = $this->timesheetService->getCurrentDate($year, $month, $day);
 
         return $this->render(
             'AppFrontendBundle:TimesheetDay:index.html.twig',
             array(
                 'currentDate' => $currentDate,
-                'list' => $timesheetRepository->getDailyTimesheet($currentDate, $this->getUser()->getId())
+                'list' => $this->timesheetService->getDailyTimesheet($currentDate, $this->getUser()->getId())
             )
         );
     }

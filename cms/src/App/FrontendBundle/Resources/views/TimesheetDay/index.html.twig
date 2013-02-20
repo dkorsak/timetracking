@@ -11,11 +11,11 @@
                 <a class="btn" href="{{ path('timesheet_day') }}{{ currentDate|next_day|date('/Y/m/d') }}">&gt;</a>
             </div>
             <div class="btn-group">
-                <a class="btn change-date" href="{{ path('timesheet_day') }}" data-date-format="yyyy-mm-dd" data-date="{{ currentDate|date('Y-m-d') }}"><i class="icon-calendar"></i></a>
+                <a class="btn change-date" href="{{ path('timesheet_day') }}" data-year="{{ currentDate|start_week_date|date('Y') }}" data-week="{{ currentDate|start_week_date|date('W') }}" data-weekDay="{{ currentDate|start_week_date|date('N') }}" data-date-format="yyyy-mm-dd" data-date="{{ currentDate|date('Y-m-d') }}"><i class="icon-calendar"></i></a>
             </div>
             <div class="btn-group">
                 <a class="btn disabled" href="#">{% trans from 'timesheet' %}Day{% endtrans %}</a>
-                <a class="btn" href="{{ path('timesheet_week') }}">{% trans from 'timesheet' %}Week{% endtrans %}</a>
+                <a class="btn" href="{{ path('timesheet_week', {'year':currentDate|date('Y'), 'month':currentDate|date('m'), 'day':currentDate|date('d')}) }}">{% trans from 'timesheet' %}Week{% endtrans %}</a>
             </div>
         </div>
     </div>
@@ -36,81 +36,57 @@
             <th class="actions-day" colspan="2">&nbsp;</th>
         </tr>
     </thead>
-    <tfoot>
-        <tr>
-            <td class="task">{% trans from 'timesheet' %}Total{% endtrans %}</td>
-            <td class="time">&nbsp;</td>
-            <td class="time">&nbsp;</td>
-            <td class="time">40.00</td>
-            <td class="time">&nbsp;</td>
-            <td class="time">&nbsp;</td>
-            <td class="time">&nbsp;</td>
-            <td class="time">&nbsp;</td>
-            <th class="actions-day" colspan="2">&nbsp;</th>
-        </tr>
-        <tr>
-            <td colspan="10">
-                <a href="#" class="btn"><i class="icon-plus"></i> {% trans from 'timesheet' %}Add row{% endtrans %}</a>
-            </td>
-        </tr>
-    </tfoot>
     <tbody>
+    {% if list|length > 0 %}
+    {% set total_time_day = 0 %}
+    {% for key, item in list %}
+    {% set total_time_day = total_time_day + item.time %}
     <tr>
         <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
+            <span class="company">{{ item.company_name }}</span>
+            <span class="project">{{ item.project_name }}</span>
+            <span class="name">{{ item.task_name }}</span>
         </td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">20:00</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
+        {% for day in 1..7 %}
+        <td class="time">
+        {% if day == currentDate|date('N') %}{{ item.time|convert_to_time }}{% else %}&nbsp;{% endif %}
+        </td>
+        {% endfor %}
         <td class="actions-day" colspan="2">
-            <a href="#" class="btn"><i class="icon-remove"></i></a>
-            <a href="#" class="btn"><i class="icon-edit"></i></a>
+            <a href="#" class="btn action-remove" data-id="{{ key }}"><i class="icon-remove"></i></a>
+            <a href="#" class="btn action-edit" data-id="{{ key }}"><i class="icon-edit"></i></a>
         </td>
     </tr>
-        <tr>
-        <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
-        </td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">20:00</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="actions-day" colspan="2">
-            <a href="#" class="btn"><i class="icon-remove"></i></a>
-            <a href="#" class="btn"><i class="icon-edit"></i></a>
-        </td>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="10">No data</td>
     </tr>
-        <tr>
-        <td class="task">
-            <span class="company">Coca cola</span>
-            <span class="project">Stworzenie nowego logo bardzo długi task</span>
-            <span class="name">Projektowanie</span>
-        </td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">20:00</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="time">&nbsp;</td>
-        <td class="actions-day" colspan="2">
-            <a href="#" class="btn"><i class="icon-remove"></i></a>
-            <a href="#" class="btn"><i class="icon-edit"></i></a>
-        </td>
-    </tr>
+    {% endif %}
     </tbody>
-</table>
+    <tfoot>
+    {% if list|length > 0 %}
+    <tr>
+        <td class="task">{% trans from 'timesheet' %}Total{% endtrans %}</td>
+        {% for day in 1..7 %}
+        <td class="time">{% if day == currentDate|date('N') %}{{ total_time_day|convert_to_time }}{% else %}&nbsp;{% endif %}</td>
+        {% endfor %}
+        <th class="actions-day" colspan="2">&nbsp;</th>
+    </tr>
+    {% endif %}
+    <tr>
+        <td colspan="10">
+            <a href="#" class="btn add-new-task"><i class="icon-plus"></i> {% trans from 'timesheet' %}Add row{% endtrans %}</a>
+        </td>
+    </tr>
+    </tfoot>
+    </table>
+    
+    {% include 'AppFrontendBundle::_add.task.dialog.html.twig' %}
+
+    <script id="add-task-template" type="text/x-handlebars-template">
+
+    </script>
 </div>
 
 {% endblock %}

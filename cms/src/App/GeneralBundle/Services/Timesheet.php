@@ -40,7 +40,6 @@ class Timesheet
     }
 
     /**
-     *
      * @param  \DateTime $date
      * @param  integer   $userId
      * @return array
@@ -56,8 +55,29 @@ class Timesheet
             $timesheet[$item['id']]['company_name'] = $item['company_name'];
             $timesheet[$item['id']]['project_name'] = $item['project_name'];
             $timesheet[$item['id']]['task_name'] = $item['task_name'];
-
             $timesheet[$item['id']]['days'][$item['day']] = $item['time'];
+        }
+
+        return $timesheet;
+    }
+    
+    /**
+     * @param \DateTime $date
+     * @param integer $userId
+     * @return array
+     */
+    public function getDailyTimesheet(\DateTime $date, $userId)
+    {
+        $timesheet = array();
+        $timesheetRepository = $this->em->getRepository('AppGeneralBundle:Timesheet');
+        
+        $result = $timesheetRepository->getDailyTimesheet($date->format('Y'), $date->format('W'), $date->format('N'), $userId);
+
+        foreach ($result as $item) {
+            $timesheet[$item['id']]['company_name'] = $item['company_name'];
+            $timesheet[$item['id']]['project_name'] = $item['project_name'];
+            $timesheet[$item['id']]['task_name'] = $item['task_name'];
+            $timesheet[$item['id']]['time'] = $item['time'];
         }
 
         return $timesheet;

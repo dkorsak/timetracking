@@ -1,0 +1,21 @@
+<fieldset class="row-fluid">
+    <div class="control-group clearfix">
+        {{ form_label(form.project, 'Project', {'attr': {'class': 'control-label'}}) }}
+        {% if form.project.vars.errors|length > 0 %}
+            <div class="alert alert-error">{{ form.project.vars.errors[0].message }}</div>
+        {% endif %}
+        <div class="controls">
+            {{ form_widget(form.project, {'attr': {'class':'select-project span12'}}) }}
+        </div>
+    </div>
+    <div class="control-group clearfix control-group-task" data-list="{{ form.vars.tasks }}">
+        {{ form_label(form.task, 'Task', {'attr': {'class': 'control-label'}}) }}
+        {% if form.task.vars.errors|length > 0 %}
+            <div class="alert alert-error">{{ form.task.vars.errors[0].message }}</div>
+        {% endif %}
+        <div class="controls">
+            {{ form_widget(form.task, {'attr': {'class':'select-task span12'}}) }}
+        </div>
+    </div>
+</fieldset>
+{{ form_rest(form) }}

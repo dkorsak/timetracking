@@ -49,8 +49,42 @@ class TimesheetRepository extends EntityRepository
         return $query->getArrayResult();
     }
 
-    public function getDailyTimesheet(\DateTime $date, $userId)
+    /**
+     * Get timesheet for given day
+     * 
+     * @param string $year
+     * @param string $week
+     * @param string $weekDay
+     * @param integer $userId
+     * @return array
+     */
+    public function getDailyTimesheet($year, $week, $weekDay, $userId)
     {
-        return array();
+        $dql = "
+            SELECT
+                ptt.id AS id,
+                ti.workTime AS time,
+                p.name AS project_name,
+                task.name AS task_name,
+                c.name AS company_name
+            FROM AppGeneralBundle:Timesheet t
+            LEFT JOIN t.timesheetItems ti
+            JOIN t.task ptt
+            JOIN ptt.project p
+            JOIN ptt.task task
+            JOIN p.company c
+            WHERE t.user = :userId
+            AND t.year = :year
+            AND t.week = :week
+            AND ti.weekDay = :weekDay
+            ORDER BY t.created ASC
+        ";
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter("userId", $userId);
+        $query->setParameter("year", $year);
+        $query->setParameter("week", $week);
+        $query->setParameter("weekDay", $weekDay);
+        
+        return $query->getArrayResult();
     }
 }

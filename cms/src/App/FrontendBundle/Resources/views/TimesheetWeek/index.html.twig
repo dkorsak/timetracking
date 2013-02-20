@@ -14,7 +14,7 @@
                 <a class="btn change-date" href="{{ path('timesheet_week') }}" data-date-format="yyyy-mm-dd" data-year="{{ currentDate|start_week_date|date('Y') }}" data-week="{{ currentDate|start_week_date|date('W') }}" data-date="{{ currentDate|date('Y-m-d') }}"><i class="icon-calendar"></i></a>
             </div>
             <div class="btn-group">
-                <a class="btn" href="{{ path('timesheet_day') }}">{% trans from 'timesheet' %}Day{% endtrans %}</a>
+                <a class="btn" href="{{ path('timesheet_day', {'year':currentDate|date('Y'), 'month':currentDate|date('m'), 'day':currentDate|date('d')}) }}">{% trans from 'timesheet' %}Day{% endtrans %}</a>
                 <a class="btn disabled" href="#">{% trans from 'timesheet' %}Week{% endtrans %}</a>
             </div>
         </div>
@@ -35,7 +35,7 @@
                     <a href="{{ path('timesheet_day') }}{{ loopDate|date('/Y/m/d') }}">{{ loopDate|format_date('dd MMM') }}</a>
                 </th>
                 {% endfor %}
-                <th class="total">{% trans from 'timesheet' %}Total{% endtrans %}</th>
+                <th class="total">{% if list|length > 0 %}{% trans from 'timesheet' %}Total{% endtrans %}{% else %}&nbsp;{% endif %}</th>
                 <th class="actions">&nbsp;</th>
             </tr>
         </thead>
@@ -55,7 +55,7 @@
             <td class="time"><input type="text" name="time[{{ key }}][{{ day }}]" value="{{ value|convert_to_time }}" alt="time"/></td>
             {% endfor %}
             <td class="total">{{ total_time_task|convert_to_time }}</td>
-            <td class="actions"><a href="#" class="btn"><i class="icon-remove"></i></a></td>
+            <td class="actions"><a href="#" class="btn action-remove" data-id="{{ key }}"><i class="icon-remove"></i></a></td>
         </tr>
         {% endfor %}
         {% else %}
@@ -92,7 +92,7 @@
         </table>
     </form>
 
-    {% include 'AppFrontendBundle:TimesheetWeek:_add.task.dialog.html.twig' %}
+    {% include 'AppFrontendBundle::_add.task.dialog.html.twig' %}
 
     <script id="add-task-template" type="text/x-handlebars-template">
 
