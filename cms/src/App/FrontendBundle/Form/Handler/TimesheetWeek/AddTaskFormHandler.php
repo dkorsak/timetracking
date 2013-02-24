@@ -80,13 +80,11 @@ class AddTaskFormHandler
                 $timesheet->setWeek($week);
                 $timesheet->setYear($year);
                 $timesheet->setUser($user);
-
                 $this->em->persist($timesheet);
                 $this->em->flush();
 
                 return $this->convartToArray($timesheet);
             }
-
         }
 
         return false;

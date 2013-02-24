@@ -66,3 +66,8 @@
 .timesheet-table td.task span.name {
     font-size: 12px;
 }
+
+input.time-field {
+    font-size: 24px;
+    height: 40px;
+}

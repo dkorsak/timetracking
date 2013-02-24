@@ -84,22 +84,18 @@ class AddTaskFormHandler
                 $timesheet->setWeek($week);
                 $timesheet->setYear($year);
                 $timesheet->setUser($user);
-
                 $this->em->persist($timesheet);
 
                 $timesheetItem = new TimesheetItem();
                 $timesheetItem->setDescription($data['description']);
                 $timesheetItem->setWeekDay($weekDay);
                 $timesheetItem->setWorkTime($data['time']);
-
                 $timesheet->addTimesheetItem($timesheetItem);
                 $this->em->flush();
 
-                return $timesheet;
+                return $this->convartToArray($timesheet);
             }
-
         }
-        print_R($this->form->getErrorsAsString());
 
         return false;
     }
@@ -123,5 +119,20 @@ class AddTaskFormHandler
         $type = 'app_frontend_form_type_timesheet_day_add_task_form_type';
 
         $this->form = $this->factory->createNamed('task', $type, null, $options);
+        $this->form->setData(array('time' => '00:00'));
+    }
+
+    /**
+     * @param  Timesheet $timesheet
+     * @return array
+     */
+    private function convartToArray(Timesheet $timesheet)
+    {
+        return array(
+            'company_name' => $timesheet->getTask()->getProject()->getCompany()->getName(),
+            'project_name' => $timesheet->getTask()->getProject()->getName(),
+            'task_name' => $timesheet->getTask()->getTask()->getName(),
+            'id' => $timesheet->getId()
+        );
     }
 }
