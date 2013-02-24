@@ -11,3 +11,7 @@ services:
         class: App\FrontendBundle\EventListener\PreExecuteControllerListener
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    app_frontend.services.add_task_form_helper:
+        class: App\FrontendBundle\Services\AddTaskFormHelper
+        arguments: [@doctrine.orm.entity_manager]

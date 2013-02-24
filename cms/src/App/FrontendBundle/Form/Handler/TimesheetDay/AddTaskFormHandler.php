@@ -1,15 +1,22 @@
 <?php
 
-namespace App\FrontendBundle\Form\Handler\TimesheetWeek;
+namespace App\FrontendBundle\Form\Handler\TimesheetDay;
 
 use App\GeneralBundle\Entity\Timesheet;
+
 use Symfony\Component\Form\FormFactoryInterface;
+
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class AddTaskFormHandler
 {
+    /**
+     * @var FormInterface
+     */
+    private $form;
+
     /**
      * @var FormFactoryInterface
      */
@@ -24,11 +31,6 @@ class AddTaskFormHandler
      * @var ObjectManager
      */
     private $em;
-
-    /**
-     * @var FormInterface
-     */
-    private $form;
 
     /**
      * Constructor
@@ -49,7 +51,7 @@ class AddTaskFormHandler
      * @param string  $week
      * @param integer $userId
      */
-    public function processNew($year, $week, $userId)
+    public function processNew($year, $week, $weekDay, $userId)
     {
         $this->createForm($year, $week, $userId);
     }
@@ -60,7 +62,7 @@ class AddTaskFormHandler
      * @param  integer $userId
      * @return mixed
      */
-    public function processCreate($year, $week, $userId)
+    public function processCreate($year, $week, $weekDay, $userId)
     {
         $this->createForm($year, $week, $userId);
 
@@ -69,7 +71,7 @@ class AddTaskFormHandler
             $data = $this->form->getData();
 
             $user = $this->em->getRepository('AppGeneralBundle:User')->find($userId);
-
+            //TODO has permissions
             $task = $this->em
                 ->getRepository('AppGeneralBundle:ProjectToTask')
                 ->findOneBy(array("project" => $data["project"], "task" => $data["task"]));
@@ -107,8 +109,8 @@ class AddTaskFormHandler
      */
     private function createForm($year, $week, $userId)
     {
-        $type = 'app_frontend_form_type_timesheet_week_add_task_form_type';
         $options = array('year' => $year, 'week' => $week, 'user_id' => $userId, 'translation_domain' => 'timesheet');
+        $type = 'app_frontend_form_type_timesheet_day_add_task_form_type';
 
         $this->form = $this->factory->createNamed('task', $type, null, $options);
     }

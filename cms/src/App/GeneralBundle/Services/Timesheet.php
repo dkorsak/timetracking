@@ -60,17 +60,17 @@ class Timesheet
 
         return $timesheet;
     }
-    
+
     /**
-     * @param \DateTime $date
-     * @param integer $userId
+     * @param  \DateTime $date
+     * @param  integer   $userId
      * @return array
      */
     public function getDailyTimesheet(\DateTime $date, $userId)
     {
         $timesheet = array();
         $timesheetRepository = $this->em->getRepository('AppGeneralBundle:Timesheet');
-        
+
         $result = $timesheetRepository->getDailyTimesheet($date->format('Y'), $date->format('W'), $date->format('N'), $userId);
 
         foreach ($result as $item) {

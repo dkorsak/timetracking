@@ -1,3 +1,17 @@
 timesheet_day:
-    pattern:  /{year}/{month}/{day}
+    pattern:  /show/{year}/{month}/{day}
     defaults: { _controller: AppFrontendBundle:TimesheetDay:index, year: "", month: "", day: "" }
+
+timesheet_day_new_task:
+    pattern:  /new/task/{year}/{week}/{weekDay}
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:newTask}
+    options:
+        expose: true
+
+timesheet_day_create_task:
+    pattern:  /create/task/{year}/{week}/{weekDay}
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:createTask}
+    requirements:
+        _method:  POST
+    options:
+        expose: true

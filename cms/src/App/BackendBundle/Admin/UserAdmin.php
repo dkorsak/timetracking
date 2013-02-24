@@ -189,7 +189,7 @@ class UserAdmin extends Admin
                 ->add("email")
             ->end()
             ->with('Permissions')
-                ->add("enabled", null, $enabledBarams)
+                ->add("enabled", null, $enabledParams)
                 ->add("groups", null, array('template' => 'AppBackendBundle:UserAdmin:show_groups.html.twig'))
             ->end();
     }

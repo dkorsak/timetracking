@@ -2,15 +2,10 @@
 
 namespace App\FrontendBundle\Form\Type\TimesheetWeek;
 
-use Symfony\Component\Validator\ExecutionContext;
-
-use Symfony\Component\Validator\Constraints\Callback;
-
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\Options;
+use App\FrontendBundle\Services\AddTaskFormHelper;
 use Symfony\Component\Form\FormView;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -18,28 +13,18 @@ use Symfony\Component\Form\AbstractType;
 class AddTaskFormType extends AbstractType
 {
     /**
-     * @var ObjectManager
+     * @var AddTaskFormHelper
      */
-    private $em;
-
-    /**
-     * @var array
-     */
-    private $projects;
-
-    /**
-     * @var array
-     */
-    private $tasks;
+    private $helper;
 
     /**
      * Constructor
      *
-     * @param ObjectManager $em
+     * @param AddTaskFormHelper $helper
      */
-    public function __construct(ObjectManager $em)
+    public function __construct(AddTaskFormHelper $helper)
     {
-        $this->em = $em;
+        $this->helper = $helper;
     }
 
     /**
@@ -47,7 +32,9 @@ class AddTaskFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $projectOptions = array('required' => false, 'choices' => $this->getProjects($options), 'empty_value' => '');
+        $choices = $this->helper->getProjects($options['year'], $options['week'], $options['user_id']);
+        $projectOptions = array('required' => false, 'choices' => $choices, 'empty_value' => '');
+
         $builder
             ->add('project', 'choice', $projectOptions)
             ->add('task', 'text');
@@ -58,7 +45,8 @@ class AddTaskFormType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->set('tasks', json_encode($this->getTasks($options)));
+        $tasks = $this->helper->getTasks($options['year'], $options['week'], $options['user_id']);
+        $view->set('tasks', json_encode($tasks));
     }
 
     /**
@@ -66,22 +54,12 @@ class AddTaskFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $em = $this->em;
-        $validation = function(array $data, ExecutionContext $context) use ($em) {
-            //print_R($data);
-
-        };
-        $collectionConstraint = new Collection(
-            array(
-                'project' => array(new NotBlank()),
-                'task' => array(new NotBlank())
-            )
-        );
-
-        $callbackValidator = new Callback(array('methods' => array($validation)));
+        $helper = $this->helper;
         $defaultValues = array(
             'error_bubling' => false,
-            'validation_constraint' => array($collectionConstraint, $callbackValidator)
+            'validation_constraint' => function (Options $options) use ($helper) {
+                return $helper->createTaskValidationConstraint($options);
+            }
         );
         $resolver->setDefaults($defaultValues);
 
@@ -95,52 +73,5 @@ class AddTaskFormType extends AbstractType
     public function getName()
     {
         return 'app_frontend_form_type_timesheet_week_add_task_form_type';
-    }
-
-    /**
-     * @param array $options
-     */
-    private function prepareData(array $options)
-    {
-        $projects = $this->em->getRepository('AppGeneralBundle:Project')->getUserAvailableProjects($options['user_id']);
-        $data = array();
-        $taskData = array();
-        //TODO remove tasks for current week
-        foreach ($projects as $item) {
-            $data[$item['company_id']]['company_name'] = $item['company_name'];
-            $data[$item['company_id']]['projects'][$item['project_id']] = $item['project_name'];
-            $taskData[$item['project_id']][] = array('id' => $item['task_id'], 'text' => $item['task_name']);
-        }
-
-        $this->projects = $data;
-        $this->tasks = $taskData;
-    }
-
-    /**
-     * @param array $options
-     */
-    private function getProjects(array $options)
-    {
-        if (is_null($this->projects)) {
-            $this->prepareData($options);
-        }
-        $projects = array();
-        foreach ($this->projects as $item) {
-            $projects[$item['company_name']] = $item['projects'];
-        }
-
-        return $projects;
-    }
-
-    /**
-     * @param array $options
-     */
-    private function getTasks(array $options)
-    {
-        if (is_null($this->projects)) {
-            $this->prepareData($options);
-        }
-
-        return $this->tasks;
     }
 }

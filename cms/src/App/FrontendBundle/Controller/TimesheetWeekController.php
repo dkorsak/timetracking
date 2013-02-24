@@ -2,14 +2,13 @@
 
 namespace App\FrontendBundle\Controller;
 
-use App\GeneralBundle\Entity\Timesheet;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TimesheetWeekController extends Controller implements PreExecuteControllerInterface
 {
     /**
-     * @var AddTaskFormHandler
+     * @var \App\FrontendBundle\Form\Handler\TimesheetWeek\AddTaskFormHandler;
      */
     private $addTakFormHandler;
 

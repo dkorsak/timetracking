@@ -6,12 +6,27 @@ services:
     #form type
     app_frontend.form.type.timesheet_week.add_task_form_type:
         class: App\FrontendBundle\Form\Type\TimesheetWeek\AddTaskFormType
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@app_frontend.services.add_task_form_helper]
         tags:
             - { name: form.type, alias: app_frontend_form_type_timesheet_week_add_task_form_type }
 
     #form handler for managing add task form
     app_frontend.form.handler.timesheet_week.add_task_form_handler:
         class: App\FrontendBundle\Form\Handler\TimesheetWeek\AddTaskFormHandler
+        arguments: [@form.factory, @request, @doctrine.orm.entity_manager, @security.context]
+        scope: request
+
+######### TIMESHEET DAY ADD TASK FORM ##################################
+
+    #form type
+    app_frontend.form.type.timesheet_day.add_task_form_type:
+        class: App\FrontendBundle\Form\Type\TimesheetDay\AddTaskFormType
+        parent: app_frontend.form.type.timesheet_week.add_task_form_type
+        tags:
+            - { name: form.type, alias: app_frontend_form_type_timesheet_day_add_task_form_type }
+
+    #form handler for managing add task form
+    app_frontend.form.handler.timesheet_day.add_task_form_handler:
+        class: App\FrontendBundle\Form\Handler\TimesheetDay\AddTaskFormHandler
         arguments: [@form.factory, @request, @doctrine.orm.entity_manager, @security.context]
         scope: request
