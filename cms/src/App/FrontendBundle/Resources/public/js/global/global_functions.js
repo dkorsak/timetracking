@@ -98,6 +98,7 @@ $.fn.extend({
                     $selectTask.select2("data", {id: "", text: ""});
                     $selectTask.select2("enable");
                 })
+                $addTaskModal.find('.time-field').setMask();
                 $addTaskModal.modal();
             });
             

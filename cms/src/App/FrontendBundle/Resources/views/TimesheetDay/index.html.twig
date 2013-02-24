@@ -11,7 +11,7 @@
                 <a class="btn" href="{{ path('timesheet_day') }}{{ currentDate|next_day|date('/Y/m/d') }}">&gt;</a>
             </div>
             <div class="btn-group">
-                <a class="btn change-date" href="{{ path('timesheet_day') }}" data-year="{{ currentDate|start_week_date|date('Y') }}" data-week="{{ currentDate|start_week_date|date('W') }}" data-weekday="{{ currentDate|start_week_date|date('N') }}" data-date-format="yyyy-mm-dd" data-date="{{ currentDate|date('Y-m-d') }}"><i class="icon-calendar"></i></a>
+                <a class="btn change-date" href="{{ path('timesheet_day') }}" data-year="{{ currentDate|start_week_date|date('Y') }}" data-week="{{ currentDate|start_week_date|date('W') }}" data-weekday="{{ currentDate|date('N') }}" data-date-format="yyyy-mm-dd" data-date="{{ currentDate|date('Y-m-d') }}"><i class="icon-calendar"></i></a>
             </div>
             <div class="btn-group">
                 <a class="btn disabled" href="#">{% trans from 'timesheet' %}Day{% endtrans %}</a>

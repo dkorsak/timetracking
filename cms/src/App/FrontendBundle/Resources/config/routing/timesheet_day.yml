@@ -4,13 +4,35 @@ timesheet_day:
 
 timesheet_day_new_task:
     pattern:  /new/task/{year}/{week}/{weekDay}
-    defaults: { _controller: AppFrontendBundle:TimesheetDay:newTask}
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:newTask }
     options:
         expose: true
 
 timesheet_day_create_task:
     pattern:  /create/task/{year}/{week}/{weekDay}
-    defaults: { _controller: AppFrontendBundle:TimesheetDay:createTask}
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:createTask }
+    requirements:
+        _method:  POST
+    options:
+        expose: true
+
+timesheet_day_edit_task:
+    pattern:  /edit/task/{id}
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:editTask }
+    options:
+        expose: true
+
+timesheet_day_update_task:
+    pattern:  /update/task/{id}
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:updateTask }
+    requirements:
+        _method:  POST
+    options:
+        expose: true
+
+timesheet_day_remove_task:
+    pattern:  /remove/task/{id}
+    defaults: { _controller: AppFrontendBundle:TimesheetDay:removeTask }
     requirements:
         _method:  POST
     options:

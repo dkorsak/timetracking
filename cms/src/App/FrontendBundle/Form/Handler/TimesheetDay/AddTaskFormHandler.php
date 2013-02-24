@@ -2,6 +2,8 @@
 
 namespace App\FrontendBundle\Form\Handler\TimesheetDay;
 
+use App\GeneralBundle\Entity\TimesheetItem;
+
 use App\GeneralBundle\Entity\Timesheet;
 
 use Symfony\Component\Form\FormFactoryInterface;
@@ -71,7 +73,7 @@ class AddTaskFormHandler
             $data = $this->form->getData();
 
             $user = $this->em->getRepository('AppGeneralBundle:User')->find($userId);
-            //TODO has permissions
+
             $task = $this->em
                 ->getRepository('AppGeneralBundle:ProjectToTask')
                 ->findOneBy(array("project" => $data["project"], "task" => $data["task"]));
@@ -84,13 +86,21 @@ class AddTaskFormHandler
                 $timesheet->setUser($user);
 
                 $this->em->persist($timesheet);
+
+                $timesheetItem = new TimesheetItem();
+                $timesheetItem->setDescription($data['description']);
+                $timesheetItem->setWeekDay($weekDay);
+                $timesheetItem->setWorkTime($data['time']);
+
+                $timesheet->addTimesheetItem($timesheetItem);
                 $this->em->flush();
 
                 return $timesheet;
             }
 
         }
-        //print_R($this->form->getErrorsAsString());
+        print_R($this->form->getErrorsAsString());
+
         return false;
     }
 

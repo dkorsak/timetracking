@@ -88,4 +88,19 @@ class TimesheetDayController extends Controller implements PreExecuteControllerI
 
         return $this->render($template, array('form' => $this->addTakFormHandler->createView()));
     }
+
+    public function editTaskAction($id)
+    {
+
+    }
+
+    public function updateTaskAction($id)
+    {
+
+    }
+
+    public function removeTaskAction($id)
+    {
+
+    }
 }

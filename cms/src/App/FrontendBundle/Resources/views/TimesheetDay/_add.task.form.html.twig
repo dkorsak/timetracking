@@ -1,4 +1,7 @@
 <fieldset class="row-fluid">
+    {% if form.vars.errors|length > 0 %}
+        <div class="alert alert-error">{{ form.vars.errors[0].message }}</div>
+    {% endif %}
     <div class="control-group clearfix">
         {{ form_label(form.project, 'Project', {'attr': {'class': 'control-label'}}) }}
         {% if form.project.vars.errors|length > 0 %}
@@ -15,6 +18,20 @@
         {% endif %}
         <div class="controls">
             {{ form_widget(form.task, {'attr': {'class':'select-task span12'}}) }}
+        </div>
+    </div>
+    <div class="control-group clearfix">
+        <div class="span10">
+            {{ form_label(form.task, 'Description', {'attr': {'class': 'control-label'}}) }}
+            <div class="controls">
+            {{ form_widget(form.description, {'attr': {'class':'span12'}}) }}
+            </div>
+        </div>
+        <div class="span2">
+            {{ form_label(form.task, 'Time', {'attr': {'class': 'control-label'}}) }}
+            <div class="controls">
+            {{ form_widget(form.time, {'attr': {'class':'span12 time-field', 'alt': 'time'}}) }}
+            </div>
         </div>
     </div>
 </fieldset>

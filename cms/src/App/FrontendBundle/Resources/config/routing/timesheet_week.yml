@@ -4,13 +4,29 @@ timesheet_week:
 
 timesheet_week_new_task:
     pattern:  /new/task/{year}/{week}
-    defaults: { _controller: AppFrontendBundle:TimesheetWeek:newTask}
+    defaults: { _controller: AppFrontendBundle:TimesheetWeek:newTask }
     options:
         expose: true
 
 timesheet_week_create_task:
     pattern:  /create/task/{year}/{week}
-    defaults: { _controller: AppFrontendBundle:TimesheetWeek:createTask}
+    defaults: { _controller: AppFrontendBundle:TimesheetWeek:createTask }
+    requirements:
+        _method:  POST
+    options:
+        expose: true
+
+timesheet_week_save_task:
+    pattern:  /save
+    defaults: { _controller: AppFrontendBundle:TimesheetWeek:save }
+    requirements:
+        _method:  POST
+    options:
+        expose: true
+
+timesheet_week_remove_task:
+    pattern:  /remove/{id}
+    defaults: { _controller: AppFrontendBundle:TimesheetWeek:removeTask }
     requirements:
         _method:  POST
     options:

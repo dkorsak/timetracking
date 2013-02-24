@@ -2,6 +2,10 @@
 
 namespace App\FrontendBundle\Form\Type\TimesheetWeek;
 
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+use Symfony\Component\Validator\Constraints\Collection;
+
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
 use App\FrontendBundle\Services\AddTaskFormHelper;
@@ -58,7 +62,7 @@ class AddTaskFormType extends AbstractType
         $defaultValues = array(
             'error_bubling' => false,
             'validation_constraint' => function (Options $options) use ($helper) {
-                return $helper->createTaskValidationConstraint($options);
+                return array_merge($helper->createTaskValidationConstraint($options), $this->getDefultValidation());
             }
         );
         $resolver->setDefaults($defaultValues);
@@ -73,5 +77,20 @@ class AddTaskFormType extends AbstractType
     public function getName()
     {
         return 'app_frontend_form_type_timesheet_week_add_task_form_type';
+    }
+
+    protected function getDefultValidation()
+    {
+        $collection = new Collection(
+            array(
+                'allowExtraFields' => true,
+                'fields' => array(
+                    'project' => array(new NotBlank()),
+                    'task' => array(new NotBlank())
+                )
+            )
+        );
+
+        return array($collection);
     }
 }

@@ -92,8 +92,8 @@ class TimesheetWeekController extends Controller implements PreExecuteController
 
     }
 
-    public function removeAction($id)
+    public function removeTaskAction($id)
     {
-
+        return new Response('todo');
     }
 }

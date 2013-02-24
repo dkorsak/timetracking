@@ -3,8 +3,6 @@
 namespace App\FrontendBundle\Services;
 
 use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\ExecutionContext;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -64,7 +62,8 @@ class AddTaskFormHelper
     }
 
     /**
-     * Create validation constraint for add task form type
+     * Create callback validation constraint for add task form type
+     *
      * @param  array $options
      * @return array
      */
@@ -89,15 +88,9 @@ class AddTaskFormHelper
                 //TODO
             }
         };
-        $collectionConstraint = new Collection(
-            array(
-                'project' => array(new NotBlank()),
-                'task' => array(new NotBlank())
-            )
-        );
         $callbackValidator = new Callback(array('methods' => array($validation)));
 
-        return array($collectionConstraint, $callbackValidator);
+        return array($callbackValidator);
     }
 
     /**

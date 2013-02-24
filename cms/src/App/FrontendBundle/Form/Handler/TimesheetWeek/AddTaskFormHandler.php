@@ -84,11 +84,11 @@ class AddTaskFormHandler
                 $this->em->persist($timesheet);
                 $this->em->flush();
 
-                return $timesheet;
+                return $this->convartToArray($timesheet);
             }
 
         }
-        //print_R($this->form->getErrorsAsString());
+
         return false;
     }
 
@@ -111,5 +111,19 @@ class AddTaskFormHandler
         $options = array('year' => $year, 'week' => $week, 'user_id' => $userId, 'translation_domain' => 'timesheet');
 
         $this->form = $this->factory->createNamed('task', $type, null, $options);
+    }
+
+    /**
+     * @param  Timesheet $timesheet
+     * @return array
+     */
+    private function convartToArray(Timesheet $timesheet)
+    {
+        return array(
+            'company_name' => $timesheet->getTask()->getProject()->getCompany()->getName(),
+            'project_name' => $timesheet->getTask()->getProject()->getName(),
+            'task_name' => $timesheet->getTask()->getTask()->getName(),
+            'id' => $timesheet->getId()
+        );
     }
 }
