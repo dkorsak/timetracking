@@ -1,10 +1,10 @@
 services:
     #event listener for redirecting user after password update
-    app_frontend.event_listener.password_resetting_listener:
-        class: App\FrontendBundle\EventListener\PasswordResettingListener
-        arguments: [@router]
-        tags:
-            - { name: kernel.event_subscriber }
+    #app_frontend.event_listener.password_resetting_listener:
+    #    class: App\FrontendBundle\EventListener\PasswordResettingListener
+    #    arguments: [@router]
+    #    tags:
+    #        - { name: kernel.event_subscriber }
 
     #event listener for executing preExecute action for controller
     app_frontend.event_listener.pre_execute_controller_listener:

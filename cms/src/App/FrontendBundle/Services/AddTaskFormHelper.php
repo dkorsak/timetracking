@@ -84,8 +84,11 @@ class AddTaskFormHelper
 
                     return false;
                 }
-                // check if user has permission
-                //TODO
+                if (!$helper->hasUserTaskPermission($task->getId(), $options['user_id'])) {
+                    $context->addViolation('You do not have permissions for this task');
+
+                    return false;
+                }
             }
         };
         $callbackValidator = new Callback(array('methods' => array($validation)));
@@ -106,7 +109,6 @@ class AddTaskFormHelper
     }
 
     /**
-     *
      * @param  integer   $taskId
      * @param  string    $year
      * @param  string    $week
@@ -120,6 +122,11 @@ class AddTaskFormHelper
             ->findOneBy(array('task' => $taskId, 'user' => $userId, 'week' => $week, 'year' => $year));
     }
 
+    public function hasUserTaskPermission($taskId, $userId)
+    {
+        return true;//TOO
+    }
+
     /**
      * @param string $year
      * @param string $week
@@ -130,11 +137,14 @@ class AddTaskFormHelper
         $projects = $this->em->getRepository('AppGeneralBundle:Project')->getUserAvailableProjects($userId);
         $data = array();
         $taskData = array();
-        //TODO remove tasks for current week
+        $userTaskInWeek = $this->em->getRepository('AppGeneralBundle:Timesheet')->getUserTaskIdsForCurrentWeek($year, $week, $userId);
         foreach ($projects as $item) {
-            $data[$item['company_id']]['company_name'] = $item['company_name'];
-            $data[$item['company_id']]['projects'][$item['project_id']] = $item['project_name'];
-            $taskData[$item['project_id']][] = array('id' => $item['task_id'], 'text' => $item['task_name']);
+            // display only tasks which do not exist in current week
+            if (!in_array($item['project_to_task_id'], $userTaskInWeek)) {
+                $data[$item['company_id']]['company_name'] = $item['company_name'];
+                $data[$item['company_id']]['projects'][$item['project_id']] = $item['project_name'];
+                $taskData[$item['project_id']][] = array('id' => $item['task_id'], 'text' => $item['task_name']);
+            }
         }
 
         $this->projects = $data;

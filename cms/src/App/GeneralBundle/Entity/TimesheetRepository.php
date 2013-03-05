@@ -86,4 +86,35 @@ class TimesheetRepository extends EntityRepository
 
         return $query->getArrayResult();
     }
+
+    /**
+     * Find all project_to_task ids for given user in given year and week
+     *
+     * @param  string  $year
+     * @param  string  $week
+     * @param  integer $userId
+     * @return array
+     */
+    public function getUserTaskIdsForCurrentWeek($year, $week, $userId)
+    {
+        $tasks = array();
+        $dql = "
+            SELECT
+                ptt.id AS id
+            FROM AppGeneralBundle:Timesheet t
+            JOIN t.task ptt
+            WHERE t.user = :userId
+            AND t.year = :year
+            AND t.week = :week
+        ";
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter("userId", $userId);
+        $query->setParameter("year", $year);
+        $query->setParameter("week", $week);
+        foreach ($query->getArrayResult() as $item) {
+            $tasks[] = $item['id'];
+        }
+
+        return $tasks;
+    }
 }
