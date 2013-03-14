@@ -28,27 +28,27 @@ class ChangePasswordValidator extends ConstraintValidator
      */
     public function validate($user, Constraint $constraint)
     {
-        if ($user->getPlainPassword() == "" || $user->getId() == "") {
+        if ($user->getPlainPassword() == "" || !$user->getId()) {
             return;
         }
 
         if ($user->getOldPassword() == "") {
-            $this->context->addViolationAtSubPath('oldPassword', $constraint->messageEmptyOldPassword);
+            $this->context->addViolationAt('oldPassword', $constraint->messageEmptyOldPassword);
         } else {
             $encoder = $this->encoderFactory->getEncoder($user);
             if (!$encoder->isPasswordValid($user->getPassword(), $user->getOldPassword(), $user->getSalt())) {
-                $this->context->addViolationAtSubPath('oldPassword', $constraint->messageInvalidOldPassword);
+                $this->context->addViolationAt('oldPassword', $constraint->messageInvalidOldPassword);
             }
         }
 
         if ($user->getRetypePassword() == "") {
-            $this->context->addViolationAtSubPath('retypePassword', $constraint->messageEmptyRetypePassword);
+            $this->context->addViolationAt('retypePassword', $constraint->messageEmptyRetypePassword);
 
             return;
         }
 
         if ($user->getRetypePassword() != $user->getPlainPassword()) {
-            $this->context->addViolationAtSubPath('plainPassword', $constraint->messagePasswordsMustBeEqual);
+            $this->context->addViolationAt('plainPassword', $constraint->messagePasswordsMustBeEqual);
         }
     }
 }

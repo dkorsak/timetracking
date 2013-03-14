@@ -3,11 +3,8 @@
 namespace App\FrontendBundle\Form\Handler\TimesheetDay;
 
 use App\GeneralBundle\Entity\TimesheetItem;
-
 use App\GeneralBundle\Entity\Timesheet;
-
 use Symfony\Component\Form\FormFactoryInterface;
-
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;

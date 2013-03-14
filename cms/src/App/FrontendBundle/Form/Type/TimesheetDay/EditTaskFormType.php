@@ -14,7 +14,7 @@ class EditTaskFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('workTime');
+            ->add('workTime')
             ->add('description');
     }
 

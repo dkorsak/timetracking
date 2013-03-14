@@ -3,9 +3,7 @@
 namespace App\FrontendBundle\Form\Type\TimesheetWeek;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
-
 use Symfony\Component\Validator\Constraints\Collection;
-
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
 use App\FrontendBundle\Services\AddTaskFormHelper;

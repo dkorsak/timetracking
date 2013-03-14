@@ -5,7 +5,7 @@
     <property name="bundle" value=""/>
     <property name="env" value="dev"/>
     <property name="debug" value="true"/>
-    <property name="selenium.jar" value="${java.lib}/selenium-server-standalone-2.28.0.jar" />
+    <property name="selenium.jar" value="${java.lib}/selenium-server-standalone-2.30.0.jar" />
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
@@ -57,8 +57,6 @@
                     <clear.file.cache destination="@{destination}" env="@{env}"/>
                 </then>
             </if>
-            <echo>ANT DEBUG: Creating FOS js routing file</echo>
-            <exec executable="php" dir="@{destination}"><arg line="app/console fos:js-routing:dump"/></exec>
             <if>
                 <equals arg1="@{execute.clear.sonata.cache}" arg2="true"/>
                 <then>
@@ -75,6 +73,8 @@
                     <exec executable="php" dir="@{destination}"><arg line="app/console doctrine:cache:clear-result"/></exec>
                 </then>
             </if>
+            <echo>ANT DEBUG: Creating FOS js routing file</echo>
+            <exec executable="php" dir="@{destination}"><arg line="app/console fos:js-routing:dump"/></exec>
             <if>
                 <equals arg1="@{execute.assets.dump}" arg2="true"/>
                 <then>
@@ -165,6 +165,13 @@
     <macrodef name="deploy">
         <attribute name="destination" default="build"/>
         <sequential>
+            <if>
+                <equals arg1="${local-build}" arg2="false" />
+                <then>
+                    <delete quiet="true" file="${basedir}/cms/app/config/parameters.ini"/>
+                    <copy preservelastmodified="true" overwrite="false" file="${basedir}/cms/app/config/parameters.${target}.ini" tofile="${basedir}/cms/app/config/parameters.ini" />
+                </then>
+            </if>
             <echo>ANT DEBUG: Deploying cms into @{destination} directory</echo>
             <delete dir="@{destination}"/>
             <mkdir dir="@{destination}"/>
@@ -182,7 +189,6 @@
                 <exclude name="web/uploads/**"/>
                 <exclude name="web/app_dev.php"/>
                 <exclude name="web/app_test.php"/>
-                <exclude name="web/app.php.dist"/>
                 <exclude name="web/config.php"/>
                 <exclude name="web/css/**"/>
                 <exclude name="web/js/**"/>
