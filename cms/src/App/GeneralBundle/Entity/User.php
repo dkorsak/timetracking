@@ -42,7 +42,7 @@ class User extends BaseUser
      * @ORM\Column(name="firstname", type="string", length=50, nullable=false)
      * @Assert\NotBlank()
      */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @var string
@@ -50,7 +50,7 @@ class User extends BaseUser
      * @ORM\Column(name="lastname", type="string", length=50, nullable=false)
      * @Assert\NotBlank()
      */
-    private $lastname;
+    protected $lastname;
 
     /**
      * @var string
@@ -66,7 +66,7 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var \DateTime
@@ -74,7 +74,7 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
-    private $updated;
+    protected $updated;
 
     /**
      * @var ArrayCollection
@@ -96,17 +96,17 @@ class User extends BaseUser
      *
      * @ORM\ManyToMany(targetEntity="Project", mappedBy="users")
      */
-    private $projects;
+    protected $projects;
 
     /**
      * @var string
      */
-    private $retypePassword;
+    protected $retypePassword;
 
     /**
      * @var string
      */
-    private $oldPassword;
+    protected $oldPassword;
 
     /**
      * Constructor
@@ -118,6 +118,14 @@ class User extends BaseUser
         $this->groups = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->enabled = true;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return trim($this->getName()) != "" ? $this->getName() : 'User create';
     }
 
     /**
